@@ -9,7 +9,7 @@ import GlobalApi from '../Services/GlobalApi'
 function Home() {
     const [post,setPost]=useState([])
     const [orgPost,setOrgPost]=useState([])
-
+    //hoc useState + useEffect
     useEffect(()=>{
         getPost();
     },[])

@@ -9,7 +9,7 @@ import Header from './Components/Header'
 import Footer from './Components/Footer'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0) //bị dư, còn sót lại khi tạo vite
 
   return (
     <>

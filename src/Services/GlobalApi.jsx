@@ -1,6 +1,6 @@
 import axios from "axios";
 
-
+//ket noi voi database
 // const BASE_URL='http://localhost:1337/api';
 const BASE_URL='https://tubeguruji-admin.herokuapp.com/api'
 
