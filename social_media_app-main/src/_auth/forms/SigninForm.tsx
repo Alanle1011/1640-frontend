@@ -16,8 +16,8 @@ import { useUserContext } from "@/context/AuthContext";
 const SigninForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
-
+  const { isLoading: isUserLoading } = useUserContext();
+  //checkAuthUser, 
   // Query
   const { mutateAsync: signInAccount, isLoading } = useSignInAccount();
 
@@ -29,27 +29,27 @@ const SigninForm = () => {
     },
   });
 
-  const handleSignin = async (user: z.infer<typeof SigninValidation>) => {
-    const session = await signInAccount(user);
+  // const handleSignin = async (user: z.infer<typeof SigninValidation>) => {
+  //   const session = await signInAccount(user);
 
-    if (!session) {
-      toast({ title: "Login failed. Please try again." });
-      
-      return;
-    }
+  //   if (!session) {
+  //     toast({ title: "Login failed. Please try again." });
 
-    const isLoggedIn = await checkAuthUser();
+  //     return;
+  //   }
 
-    if (isLoggedIn) {
-      form.reset();
+    // const isLoggedIn = await checkAuthUser();
 
-      navigate("/");
-    } else {
-      toast({ title: "Login failed. Please try again.", });
-      
-      return;
-    }
-  };
+    // if (isLoggedIn) {
+    //   form.reset();
+
+     navigate("/");
+    // } else {
+    //   toast({ title: "Login failed. Please try again.", });
+
+    //   return;
+    // }
+  // };
 
   return (
     <Form {...form}>
