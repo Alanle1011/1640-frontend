@@ -1,21 +1,27 @@
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
+import { Checkbox } from "@/components/ui/checkbox"
+import Loader from "@/components/shared/Loader"
 
 import { SignupValidation } from "@/lib/validation"
-import Loader from "@/components/shared/Loader"
-import { createUser } from "@/lib/validation/appwrite/api"
-import { Checkbox } from "@/components/ui/checkbox"
+import { useCreateUserAccount, useSignInAccount } from "@/lib/react-query/queriesAndMutations"
+import { useUserContext } from "@/context/AuthContext"
 
 const SignupForm = () => {
   const { toast } = useToast()
-  const isLoading = false;
+  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+  const navigate = useNavigate();
+
+  const { mutateAsync: createUser, isLoading: isCreatingUser } = useCreateUserAccount();
+
+  const { mutateAsync: signInAccount, isLoading: isSigningIn } = useSignInAccount();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
@@ -42,8 +48,30 @@ const SignupForm = () => {
       });
     }
 
-    // const session = await signInAccount()
-    //
+    const session = await signInAccount({
+      email: values.email,
+      password: values.password,
+    })
+
+    if (!session) {
+      return toast({
+        title: "Failed to sign in. Please try again.",
+        description: "Friday, February 10, 2023 at 5:57 PM",
+      })
+    }
+
+    const isLoggedIn = await checkAuthUser();
+
+    if (isLoggedIn) {
+      form.reset();
+
+      navigate('/')
+    } else {
+      return toast({
+        title: "Failed to sign up. Please try again.",
+        description: "Friday, February 10, 2023 at 5:57 PM",
+      })
+    }
   }
 
   return (
@@ -107,11 +135,11 @@ const SignupForm = () => {
             )}
           />
 
-          <Checkbox 
+          <Checkbox
           />
 
           <Button type="submit" className="shad-button_primary">
-            {isLoading ? (
+            {isCreatingUser ? (
               <div className="flex-center gap-2">
                 <Loader />Loading ...
               </div>
