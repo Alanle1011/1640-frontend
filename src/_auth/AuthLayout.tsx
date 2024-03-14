@@ -3,13 +3,13 @@ import { Outlet, Navigate } from "react-router-dom";
 import { useUserContext } from "@/context/AuthContext";
 
 export default function AuthLayout() {
-  const { isAuthenticated } = useUserContext();
+  // const { isAuthenticated } = useUserContext();
 
   return (
     <>
-      {isAuthenticated ? (
+      {/* {isAuthenticated ? ( */}
         <Navigate to="/" />
-      ) : (
+      {/* ) : ( */}
         <>
           <img
             src="/assets/images/side-img.svg"
@@ -21,7 +21,7 @@ export default function AuthLayout() {
             <Outlet />
           </section>
         </>
-      )}
+      {/* )} */}
     </>
   );
 }
