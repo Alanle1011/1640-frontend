@@ -32,7 +32,7 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
   return (
     <div
       {...getRootProps()}
-      className="flex flex-center flex-col bg-dark-3 rounded-xl cursor-pointer">
+      className="flex flex-center flex-col bg-light-1 rounded-xl cursor-pointer">
       <input {...getInputProps()} className="cursor-pointer" />
 
       {fileUrl ? (
@@ -51,7 +51,7 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
             alt="file upload"
           />
 
-          <h3 className="base-medium text-light-2 mb-2 mt-6">
+          <h3 className="base-medium text-black mb-2 mt-6">
             Drag photo here
           </h3>
           <p className="text-light-4 small-regular mb-6">SVG, PNG, JPG</p>
