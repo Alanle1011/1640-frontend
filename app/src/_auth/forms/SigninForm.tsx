@@ -17,7 +17,7 @@ const SigninForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const {  isLoading: isUserLoading } = useUserContext();
-  //checkAuthUser, 
+  // checkAuthUser, 
   // Query
   const { mutateAsync: signInAccount, isLoading } = useSignInAccount();
 
@@ -29,27 +29,27 @@ const SigninForm = () => {
     },
   });
 
-  // const handleSignin = async (user: z.infer<typeof SigninValidation>) => {
-    // const session = await signInAccount(user);
+  const handleSignin = async (user: z.infer<typeof SigninValidation>) => {
+    const session = await signInAccount(user);
 
-    // if (!session) {
-    //   toast({ title: "Login failed. Please try again." });
+    if (!session) {
+      toast({ title: "Login failed. Please try again." });
 
-    //   return;
-    // }
+      return;
+    }
 
-    // const isLoggedIn = await checkAuthUser();
+    const isLoggedIn = await checkAuthUser();
 
-    // if (isLoggedIn) {
-    //   form.reset();
+    if (isLoggedIn) {
+      form.reset();
 
      navigate("/");
-  //   } else {
-  //     toast({ title: "Login failed. Please try again.", });
+    } else {
+      toast({ title: "Login failed. Please try again.", });
 
-  //     return;
-  //   }
-  // };
+      return;
+    }
+  };
 
   return (
     <Form {...form}>

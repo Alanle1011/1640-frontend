@@ -122,7 +122,7 @@ const SignupForm = () => {
               <FormItem>
                 <FormLabel className="text-black">Email</FormLabel>
                 <FormControl>
-                  <Input type="text" className="text-black" {...field} />
+                  <Input type="email" className="text-black" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

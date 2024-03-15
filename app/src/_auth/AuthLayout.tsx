@@ -7,9 +7,9 @@ export default function AuthLayout() {
 
   return (
     <>
-      {isAuthenticated ? (
+      {/* {isAuthenticated ? ( */}
         <Navigate to="/" />
-      ) : (
+      {/* ) : ( */}
         <>
           <img
             src="/assets/images/side-img.jpg"
@@ -21,7 +21,7 @@ export default function AuthLayout() {
             <Outlet />
           </section>
         </>
-      )}
+      {/* )} */}
     </>
   );
 }
