@@ -108,8 +108,8 @@ function FacultiesList({
         <CommandGroup>
           {faculties.map((faculty) => (
             <CommandItem
-              key={faculty.label}
-              value={faculty.label}
+              key={faculty.value}
+              value={faculty.value}
               onSelect={() => onFacultySelect(faculty)} // Pass the faculty object
             >
               {faculty.label}
