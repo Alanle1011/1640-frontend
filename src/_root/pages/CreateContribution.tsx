@@ -1,4 +1,4 @@
-import PostForm from "@/components/forms/Contribution";
+import ContributionForm from "@/components/forms/Contribution";
 
 const CreatePost = () => {
   return (
@@ -14,7 +14,7 @@ const CreatePost = () => {
           <h2 className="h3-bold md:h2-bold text-left w-full">Create Contribution</h2>
         </div>
 
-        <PostForm action="Create" />
+        <ContributionForm />
       </div>
     </div>
   );
