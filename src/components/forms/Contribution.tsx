@@ -11,7 +11,11 @@ import {
   Button,
   Input,
   Textarea,
-  Cbb,
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
 } from "@/components/ui";
 import { z } from "zod";
 import { FileUploader } from "@/components/shared";
@@ -83,7 +87,23 @@ const ContributionForm = ({ contribution }: ContributionFormProps) => {
               <FormLabel className="shad-form_label">Faculty</FormLabel>
               <FormControl>
                 <FormItem>
-                  <Cbb value={field.value} onChange={field.onChange} />
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a Faculty" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="CS">Computer Science</SelectItem>
+                      <SelectItem value="BA">
+                        Business Administration
+                      </SelectItem>
+                      <SelectItem value="GD">Graphics Design</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
                 </FormItem>
               </FormControl>
               <FormMessage className="shad-form_message" />
