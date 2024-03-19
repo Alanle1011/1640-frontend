@@ -16,66 +16,20 @@ import { Textarea, Input, Button } from "@/components/ui";
 import { ProfileUploader, Loader } from "@/components/shared";
 
 import { ProfileValidation } from "@/lib/validation";
-import { useUserContext } from "@/context/AuthContext";
-import { useGetUserById, useUpdateUser } from "@/lib/react-query/queries";
+
 
 const UpdateProfile = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const { id } = useParams();
-  const { user, setUser } = useUserContext();
-  const form = useForm<z.infer<typeof ProfileValidation>>({
-    resolver: zodResolver(ProfileValidation),
-    defaultValues: {
-      file: [],
-      name: user.name,
-      username: user.username,
-      email: user.email,
-      bio: user.bio || "",
-    },
-  });
 
-  // Queries
-  const { data: currentUser } = useGetUserById(id || "");
-  const { mutateAsync: updateUser, isLoading: isLoadingUpdate } =
-    useUpdateUser();
+  
 
-  if (!currentUser)
-    return (
-      <div className="flex-center w-full h-full">
-        <Loader />
-      </div>
-    );
 
-  // Handler
-  const handleUpdate = async (value: z.infer<typeof ProfileValidation>) => {
-    const updatedUser = await updateUser({
-      userId: currentUser.$id,
-      name: value.name,
-      bio: value.bio,
-      file: value.file,
-      imageUrl: currentUser.imageUrl,
-      imageId: currentUser.imageId,
-    });
-
-    if (!updatedUser) {
-      toast({
-        title: `Update user failed. Please try again.`,
-      });
-    }
-
-    setUser({
-      ...user,
-      name: updatedUser?.name,
-      bio: updatedUser?.bio,
-      imageUrl: updatedUser?.imageUrl,
-    });
-    return navigate(`/profile/${id}`);
-  };
 
   return (
     <div className="flex flex-1">
-      <div className="common-container">
+      {/* <div className="common-container">
         <div className="flex-start gap-3 justify-start w-full max-w-5xl">
           <img
             src="/assets/icons/edit.svg"
@@ -193,7 +147,7 @@ const UpdateProfile = () => {
             </div>
           </form>
         </Form>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -4,37 +4,16 @@ import { Button } from "@/components/ui";
 import { Loader } from "@/components/shared";
 import { GridPostList, PostStats } from "@/components/shared";
 
-import {
-  useGetPostById,
-  useGetUserPosts,
-  useDeletePost,
-} from "@/lib/react-query/queries";
+
 import { multiFormatDateString } from "@/lib/utils";
-import { useUserContext } from "@/context/AuthContext";
+
 
 const PostDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { user } = useUserContext();
-
-  const { data: post, isLoading } = useGetPostById(id);
-  const { data: userPosts, isLoading: isUserPostLoading } = useGetUserPosts(
-    post?.creator.$id
-  );
-  const { mutate: deletePost } = useDeletePost();
-
-  const relatedPosts = userPosts?.documents.filter(
-    (userPost) => userPost.$id !== id
-  );
-
-  const handleDeletePost = () => {
-    deletePost({ postId: id, imageId: post?.imageId });
-    navigate(-1);
-  };
-
   return (
     <div className="post_details-container">
-      <div className="hidden md:flex max-w-5xl w-full">
+      {/* <div className="hidden md:flex max-w-5xl w-full">
         <Button
           onClick={() => navigate(-1)}
           variant="ghost"
@@ -149,7 +128,7 @@ const PostDetails = () => {
         ) : (
           <GridPostList posts={relatedPosts} />
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

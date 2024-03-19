@@ -9,8 +9,6 @@ import {
 
 import { Button } from "@/components/ui";
 import { LikedPosts } from "@/_root/pages";
-import { useUserContext } from "@/context/AuthContext";
-import { useGetUserById } from "@/lib/react-query/queries";
 import { GridPostList, Loader } from "@/components/shared";
 
 interface StabBlockProps {
@@ -26,23 +24,16 @@ const StatBlock = ({ value, label }: StabBlockProps) => (
 );
 
 const Profile = () => {
-  const { id } = useParams();
-  const { user } = useUserContext();
+
   const { pathname } = useLocation();
 
-  const { data: currentUser } = useGetUserById(id || "");
 
-  if (!currentUser)
-    return (
-      <div className="flex-center w-full h-full">
-        <Loader />
-      </div>
-    );
+  
 
   return (
     <div className="profile-container">
-      <div className="profile-inner_container">
-        <div className="flex xl:flex-row flex-col max-xl:items-center flex-1 gap-7">
+      {/* <div className="profile-inner_container"> */}
+        {/* <div className="flex xl:flex-row flex-col max-xl:items-center flex-1 gap-7">
           <img
             src={
               currentUser.imageUrl || "/assets/icons/profile-placeholder.svg"
@@ -138,7 +129,7 @@ const Profile = () => {
           <Route path="/liked-posts" element={<LikedPosts />} />
         )}
       </Routes>
-      <Outlet />
+      <Outlet /> */}
     </div>
   );
 };
