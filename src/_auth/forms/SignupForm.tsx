@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
-import { Checkbox } from "@/components/ui/checkbox"
+// import { Checkbox } from "@/components/ui/checkbox"
 import Loader from "@/components/shared/Loader"
 
 import { SignupValidation } from "@/lib/validation"
@@ -19,9 +19,9 @@ const SignupForm = () => {
   const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
   const navigate = useNavigate();
 
-  const { mutateAsync: createUser, isLoading: isCreatingUser } = useCreateUserAccount();
+  const { mutateAsync: createUser, isPending: isCreatingUser } = useCreateUserAccount();
 
-  const { mutateAsync: signInAccount, isLoading: isSigningIn } = useSignInAccount();
+  const { mutateAsync: signInAccount, isPending: isSigningIn } = useSignInAccount();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
@@ -135,8 +135,8 @@ const SignupForm = () => {
             )}
           />
 
-          <Checkbox
-          />
+          {/* <Checkbox
+          /> */}
 
           <Button type="submit" className="shad-button_primary">
             {isCreatingUser ? (
