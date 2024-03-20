@@ -1,6 +1,6 @@
 import ContributionForm from "@/components/forms/Contribution";
 
-const CreatePost = () => {
+const CreateContribution = () => {
   return (
     <div className="flex flex-1">
       <div className="common-container">
@@ -20,4 +20,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default CreateContribution;

@@ -1,69 +1,80 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import Loader from "@/components/shared/Loader";
 import { useToast } from "@/components/ui/use-toast";
 
 import { SigninValidation } from "@/lib/validation";
-import { useSignInAccount } from "@/lib/react-query/queries";
-import { useUserContext } from "@/context/AuthContext";
 
 const SigninForm = () => {
-  const { toast } = useToast();
-  const navigate = useNavigate();
-  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+  // const { toast } = useToast();
+  // const navigate = useNavigate();
+  // const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
 
   // Query
-  const { mutateAsync: signInAccount, isLoading } = useSignInAccount();
+  // const { mutateAsync: signInAccount, isLoading } = useSignInAccount();
+
+  const BACKEND_URL = "https://a988-171-244-188-41.ngrok-free.app/api";
 
   const form = useForm<z.infer<typeof SigninValidation>>({
     resolver: zodResolver(SigninValidation),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
   });
 
-  const handleSignin = async (user: z.infer<typeof SigninValidation>) => {
-    const session = await signInAccount(user);
+  function onSubmit(values: z.infer<typeof SigninValidation>) {
+    console.log(values);
+    const response = saveLogin(values);
+    console.log(response);
+  }
 
-    if (!session) {
-      toast({ title: "Login failed. Please try again." });
-      
-      return;
+  async function saveLogin(data: any) {
+    debugger;
+    const loginBody = {
+      email: data.email,
+      password: data.password,
+    };
+    const responseLogin = await fetch(`${BACKEND_URL}/user/login`, {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(loginBody), // body data type must match "Content-Type" header
+    });
+    const login = await responseLogin?.json();
+    if(login.status){
+      localStorage.setItem('loginStatus', JSON.stringify(login));
     }
-
-    const isLoggedIn = await checkAuthUser();
-
-    if (isLoggedIn) {
-      form.reset();
-
-      navigate("/");
-    } else {
-      toast({ title: "Login failed. Please try again.", });
-      
-      return;
-    }
-  };
+    
+  }
 
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
-        <img src="/assets/images/logo.svg" alt="logo" />
+        <img
+          src="/assets/images/logo.png"
+          width="300"
+          height="60%"
+          alt="logo"
+        />
 
-        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
+        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-10">
           Log in to your account
         </h2>
         <p className="text-light-3 small-medium md:base-regular mt-2">
           Welcome back! Please enter your details.
         </p>
         <form
-          onSubmit={form.handleSubmit(handleSignin)}
+          onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col gap-5 w-full mt-4">
           <FormField
             control={form.control}
@@ -94,23 +105,8 @@ const SigninForm = () => {
           />
 
           <Button type="submit" className="shad-button_primary">
-            {isLoading || isUserLoading ? (
-              <div className="flex-center gap-2">
-                <Loader /> Loading...
-              </div>
-            ) : (
-              "Log in"
-            )}
+            "Log in"
           </Button>
-
-          <p className="text-small-regular text-light-2 text-center mt-2">
-            Don&apos;t have an account?
-            <Link
-              to="/sign-up"
-              className="text-primary-500 text-small-semibold ml-1">
-              Sign up
-            </Link>
-          </p>
         </form>
       </div>
     </Form>
