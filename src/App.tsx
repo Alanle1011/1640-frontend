@@ -15,9 +15,16 @@ import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 import AuthLayout from "./_auth/AuthLayout";
 import SigninForm from "./_auth/SigninForm";
+import {useEffect, useState} from "react";
 
 const App = () => {
-  const isSignin = false;
+  const [items, setItems] = useState();
+
+  useEffect(() => {
+
+  }, []);(() => {
+    localStorage.setItem('items', JSON.stringify(items));
+  }, [items]);
 
   if (!isSignin) {
     return (
