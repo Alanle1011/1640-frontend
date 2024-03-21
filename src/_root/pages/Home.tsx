@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
-const home = () => {
+const Home = () => {
   return (
-    <div>home</div>
+    <section className="justify-center items-center">
+      Bấm xuống Contribution đi anh em.
+    </section>
   )
 }
 
-export default home
+export default Home
