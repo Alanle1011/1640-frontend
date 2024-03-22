@@ -21,62 +21,19 @@ export function DataTable<TData, TValue>({
     })
 
     return (
-        <div className="rounded-md border bg-primary-600">
-            <Table>
-                <TableHeader>
-                    {table.getHeaderGroups().map((headerGroup) => (
-                        <TableRow key={headerGroup.id}>
-                            {headerGroup.headers.map((header) => {
-                                return (
-                                    <TableHead key={header.id}>
-                                        {
-                                            header.isPlaceholder ? null : flexRender(
-                                                header.column.columnDef.header,
-                                                header.getContext()
-                                            )
-                                        }
-                                    </TableHead>
-                                )
-                            })}
-                        </TableRow>
-                    ))}
-                </TableHeader>
-
-                <TableBody>
-                    {table.getRowModel().rows?.length ? (
-                        table.getRowModel().rows.map((row) => (
-                            <TableRow
-                                key={row.id}
-                                data-state={row.getIsSelected() && "selected"}
-                            >
-                                {row.getVisibleCells().map((cell) => (
-                                    <TableCell key={cell.id}>
-                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        ))
-                    ) : (
-                        <TableRow>
-                            <TableCell colSpan={columns.length} className="h-24 text-center">
-                                No results.
-                            </TableCell>
-                        </TableRow>
-                    )}
-                </TableBody>
-            </Table>
-        </div>
-
         // <div className="rounded-md border bg-primary-600">
         //     <Table>
         //         <TableHeader>
-        //             {tableHeader.map((link) => (
-        //                 <TableRow key={link.header}>
-        //                     {tableData.map((link) => {
+        //             {table.getHeaderGroups().map((headerGroup) => (
+        //                 <TableRow key={headerGroup.id}>
+        //                     {headerGroup.headers.map((header) => {
         //                         return (
-        //                             <TableHead key={link.id}>
+        //                             <TableHead key={header.id}>
         //                                 {
-        //                                     link.title
+        //                                     header.isPlaceholder ? null : flexRender(
+        //                                         header.column.columnDef.header,
+        //                                         header.getContext()
+        //                                     )
         //                                 }
         //                             </TableHead>
         //                         )
@@ -109,5 +66,47 @@ export function DataTable<TData, TValue>({
         //         </TableBody>
         //     </Table>
         // </div>
+
+        <div className="rounded-md border bg-primary-600">
+            <Table>
+                <TableHeader>
+                    {tableHeader.map((link) => (
+                        <TableRow key={link.header}>
+                            {tableData.map((link) => {
+                                return (
+                                    <TableHead key={link.id}>
+                                        {link.title}
+                                        {link.faculty}
+                                    </TableHead>
+                                )
+                            })}
+                        </TableRow>
+                    ))}
+                </TableHeader>
+
+                <TableBody>
+                    {table.getRowModel().rows?.length ? (
+                        table.getRowModel().rows.map((row) => (
+                            <TableRow
+                                key={row.id}
+                                data-state={row.getIsSelected() && "selected"}
+                            >
+                                {row.getVisibleCells().map((cell) => (
+                                    <TableCell key={cell.id}>
+                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        ))
+                    ) : (
+                        <TableRow>
+                            <TableCell colSpan={columns.length} className="h-24 text-center">
+                                No results.
+                            </TableCell>
+                        </TableRow>
+                    )}
+                </TableBody>
+            </Table>
+        </div>
     )
 }
