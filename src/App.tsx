@@ -1,4 +1,6 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+
 
 import {
   AllUsers,
@@ -15,37 +17,21 @@ import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 import AuthLayout from "./_auth/AuthLayout";
 import SigninForm from "./_auth/SigninForm";
-import {useEffect, useState} from "react";
+import { useAuth } from "./hooks/useAuth";
+import { AuthContext } from "./context/AuthContext";
 
 const App = () => {
-  const [items, setItems] = useState();
-
-  useEffect(() => {
-
-  }, []);(() => {
-    localStorage.setItem('items', JSON.stringify(items));
-  }, [items]);
-
-  if (!isSignin) {
-    return (
-      <main className="flex h-screen">
-        <Routes>
-          <Route element={<AuthLayout />}>
-            <Route index element={<SigninForm />} />
-          </Route>
-        </Routes>
-      </main>
-    );
-  }
+  //login code
+  const { user, login, logout, setUser } = useAuth();
 
   return (
-    <main className="flex h-screen">
+    <AuthContext.Provider value={{ user, setUser }}>
+<main className="flex h-screen">
       <Routes>
-        {/* public routes */}
-        {/* <Route element={<AuthLayout />}>
+        <Route element={<AuthLayout />}>
           <Route path="/" element={<SigninForm />} />
           <Route path="/sign-in" element={<SigninForm />} />
-        </Route> */}
+        </Route>
 
         {/* private routes */}
         <Route element={<RootLayout />}>
@@ -61,7 +47,8 @@ const App = () => {
 
       <Toaster />
     </main>
-  );
+    </AuthContext.Provider>
+  )
 };
 
 export default App;
