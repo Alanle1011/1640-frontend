@@ -19,13 +19,6 @@ import { ProfileValidation } from "@/lib/validation";
 
 
 const UpdateProfile = () => {
-  const { toast } = useToast();
-  const navigate = useNavigate();
-  const { id } = useParams();
-
-  
-
-
 
   return (
     <div className="flex flex-1">
