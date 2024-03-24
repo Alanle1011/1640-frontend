@@ -18,15 +18,15 @@ import AuthLayout from "./_auth/AuthLayout";
 import SigninForm from "./_auth/SigninForm";
 
 const App = () => {
-  const [items, setItems] = useState();
+  const [userData, setUserData] = useState();
 
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem("loginStatus")|| '""') ; 
     if (items) {
-      setItems(items);
+      setUserData(items);
     }
   }, []);
-  if (!items) {
+  if (!userData) {
     return (
       <main className="flex h-screen">
         <Routes>

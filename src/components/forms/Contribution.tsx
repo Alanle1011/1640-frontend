@@ -28,9 +28,7 @@ const ContributionForm = () => {
 
     // 2. Define a submit handler.
     function onSubmit(values: z.infer<typeof ContributionValidation>) {
-        console.log(values);
         const response = saveContribution(values)
-        console.log(response);
     }
 
     async function saveContribution(data: any) {

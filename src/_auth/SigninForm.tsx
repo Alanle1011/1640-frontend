@@ -18,9 +18,7 @@ const SigninForm = () => {
     });
 
     function onSubmit(values: z.infer<typeof SigninValidation>) {
-        console.log(values);
         const response = saveLogin(values);
-        console.log(response);
     }
 
     async function saveLogin(data: any) {
