@@ -7,7 +7,6 @@ import {Button} from "@/components/ui/button";
 import {useNavigate} from 'react-router-dom';
 
 import {SigninValidation} from "@/lib/validation";
-import { useAuth } from './AuthContext';
 
 
 const SigninForm = () => {
@@ -25,7 +24,7 @@ const SigninForm = () => {
     }
 
     async function saveLogin(data: any) {
-        debugger;
+        // debugger;
         const loginBody = {
             email: data.email,
             password: data.password,
@@ -35,14 +34,18 @@ const SigninForm = () => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(loginBody), // body data type must match "Content-Type" header
+            body: JSON.stringify(loginBody),
         });
-        const login = await responseLogin?.json();
-        if (login.status) {
-            localStorage.setItem('loginStatus', JSON.stringify(login));
-            navigate('/');
-        }
-
+        if (!responseLogin.ok) {
+            throw new Error("Invalid credentials or login failed"); // Handle non-2xx responses
+          }
+      
+          const loginData = await responseLogin.json();
+      
+          if (loginData.status) { // Check for login success status from response
+            localStorage.setItem("loginStatus", JSON.stringify(loginData));
+            navigate("/"); // Redirect to home page on successful login
+          }
     }
 
     return (

@@ -1,7 +1,6 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-
 import {
   AllUsers,
   CreateContribution,
@@ -17,38 +16,34 @@ import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 import AuthLayout from "./_auth/AuthLayout";
 import SigninForm from "./_auth/SigninForm";
-import { useAuth } from "./hooks/useAuth";
-import { AuthContext } from "./context/AuthContext";
+
 
 const App = () => {
-  //login code
-  const { user, login, logout, setUser } = useAuth();
-
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
-<main className="flex h-screen">
-      <Routes>
-        <Route element={<AuthLayout />}>
-          <Route path="/" element={<SigninForm />} />
-          <Route path="/sign-in" element={<SigninForm />} />
-        </Route>
+      <main className="flex h-screen">
+        <Routes>
+            <Route element={<AuthLayout />}>
+              {/* <Route index element={<SigninForm />} /> */}
+              <Route path="/sign-in" element={<SigninForm />} />
+            </Route>
+          {/* private routes */}
+          <Route element={<RootLayout />}>
+            <Route index element={<Home />} />
+            <Route path="/all-users" element={<AllUsers />} />
+            <Route
+              path="/create-contribution"
+              element={<CreateContribution />}
+            />
+            <Route path="/update-post/:id" element={<EditPost />} />
+            <Route path="/posts/:id" element={<PostDetails />} />
+            <Route path="/profile/:id/*" element={<Profile />} />
+            <Route path="/update-profile/:id" element={<UpdateProfile />} />
+          </Route>
+        </Routes>
 
-        {/* private routes */}
-        <Route element={<RootLayout />}>
-          <Route index element={<Home />} />
-          <Route path="/all-users" element={<AllUsers />} />
-          <Route path="/create-contribution" element={<CreateContribution />} />
-          <Route path="/update-post/:id" element={<EditPost />} />
-          <Route path="/posts/:id" element={<PostDetails />} />
-          <Route path="/profile/:id/*" element={<Profile />} />
-          <Route path="/update-profile/:id" element={<UpdateProfile />} />
-        </Route>
-      </Routes>
-
-      <Toaster />
-    </main>
-    </AuthContext.Provider>
-  )
+        <Toaster />
+      </main>
+  );
 };
 
 export default App;
