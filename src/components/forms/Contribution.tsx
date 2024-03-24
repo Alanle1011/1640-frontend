@@ -18,10 +18,9 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {ContributionValidation} from "@/lib/validation";
 
 
-const BACKEND_URL = "https://a988-171-244-188-41.ngrok-free.app/api"
-
 const ContributionForm = () => {
     const navigate = useNavigate();
+    const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || ""
 
     const form = useForm<z.infer<typeof ContributionValidation>>({
         resolver: zodResolver(ContributionValidation),
@@ -42,7 +41,7 @@ const ContributionForm = () => {
             title: data.title,
             uploadedUserId: parseInt(data.uploadedUserId)
         };
-        const responseContribution = await fetch(`${BACKEND_URL}/contribution`, {
+        const responseContribution = await fetch(`${VITE_WEBSERVICE_URL}/contribution`, {
             method: "POST", // *GET, POST, PUT, DELETE, etc.
             headers: {
                 "Content-Type": "application/json",

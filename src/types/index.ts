@@ -13,7 +13,7 @@ export type IUpdateUser = {
   file: File[];
 };
 
-export type INewPost = {
+export type INewContribution = {
   userId: string;
   caption: string;
   file: File[];

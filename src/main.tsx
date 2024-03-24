@@ -10,9 +10,7 @@ import App from "./App";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
-      {/* <QueryProvider> */}
           <App />
-      {/* </QueryProvider> */}
     </BrowserRouter>
   </React.StrictMode>
 );

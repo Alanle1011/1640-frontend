@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import {
@@ -17,32 +17,43 @@ import "./globals.css";
 import AuthLayout from "./_auth/AuthLayout";
 import SigninForm from "./_auth/SigninForm";
 
-
 const App = () => {
-  return (
+  const [items, setItems] = useState();
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem("loginStatus")|| '""') ; 
+    if (items) {
+      setItems(items);
+    }
+  }, []);
+  if (!items) {
+    return (
       <main className="flex h-screen">
         <Routes>
-            <Route element={<AuthLayout />}>
-              {/* <Route index element={<SigninForm />} /> */}
-              <Route path="/sign-in" element={<SigninForm />} />
-            </Route>
-          {/* private routes */}
-          <Route element={<RootLayout />}>
-            <Route index element={<Home />} />
-            <Route path="/all-users" element={<AllUsers />} />
-            <Route
-              path="/create-contribution"
-              element={<CreateContribution />}
-            />
-            <Route path="/update-post/:id" element={<EditPost />} />
-            <Route path="/posts/:id" element={<PostDetails />} />
-            <Route path="/profile/:id/*" element={<Profile />} />
-            <Route path="/update-profile/:id" element={<UpdateProfile />} />
+          <Route element={<AuthLayout />}>
+          <Route index element={<SigninForm />} />
+          <Route path="/sign-in" element={<SigninForm />} />
           </Route>
         </Routes>
-
-        <Toaster />
       </main>
+    );
+  } else
+  return (
+    <main className="flex h-screen">
+      <Routes>
+        {/* private routes */}
+        <Route element={<RootLayout />}>
+          <Route index element={<Home />} />
+          <Route path="/all-users" element={<AllUsers />} />
+          <Route path="/create-contribution" element={<CreateContribution />} />
+          <Route path="/update-post/:id" element={<EditPost />} />
+          <Route path="/posts/:id" element={<PostDetails />} />
+          <Route path="/profile/:id/*" element={<Profile />} />
+          <Route path="/update-profile/:id" element={<UpdateProfile />} />
+        </Route>
+      </Routes>
+      <Toaster />
+    </main>
   );
 };
 
