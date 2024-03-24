@@ -55,15 +55,15 @@ const ContributionForm = () => {
 
         const contribution = await responseContribution?.json();
         const contributionId = contribution.id;
-        // if (contributionId) {
-        //     fetch(`${BACKEND_URL}/image?contributionId=${contributionId}`, {
-        //         method: "POST", // *GET, POST, PUT, DELETE, etc.
-        //         headers: {
-        //             'Content-Type': 'multipart/form-data'
-        //         },
-        //         body: imageBody, // body data type must match "Content-Type" header
-        //     });
-        // }
+        if (contributionId) {
+            fetch(`${BACKEND_URL}/image?contributionId=${contributionId}`, {
+                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                body: imageBody, // body data type must match "Content-Type" header
+            });
+        }
 
 
         return responseContribution.json();

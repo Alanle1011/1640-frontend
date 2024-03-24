@@ -1,8 +1,8 @@
-import * as React from "react"
+import React, { useState, useEffect } from "react"
 import {
   CaretSortIcon,
   ChevronDownIcon,
-  DotsHorizontalIcon,
+  //DotsHorizontalIcon,
 } from "@radix-ui/react-icons"
 import {
   ColumnDef,
@@ -22,13 +22,12 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
+  //DropdownMenuItem,
+  //DropdownMenuLabel,
+  //DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
-import { Checkbox } from "@/components/ui/checkbox"
 import {
   Table,
   TableBody,
@@ -37,75 +36,29 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import {undefined} from "zod";
 
-const data: Payment[] = [
-  {
-    id: "m5gr84i9",
-    amount: 316,
-    status: "success",
-    email: "ken99@yahoo.com",
-  },
-  {
-    id: "3u1reuv4",
-    amount: 242,
-    status: "success",
-    email: "Abe45@gmail.com",
-  },
-  {
-    id: "derv1ws0",
-    amount: 837,
-    status: "processing",
-    email: "Monserrat44@gmail.com",
-  },
-  {
-    id: "5kma53ae",
-    amount: 874,
-    status: "success",
-    email: "Silas22@gmail.com",
-  },
-  {
-    id: "bhqecj4p",
-    amount: 721,
-    status: "failed",
-    email: "carmella@hotmail.com",
-  },
-]
-
-export type Payment = {
+export type User = {
   id: string
-  amount: number
-  status: "pending" | "processing" | "success" | "failed"
-  email: string
+  name: string
+  faculty: string
+  email: string,
+  userRole: string,
 }
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<User>[] = [
   {
-    id: "select",
-    header: ({ table }) => (
-        <Checkbox
-            checked={
-                table.getIsAllPageRowsSelected() ||
-                (table.getIsSomePageRowsSelected() && "indeterminate")
-            }
-            onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-            aria-label="Select all"
-        />
-    ),
+    accessorKey: "id",
+    header: "ID",
     cell: ({ row }) => (
-        <Checkbox
-            checked={row.getIsSelected()}
-            onCheckedChange={(value) => row.toggleSelected(!!value)}
-            aria-label="Select row"
-        />
+        <div className="capitalize">{row.getValue("id")}</div>
     ),
-    enableSorting: false,
-    enableHiding: false,
   },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "name",
+    header: "Name",
     cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("status")}</div>
+        <div className="capitalize">{row.getValue("name")}</div>
     ),
   },
   {
@@ -124,62 +77,86 @@ export const columns: ColumnDef<Payment>[] = [
     cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
   },
   {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
-
-      // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount)
-
-      return <div className="text-right font-medium">{formatted}</div>
-    },
+    accessorKey: "faculty",
+    header: "Faculty",
+    cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("faculty")}</div>
+    ),
   },
   {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const payment = row.original
-
-      return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <DotsHorizontalIcon className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem
-                  onClick={() => navigator.clipboard.writeText(payment.id)}
-              >
-                Copy payment ID
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>View customer</DropdownMenuItem>
-              <DropdownMenuItem>View payment details</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-      )
-    },
+    accessorKey: "userRole",
+    header: "User Role",
+    cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("userRole")}</div>
+    ),
   },
+  //{
+  //   id: "actions",
+  //   enableHiding: false,
+  //   cell: ({ row }) => {
+  //     const payment = row.original
+  //
+  //     return (
+  //         <DropdownMenu>
+  //           <DropdownMenuTrigger asChild>
+  //             <Button variant="ghost" className="h-8 w-8 p-0">
+  //               <span className="sr-only">Open menu</span>
+  //               <DotsHorizontalIcon className="h-4 w-4" />
+  //             </Button>
+  //           </DropdownMenuTrigger>
+  //           <DropdownMenuContent align="end">
+  //             <DropdownMenuLabel>Actions</DropdownMenuLabel>
+  //             <DropdownMenuItem
+  //                 onClick={() => navigator.clipboard.writeText(payment.id)}
+  //             >
+  //               Copy payment ID
+  //             </DropdownMenuItem>
+  //             <DropdownMenuSeparator />
+  //             <DropdownMenuItem>View customer</DropdownMenuItem>
+  //             <DropdownMenuItem>View payment details</DropdownMenuItem>
+  //           </DropdownMenuContent>
+  //         </DropdownMenu>
+  //     )
+  //   },
+  // },
 ]
+
+const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL;
 
 const AllUsers = ()=> {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
       []
   )
+  const [userData, setUserData] = useState<User[]>()
   const [columnVisibility, setColumnVisibility] =
       React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
 
+  useEffect(() => {
+    fetch(`${VITE_WEBSERVICE_URL}/user`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        "ngrok-skip-browser-warning": "69420",
+      }
+    })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          setUserData(data);
+        });
+  }, []);
+  console.log("userData", userData)
+
   const table = useReactTable({
-    data,
+    onStateChange(): void {
+    },
+    // @ts-ignore
+    data: userData,
+    renderFallbackValue: undefined,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -194,8 +171,14 @@ const AllUsers = ()=> {
       columnFilters,
       columnVisibility,
       rowSelection,
-    },
+    }
   })
+
+  if(!userData){
+    return(<div>
+      No Data found
+    </div>)
+  }
 
   return (
       <div className="w-full">
@@ -311,6 +294,5 @@ const AllUsers = ()=> {
         </div>
       </div>
   )
-}
-
+};
 export default AllUsers;
