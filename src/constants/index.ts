@@ -98,3 +98,26 @@ export const tableData = [
     faculty: "Computing ",
   },
 ];
+
+export const adminSidebarLinks = [
+  {
+    imgURL: "/assets/icons/home.svg",
+    route: "/",
+    label: "Home",
+  },
+  {
+    imgURL: "/assets/icons/people.svg",
+    route: "/admin/users",
+    label: "Users",
+  },
+  {
+    imgURL: "/assets/icons/bookmark.svg",
+    route: "/admin/contributions",
+    label: "Contributions",
+  },
+  // {
+  //   imgURL: "/assets/icons/gallery-add.svg",
+  //   route: "/create-post",
+  //   label: "Create Post",
+  // },
+];
