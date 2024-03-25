@@ -1,9 +1,9 @@
 import { useToast } from "@/components/ui/use-toast";
-import { Loader, UserCard } from "@/components/shared";
-
-const AllUsers = () => {
+const MyContribution = () => {
   const { toast } = useToast();
 
+
+ 
 
   return (
     <div className="common-container">
@@ -25,4 +25,4 @@ const AllUsers = () => {
   );
 };
 
-export default AllUsers;
+export default MyContribution;

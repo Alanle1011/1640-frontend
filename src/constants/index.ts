@@ -6,18 +6,13 @@ export const sidebarLinks = [
   },
   {
     imgURL: "/assets/icons/wallpaper.svg",
-    route: "/explore",
-    label: "Explore",
+    route: "/my",
+    label: "My Contributions",
   },
   {
     imgURL: "/assets/icons/people.svg",
     route: "/all-users",
     label: "People",
-  },
-  {
-    imgURL: "/assets/icons/bookmark.svg",
-    route: "/saved",
-    label: "Saved",
   },
   {
     imgURL: "/assets/icons/gallery-add.svg",

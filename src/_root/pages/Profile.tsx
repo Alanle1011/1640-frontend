@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 
 import { Button } from "@/components/ui";
-import { LikedPosts } from "@/_root/pages";
 import { GridPostList, Loader } from "@/components/shared";
 
 interface StabBlockProps {

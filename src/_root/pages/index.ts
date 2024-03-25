@@ -4,5 +4,5 @@ export { default as Profile } from "./Profile";
 export { default as UpdateProfile } from "./UpdateContribution";
 export { default as EditPost } from "./EditPost";
 export { default as PostDetails } from "./PostDetails";
-export { default as LikedPosts } from "./LikedPosts";
+export { default as MyContribution } from "./MyContribution";
 export { default as AllUsers } from "./AllUsers";

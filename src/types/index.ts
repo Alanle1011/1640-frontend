@@ -21,7 +21,7 @@ export type INewContribution = {
   tags?: string;
 };
 
-export type IUpdatePost = {
+export type IUpdateContribution = {
   postId: string;
   caption: string;
   imageId: string;
