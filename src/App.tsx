@@ -9,6 +9,7 @@ import {
   PostDetails,
   Profile,
   UpdateProfile,
+  MyContribution,
 } from "@/_root/pages";
 import RootLayout from "./_root/RootLayout";
 import { Toaster } from "@/components/ui/toaster";
@@ -21,11 +22,11 @@ const App = () => {
   const [userData, setUserData] = useState();
 
   useEffect(() => {
-    const items = JSON.parse(localStorage.getItem("loginStatus")|| '""') ; 
-    if (items) {
-      setUserData(items);
+    const status = JSON.parse(localStorage.getItem("loginStatus")|| '""') ; 
+    if (status) {
+      setUserData(status);
     }
-  }, []);
+  }, [userData]);
   if (!userData) {
     return (
       <main className="flex h-screen">
@@ -46,6 +47,7 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="/all-users" element={<AllUsers />} />
           <Route path="/create-contribution" element={<CreateContribution />} />
+          <Route path="/my" element={<MyContribution />} />
           <Route path="/update-post/:id" element={<EditPost />} />
           <Route path="/posts/:id" element={<PostDetails />} />
           <Route path="/profile/:id/*" element={<Profile />} />
