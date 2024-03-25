@@ -46,3 +46,18 @@ export type INewUser = {
   username: string;
   password: string;
 };
+
+export type ILoginUser = {
+  message:string,
+  status:boolean
+  userId:number,
+  role: string
+};
+
+export type FileUploaderProps = {
+  fieldChange: (files: File[]) => void;
+};
+export type ImageUploaderProps = {
+  fieldChange: (files: File[]) => void;
+  mediaUrl: string;
+};
