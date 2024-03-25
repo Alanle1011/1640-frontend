@@ -5,5 +5,6 @@ export { default as PostCard } from "./PostCard";
 export { default as GridPostList } from "./GridPostList";
 export { default as Topbar } from "./Topbar";
 export { default as UserCard } from "./UserCard";
-export { default as FileUploader } from "./FileUploader";
+export { default as FileUploader } from "./FileUploader.tsx";
+export { default as ImageUploader } from "./ImageUploader.tsx";
 export { default as ProfileUploader } from "./ProfileUploader";

@@ -18,7 +18,7 @@ const SigninForm = () => {
     });
 
     function onSubmit(values: z.infer<typeof SigninValidation>) {
-        const response = saveLogin(values);
+        saveLogin(values);
     }
 
     async function saveLogin(data: any) {
@@ -36,14 +36,13 @@ const SigninForm = () => {
         });
         if (!responseLogin.ok) {
             throw new Error("Invalid credentials or login failed"); // Handle non-2xx responses
-          }
-      
-          const loginData = await responseLogin.json();
-      
-          if (loginData.status) { // Check for login success status from response
-            localStorage.setItem("loginStatus", JSON.stringify(loginData));
+        }
+        const loginData = await responseLogin.json();
+        if (loginData.status) { // Check for login success status from response
+            localStorage.setItem("userData", JSON.stringify(loginData));
+            localStorage.setItem("authenticated", String(true));
             navigate("/"); // Redirect to home page on successful login
-          }
+        }
     }
 
     return (
@@ -94,7 +93,7 @@ const SigninForm = () => {
                     />
 
                     <Button type="submit" className="shad-button_primary">
-                        "Log in"
+                        Log in
                     </Button>
                 </form>
             </div>
