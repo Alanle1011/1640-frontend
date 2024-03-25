@@ -14,12 +14,9 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
 import { SigninValidation } from "@/lib/validation";
-import Loader from "@/components/shared/Loader";
 import { toast } from "@/components/ui";
 
 const SigninForm = () => {
-  const isLoading = false;
-
   const navigate = useNavigate();
   const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
 
@@ -48,11 +45,10 @@ const SigninForm = () => {
       toast({ title: "Login failed. Please try again." });
     } else {
       const loginData = await responseLogin.json();
-
-      if (loginData.status) {
-        // Check for login success status from response
-        localStorage.setItem("loginStatus", JSON.stringify(loginData));
-        navigate("/"); // Redirect to home page on successful login
+      if (loginData.status) { // Check for login success status from response
+          localStorage.setItem("userData", JSON.stringify(loginData));
+          localStorage.setItem("authenticated", String(true));
+          navigate("/"); // Redirect to home page on successful login
       }
     }
   }
