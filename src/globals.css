@@ -10,7 +10,7 @@
   }
 
   body {
-    @apply bg-light-1 text-black min-h-screen font-inter;
+    @apply bg-dark-1 text-white min-h-screen font-inter;
   }
 }
 
@@ -243,6 +243,11 @@
   /* User card */
   .user-card {
     @apply flex-center flex-col gap-4 border border-dark-4 rounded-[20px] px-5 py-8;
+  }
+
+  /* Dropdown Menu */
+  .dropdown-button {
+    @apply ml-2 h-4 w-4;
   }
 }
 
