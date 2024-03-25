@@ -1,6 +1,7 @@
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+
 import { tableData, tableHeader } from "@/constants";
 import { link } from "fs";
 
@@ -14,69 +15,27 @@ export function DataTable<TData, TValue>({
     data,
 }: DataTableProps<TData, TValue>) {
     const table = useReactTable({
-        columns,
         data,
+        columns,
         getCoreRowModel: getCoreRowModel(),
 
     })
 
     return (
-        // <div className="rounded-md border bg-primary-600">
-        //     <Table>
-        //         <TableHeader>
-        //             {table.getHeaderGroups().map((headerGroup) => (
-        //                 <TableRow key={headerGroup.id}>
-        //                     {headerGroup.headers.map((header) => {
-        //                         return (
-        //                             <TableHead key={header.id}>
-        //                                 {
-        //                                     header.isPlaceholder ? null : flexRender(
-        //                                         header.column.columnDef.header,
-        //                                         header.getContext()
-        //                                     )
-        //                                 }
-        //                             </TableHead>
-        //                         )
-        //                     })}
-        //                 </TableRow>
-        //             ))}
-        //         </TableHeader>
-
-        //         <TableBody>
-        //             {table.getRowModel().rows?.length ? (
-        //                 table.getRowModel().rows.map((row) => (
-        //                     <TableRow
-        //                         key={row.id}
-        //                         data-state={row.getIsSelected() && "selected"}
-        //                     >
-        //                         {row.getVisibleCells().map((cell) => (
-        //                             <TableCell key={cell.id}>
-        //                                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
-        //                             </TableCell>
-        //                         ))}
-        //                     </TableRow>
-        //                 ))
-        //             ) : (
-        //                 <TableRow>
-        //                     <TableCell colSpan={columns.length} className="h-24 text-center">
-        //                         No results.
-        //                     </TableCell>
-        //                 </TableRow>
-        //             )}
-        //         </TableBody>
-        //     </Table>
-        // </div>
-
         <div className="rounded-md border bg-primary-600">
             <Table>
                 <TableHeader>
-                    {tableHeader.map((link) => (
-                        <TableRow key={link.header}>
-                            {tableData.map((link) => {
+                    {table.getHeaderGroups().map((headerGroup) => (
+                        <TableRow key={headerGroup.id}>
+                            {headerGroup.headers.map((header) => {
                                 return (
-                                    <TableHead key={link.id}>
-                                        {link.title}
-                                        {link.faculty}
+                                    <TableHead key={header.id}>
+                                        {
+                                            header.isPlaceholder ? null : flexRender(
+                                                header.column.columnDef.header,
+                                                header.getContext()
+                                            )
+                                        }
                                     </TableHead>
                                 )
                             })}
@@ -108,5 +67,47 @@ export function DataTable<TData, TValue>({
                 </TableBody>
             </Table>
         </div>
+
+        // <div className="rounded-md border bg-primary-600">
+        //     <Table>
+        //         <TableHeader>
+        //             {tableHeader.map((link) => (
+        //                 <TableRow key={link.header}>
+        //                     {tableData.map((link) => {
+        //                         return (
+        //                             <TableHead key={link.id}>
+        //                                 {link.title}
+        //                                 {link.faculty}
+        //                             </TableHead>
+        //                         )
+        //                     })}
+        //                 </TableRow>
+        //             ))}
+        //         </TableHeader>
+
+        //         <TableBody>
+        //             {table.getRowModel().rows?.length ? (
+        //                 table.getRowModel().rows.map((row) => (
+        //                     <TableRow
+        //                         key={row.id}
+        //                         data-state={row.getIsSelected() && "selected"}
+        //                     >
+        //                         {row.getVisibleCells().map((cell) => (
+        //                             <TableCell key={cell.id}>
+        //                                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
+        //                             </TableCell>
+        //                         ))}
+        //                     </TableRow>
+        //                 ))
+        //             ) : (
+        //                 <TableRow>
+        //                     <TableCell colSpan={columns.length} className="h-24 text-center">
+        //                         No results.
+        //                     </TableCell>
+        //                 </TableRow>
+        //             )}
+        //         </TableBody>
+        //     </Table>
+        // </div>
     )
 }

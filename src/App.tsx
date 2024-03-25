@@ -14,6 +14,8 @@ import "./globals.css";
 
 import { DataTable } from "./contributions/DataTable";
 
+import UserComponent from "./contributions/UserComponent";
+
 const App = () => {
   return (
     <main className="flex h-screen">
@@ -38,6 +40,7 @@ const App = () => {
           <Route path="/update-profile/:id" element={<UpdateProfile />} />
           {/* <Route path="/contribution" element={<Contribution />} /> */}
           <Route path="/contribution" element={<DataTable columns={[]} data={[]} />} />
+          <Route path="/user-component" element={<UserComponent />} />
         </Route>
       </Routes>
 

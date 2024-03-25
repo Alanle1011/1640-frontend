@@ -29,6 +29,11 @@ export const sidebarLinks = [
     route: "/contribution",
     label: "Contribution",
   },
+  {
+    imgURL: "/assets/icons/gallery-add.svg",
+    route: "/user-component",
+    label: "User Component",
+  },
 ];
 
 export const bottombarLinks = [
@@ -56,6 +61,11 @@ export const bottombarLinks = [
     imgURL: "/assets/icons/gallery-add.svg",
     route: "/contribution",
     label: "Contribution",
+  },
+  {
+    imgURL: "/assets/icons/gallery-add.svg",
+    route: "/user-component",
+    label: "User Component",
   },
 ];
 
