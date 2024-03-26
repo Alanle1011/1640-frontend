@@ -16,31 +16,13 @@ import SigninForm from "./_auth/SigninForm";
 import { useEffect, useState } from "react";
 
 const App = () => {
-  const [authenticated, setauthenticated] = useState(
-    localStorage.getItem("authenticated") || false
-  )
 
-  useEffect(() => {
-    const items = localStorage.getItem("authenticated");
-    // @ts-ignore
-    if (items === true) {
-      // @ts-ignore
-      setauthenticated(true);
-    }
-  })
-
-  if (!authenticated) {
-    return (
-      <Routes>
-        <Route element={<AuthLayout />}>
-          <Route path="/sign-in" element={<SigninForm />} />
-        </Route>
-      </Routes>
-    );
-  } else {
     return (
       <main className="flex h-screen">
         <Routes>
+        <Route element={<AuthLayout />}>
+          <Route path="/sign-in" element={<SigninForm />} />
+        </Route>
           {/* private routes */}
           <Route element={<RootLayout />}>
             <Route index element={<Home />} />
@@ -58,7 +40,7 @@ const App = () => {
         <Toaster />
       </main>
     );
-  }
+  // }
 };
 
 export default App;
