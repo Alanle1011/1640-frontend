@@ -24,7 +24,7 @@ export const adminSidebarLinks = [
   {
     imgURL: "/assets/icons/home.svg",
     route: "/admin/all-users",
-    label: "Home",
+    label: "All Users",
   },
 
 ];

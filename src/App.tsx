@@ -30,7 +30,7 @@ const App = () => {
         {/* user routes */}
         <Route element={<RootLayout />}>
           <Route index element={<Home />} />
-          <Route path="/all-users" element={<AllUsers />} />
+          <Route path="/admin/all-users" element={<AllUsers />} />
           <Route path="/create-contribution" element={<CreateContribution />} />
           <Route path="/update-post/:id" element={<EditPost />} />
           <Route path="/posts/:id" element={<PostDetails />} />

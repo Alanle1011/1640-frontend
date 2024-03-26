@@ -1,30 +1,30 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 
 import { INavLink } from "@/types";
-import {adminSidebarLinks, sidebarLinks} from "@/constants";
+import { adminSidebarLinks, sidebarLinks } from "@/constants";
+import { Button } from "../ui";
 
 // import { useUserContext, INITIAL_USER } from "@/context/AuthContext";
 
 const LeftSidebar = () => {
   const { pathname } = useLocation();
- 
+
   const UserRole = "ADMIN";
   // @ts-ignore
-  if(UserRole === "ADMIN"){
+  if (UserRole === "ADMIN") {
     return (
-        <nav className="leftsidebar">
-          <div className="flex flex-col gap-11 bg-red">
-            <Link to="/" className="flex gap-3 items-center">
-              <img
-                  src="/assets/images/logo.svg"
-                  alt="logo"
-                  width={170}
-                  height={36}
-              />
-            </Link>
+      <nav className="leftsidebar">
+        <div className="flex flex-col gap-11 bg-red">
+          <Link to="/" className="flex gap-3 items-center">
+            <img
+              src="/assets/images/logo.svg"
+              alt="logo"
+              width={170}
+              height={36}
+            />
+          </Link>
 
-
-            {/* <Link to={`/profile/${user.id}`} className="flex gap-3 items-center">
+          {/* <Link to={`/profile/${user.id}`} className="flex gap-3 items-center">
             <img
               src={user.imageUrl || "/assets/icons/profile-placeholder.svg"}
               alt="profile"
@@ -36,45 +36,43 @@ const LeftSidebar = () => {
             </div>
           </Link> */}
 
+          <ul className="flex flex-col gap-6">
+            {adminSidebarLinks.map((link: INavLink) => {
+              const isActive = pathname === link.route;
 
-            <ul className="flex flex-col gap-6">
-              {adminSidebarLinks.map((link: INavLink) => {
-                const isActive = pathname === link.route;
+              return (
+                <li
+                  key={link.label}
+                  className={`leftsidebar-link group ${
+                    isActive && "bg-primary-500"
+                  }`}>
+                  <NavLink
+                    to={link.route}
+                    className="flex gap-4 items-center p-4">
+                    <img
+                      src={link.imgURL}
+                      alt={link.label}
+                      className={`group-hover:invert-white ${
+                        isActive && "invert-white"
+                      }`}
+                    />
+                    {link.label}
+                  </NavLink>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
 
-                return (
-                    <li
-                        key={link.label}
-                        className={`leftsidebar-link group ${
-                            isActive && "bg-primary-500"
-                        }`}>
-                      <NavLink
-                          to={link.route}
-                          className="flex gap-4 items-center p-4">
-                        <img
-                            src={link.imgURL}
-                            alt={link.label}
-                            className={`group-hover:invert-white ${
-                                isActive && "invert-white"
-                            }`}
-                        />
-                        {link.label}
-                      </NavLink>
-                    </li>
-                );
-              })}
-            </ul>
-          </div>
-
-          {/* <Button
-        variant="ghost"
-        className="shad-button_ghost"
-        onClick={(e) => handleSignOut(e)}>
-        <img src="/assets/icons/logout.svg" alt="logout" />
-        <p className="small-medium lg:base-medium">Logout</p>
-      </Button> */}
-        </nav>
-
-    )
+        <Button
+          variant="ghost"
+          className="shad-button_ghost"
+          onClick={() => localStorage.clear()}>
+          <img src="/assets/icons/logout.svg" alt="logout" />
+          <p className="small-medium lg:base-medium">Logout</p>
+        </Button>
+      </nav>
+    );
   }
 
   return (
@@ -89,8 +87,7 @@ const LeftSidebar = () => {
           />
         </Link>
 
-
-          {/* <Link to={`/profile/${user.id}`} className="flex gap-3 items-center">
+        {/* <Link to={`/profile/${user.id}`} className="flex gap-3 items-center">
             <img
               src={user.imageUrl || "/assets/icons/profile-placeholder.svg"}
               alt="profile"
@@ -102,36 +99,35 @@ const LeftSidebar = () => {
             </div>
           </Link> */}
 
+        <ul className="flex flex-col gap-6">
+          {sidebarLinks.map((link: INavLink) => {
+            const isActive = pathname === link.route;
 
-          <ul className="flex flex-col gap-6">
-            {sidebarLinks.map((link: INavLink) => {
-              const isActive = pathname === link.route;
+            return (
+              <li
+                key={link.label}
+                className={`leftsidebar-link group ${
+                  isActive && "bg-primary-500"
+                }`}>
+                <NavLink
+                  to={link.route}
+                  className="flex gap-4 items-center p-4">
+                  <img
+                    src={link.imgURL}
+                    alt={link.label}
+                    className={`group-hover:invert-white ${
+                      isActive && "invert-white"
+                    }`}
+                  />
+                  {link.label}
+                </NavLink>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
 
-              return (
-                  <li
-                      key={link.label}
-                      className={`leftsidebar-link group ${
-                          isActive && "bg-primary-500"
-                      }`}>
-                    <NavLink
-                        to={link.route}
-                        className="flex gap-4 items-center p-4">
-                      <img
-                          src={link.imgURL}
-                          alt={link.label}
-                          className={`group-hover:invert-white ${
-                              isActive && "invert-white"
-                          }`}
-                      />
-                      {link.label}
-                    </NavLink>
-                  </li>
-              );
-            })}
-          </ul>
-        </div>
-
-        {/* <Button
+      {/* <Button
         variant="ghost"
         className="shad-button_ghost"
         onClick={(e) => handleSignOut(e)}>
