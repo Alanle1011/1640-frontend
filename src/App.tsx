@@ -1,20 +1,21 @@
 import { Route, Routes } from "react-router-dom";
 import {
+  AllUsers,
   CreateContribution,
   EditPost,
-  Empty,
+  // Empty,
   Home,
   PostDetails,
   Profile,
   UpdateProfile,
-  UsersList,
+  // UsersList,
 } from "@/_root/pages";
 import RootLayout from "./_root/RootLayout";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
-import ContributionForm from "./components/forms/ContributionForm";
-import ContributionsList from "./_root/pages/ContributionsList";
+// import ContributionForm from "./components/forms/ContributionForm";
+// import ContributionsList from "./_root/pages/ContributionsList";
 import AuthLayout from "./_auth/AuthLayout";
 import SigninForm from "./_auth/SigninForm";
 import { useEffect, useState } from "react";
@@ -36,9 +37,9 @@ const App = () => {
           <Route path="/profile/:id/*" element={<Profile />} />
           <Route path="/update-profile/:id" element={<UpdateProfile />} />
           {/* admin routes */}
-          <Route path="/admin/users" element={<UsersList />} />
-          <Route path="/admin/contributions" element={<ContributionsList />} />
-          <Route path="/admin/congrats" element={<Empty />} />
+          <Route path="/admin/users" element={<AllUsers />} />
+          {/* <Route path="/admin/contributions" element={<ContributionsList />} /> */}
+          {/* <Route path="/admin/congrats" element={<Empty />} /> */}
         </Route>
       </Routes>
       <Toaster />

@@ -20,6 +20,15 @@ export const sidebarLinks = [
     label: "Create Contribution",
   },
 ];
+export const adminSidebarLinks = [
+  {
+    imgURL: "/assets/icons/home.svg",
+    route: "/admin/all-users",
+    label: "Home",
+  },
+
+];
+
 
 export const bottombarLinks = [
   {
