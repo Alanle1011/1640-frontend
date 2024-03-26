@@ -25,6 +25,15 @@ export const sidebarLinks = [
     label: "Create Post",
   },
 ];
+export const adminSidebarLinks = [
+  {
+    imgURL: "/assets/icons/home.svg",
+    route: "/admin/all-users",
+    label: "Home",
+  },
+
+];
+
 
 export const bottombarLinks = [
   {
@@ -47,27 +56,4 @@ export const bottombarLinks = [
     route: "/create-post",
     label: "Create",
   },
-];
-
-export const adminSidebarLinks = [
-  {
-    imgURL: "/assets/icons/home.svg",
-    route: "/",
-    label: "Home",
-  },
-  {
-    imgURL: "/assets/icons/people.svg",
-    route: "/admin/users",
-    label: "Users",
-  },
-  {
-    imgURL: "/assets/icons/bookmark.svg",
-    route: "/admin/contributions",
-    label: "Contributions",
-  },
-  // {
-  //   imgURL: "/assets/icons/gallery-add.svg",
-  //   route: "/create-post",
-  //   label: "Create Post",
-  // },
 ];

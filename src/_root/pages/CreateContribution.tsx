@@ -1,4 +1,4 @@
-import ContributionForm from "@/components/forms/ContributionForm";
+import ContributionForm from "@/components/forms/Contribution";
 
 const CreatePost = () => {
   return (
