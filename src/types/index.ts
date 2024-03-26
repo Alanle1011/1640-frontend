@@ -47,17 +47,17 @@ export type INewUser = {
   password: string;
 };
 
-export type IContextType = {
-  user: IUser;
-  isLoading: boolean;
-  setUser: React.Dispatch<React.SetStateAction<IUser>>;
-  isAuthenticated: boolean;
-  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-  checkAuthUser: () => Promise<boolean>;
+export type ILoginUser = {
+  message:string,
+  status:boolean
+  userId:number,
+  role: string
 };
 
-// export type Contribution = {
-//   id: IUser;
-//   title: string;
-//   faculty: string;
-// };
+export type FileUploaderProps = {
+  fieldChange: (files: File[]) => void;
+};
+export type ImageUploaderProps = {
+  fieldChange: (files: File[]) => void;
+  mediaUrl: string;
+};
