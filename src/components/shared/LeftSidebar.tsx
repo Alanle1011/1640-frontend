@@ -67,12 +67,17 @@ const LeftSidebar = () => {
         <Button
           variant="ghost"
           className="shad-button_ghost"
-          onClick={() => localStorage.clear()}>
+          onClick={() => handleSignOut()}>
           <img src="/assets/icons/logout.svg" alt="logout" />
           <p className="small-medium lg:base-medium">Logout</p>
         </Button>
       </nav>
     );
+  }
+
+  function handleSignOut(): void {
+    localStorage.clear();
+    window.location.reload();
   }
 
   return (
@@ -127,13 +132,13 @@ const LeftSidebar = () => {
         </ul>
       </div>
 
-      {/* <Button
+      <Button
         variant="ghost"
         className="shad-button_ghost"
-        onClick={(e) => handleSignOut(e)}>
+        onClick={() => handleSignOut()}>
         <img src="/assets/icons/logout.svg" alt="logout" />
         <p className="small-medium lg:base-medium">Logout</p>
-      </Button> */}
+      </Button>
     </nav>
   );
 };
