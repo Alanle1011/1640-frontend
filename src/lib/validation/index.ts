@@ -22,7 +22,6 @@ export const ProfileValidation = z.object({
 export const ContributionValidation = z.object({
   title: z.string().min(1, { message: "This field is required" }).max(1000, { message: "Maximum 1000 characters." }),
   content: z.string().min(5, { message: "Minimum 5 characters." }).max(2200, { message: "Maximum 2,200 caracters" }),
-  submissionPeriodId: z.string(),
   image: z.custom<File[]>(),
   file: z.custom<File[]>(),
 });

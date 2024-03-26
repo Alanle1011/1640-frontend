@@ -13,12 +13,14 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
-import { SigninValidation } from "@/lib/validation";
-import { toast } from "@/components/ui";
+import {SigninValidation} from "@/lib/validation";
+import {useToast} from "@/components/ui";
+
 
 const SigninForm = () => {
-  const navigate = useNavigate();
-  const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
+    const navigate = useNavigate();
+    const { toast } = useToast()
+    const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || ""
 
   const form = useForm<z.infer<typeof SigninValidation>>({
     resolver: zodResolver(SigninValidation),
@@ -28,30 +30,37 @@ const SigninForm = () => {
     const response = saveLogin(values);
   }
 
-  async function saveLogin(data: any) {
-    // debugger;
-    const loginBody = {
-      email: data.email,
-      password: data.password,
-    };
-    const responseLogin = await fetch(`${VITE_WEBSERVICE_URL}/user/login`, {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(loginBody),
-    });
-    if (!responseLogin.ok) {
-      toast({ title: "Login failed. Please try again." });
-    } else {
-      const loginData = await responseLogin.json();
-      if (loginData.status) { // Check for login success status from response
-          localStorage.setItem("userData", JSON.stringify(loginData));
-          localStorage.setItem("authenticated", String(true));
-          navigate("/"); // Redirect to home page on successful login
-      }
+    async function saveLogin(data: any) {
+        // debugger;
+        const loginBody = {
+            email: data.email,
+            password: data.password,
+        };
+        const responseLogin = await fetch(`${VITE_WEBSERVICE_URL}/user/login`, {
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(loginBody),
+        });
+        if (!responseLogin.ok) {
+            toast({
+                description: "Login Failed",
+            })
+            throw new Error("Invalid credentials or login failed"); // Handle non-2xx responses
+        }
+        const loginData = await responseLogin.json();
+        if (loginData.status) { // Check for login success status from response
+            localStorage.setItem("userData", JSON.stringify(loginData));
+            localStorage.setItem("authenticated", String(true));
+            toast({
+                description: "Login successful",
+            })
+            // @ts-ignore
+            setTimeout(1000);
+            navigate("/"); // Redirect to home page on successful login
+        }
     }
-  }
 
   return (
     <Form {...form}>

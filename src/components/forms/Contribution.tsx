@@ -10,7 +10,7 @@ import {
     FormLabel,
     FormMessage,
     Input,
-    Textarea,
+    Textarea, useToast,
 } from "@/components/ui";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -23,6 +23,7 @@ import {ILoginUser} from "@/types";
 
 const ContributionForm = () => {
     const navigate = useNavigate();
+    const { toast } = useToast()
     const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || ""
     // @ts-ignore
     const [uploadedUserId, setUploadedUserId] = useState<ILoginUser>(JSON.parse(localStorage.getItem("userData")) || null);
@@ -50,7 +51,6 @@ const ContributionForm = () => {
         debugger
         const contributionBody = {
             content: data.content,
-            submissionPeriodId: parseInt(data.submissionPeriodId),
             title: data.title,
             uploadedUserId: uploadedUserId.userId
         };
@@ -75,14 +75,15 @@ const ContributionForm = () => {
         }
         const docBody = new FormData();
         docBody.append('doc', data.file);
-        console.log('docBody', docBody.get("doc"));
-        console.log('image' ,imageBody.get("images"));
         if (contributionId) {
             fetch(`${VITE_WEBSERVICE_URL}/document?contributionId=${contributionId}`, {
                 method: "POST",
                 body: docBody,
             });
         }
+        toast({
+            description: "Create Contribution Success",
+        })
         return contribution;
     }
 
@@ -112,22 +113,6 @@ const ContributionForm = () => {
                             <FormLabel className="shad-form_label">Content</FormLabel>
                             <FormControl>
                                 <Textarea
-                                    className="shad-textarea custom-scrollbar"
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormMessage className="shad-form_message"/>
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="submissionPeriodId"
-                    render={({field}) => (
-                        <FormItem>
-                            <FormLabel className="shad-form_label">Submission Period Id</FormLabel>
-                            <FormControl>
-                                <Input
                                     className="shad-textarea custom-scrollbar"
                                     {...field}
                                 />
