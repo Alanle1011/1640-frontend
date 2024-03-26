@@ -43,7 +43,8 @@ const App = () => {
       // @ts-ignore
       setauthenticated(true);
     }
-  }, []);
+  });
+  console.log("authenticated", authenticated)
 
   if (!authenticated) {
     return (
@@ -54,6 +55,7 @@ const App = () => {
             <Route path="/sign-in" element={<SigninForm />} />
           </Route>
         </Routes>
+        <Toaster />
       </main>
     );
   } else {
@@ -63,6 +65,7 @@ const App = () => {
           {/* user routes */}
           <Route element={<RootLayout userData={userData} />}>
             <Route index element={<Home />} />
+            <Route path="/sign-in" element={ <Navigate replace to="/"/>} />
             <Route
               path="/create-contribution"
               element={<CreateContribution userData={userData} />}

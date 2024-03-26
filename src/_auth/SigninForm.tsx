@@ -28,6 +28,7 @@ const SigninForm = () => {
 
   function onSubmit(values: z.infer<typeof SigninValidation>) {
     const response = saveLogin(values);
+    console.log(response);
   }
 
     async function saveLogin(data: any) {
@@ -50,16 +51,20 @@ const SigninForm = () => {
             throw new Error("Invalid credentials or login failed"); // Handle non-2xx responses
         }
         const loginData = await responseLogin.json();
+        debugger
         if (loginData.status) { // Check for login success status from response
             localStorage.setItem("userData", JSON.stringify(loginData));
             localStorage.setItem("authenticated", String(true));
             toast({
                 description: "Login successful",
             })
-            // @ts-ignore
-            setTimeout(1000);
-            navigate("/"); // Redirect to home page on successful login
+            // Redirect to home page on successful login
+            setTimeout(() => {
+                navigate("/");
+                window.location.reload();
+            }, 500)
         }
+
     }
 
   return (
