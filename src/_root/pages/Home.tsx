@@ -20,7 +20,6 @@ const Home = () => {
             <div className="flex flex-1">
                 home
             </div>
-
         )
     }
 };

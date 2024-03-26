@@ -1,17 +1,29 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 
-import { INavLink } from "@/types";
+import { ILoginUser, INavLink } from "@/types";
 import { adminSidebarLinks, sidebarLinks } from "@/constants";
 import { Button } from "../ui";
+import { useEffect, useState } from "react";
 
 // import { useUserContext, INITIAL_USER } from "@/context/AuthContext";
 
 const LeftSidebar = () => {
   const { pathname } = useLocation();
 
-  const UserRole = "ADMIN";
   // @ts-ignore
-  if (UserRole === "ADMIN") {
+  const [userId, setUserId] = useState<ILoginUser>(JSON.parse(localStorage.getItem("userData")) || null);
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("userData") || '""');
+    if (userData) {
+      // @ts-ignore
+      setUploadedUserId(userData);
+    }
+  }, [])
+  const role = userData.role;
+  console.log(role);
+
+  if (userData.role === "STUDENT") {
     return (
       <nav className="leftsidebar">
         <div className="flex flex-col gap-11 bg-red">
