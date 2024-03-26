@@ -48,10 +48,12 @@ export type INewUser = {
 };
 
 export type ILoginUser = {
-  message:string,
   status:boolean
   userId:number,
-  role: string
+  role: string,
+  name: string,
+  faculty: string,
+  email: string
 };
 
 export type FileUploaderProps = {

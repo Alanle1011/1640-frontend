@@ -7,20 +7,8 @@ import { useEffect, useState } from "react";
 
 // import { useUserContext, INITIAL_USER } from "@/context/AuthContext";
 
-const LeftSidebar = () => {
+const LeftSidebar: React.FC<{userData: ILoginUser}> = ({userData}) => {
   const { pathname } = useLocation();
-
-  // @ts-ignore
-  const [userData, setUserData] = useState<ILoginUser>(JSON.parse(localStorage.getItem("userData")) || null);
-
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("userData") || '""');
-    if (data) {
-      setUserData(data);
-    }
-  }, [])
-  const role = userData.role;
-  console.log(role);
 
   function handleSignOut(): void {
     localStorage.clear();
@@ -33,24 +21,24 @@ const LeftSidebar = () => {
         <div className="flex flex-col gap-11 bg-red">
           <Link to="/" className="flex gap-3 items-center">
             <img
-              src="/assets/images/logo.svg"
+              src="/assets/images/logo.png"
               alt="logo"
               width={170}
               height={36}
             />
           </Link>
 
-          {/* <Link to={`/profile/${user.id}`} className="flex gap-3 items-center">
+          <Link to="/profile" className="flex gap-3 items-center">
             <img
-              src={user.imageUrl || "/assets/icons/profile-placeholder.svg"}
+              src={"/assets/icons/profile-placeholder.svg"}
               alt="profile"
               className="h-14 w-14 rounded-full"
             />
             <div className="flex flex-col">
-              <p className="body-bold">{user.name}</p>
-              <p className="small-regular text-light-3">@{user.username}</p>
+              <p className="body-bold">{userData.userId}</p>
+              <p className="small-regular text-light-3">@{userData.role}</p>
             </div>
-          </Link> */}
+          </Link>
 
           <ul className="flex flex-col gap-6">
             {adminSidebarLinks.map((link: INavLink) => {

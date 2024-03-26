@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import {
   AllUsers,
   CreateContribution,
@@ -19,33 +19,78 @@ import "./globals.css";
 import AuthLayout from "./_auth/AuthLayout";
 import SigninForm from "./_auth/SigninForm";
 import { useEffect, useState } from "react";
+import { ILoginUser } from "./types";
 
 const App = () => {
-  return (
-    <main className="flex h-screen">
-      <Routes>
-        <Route element={<AuthLayout />}>
-          <Route path="/sign-in" element={<SigninForm />} />
-        </Route>
-        {/* user routes */}
-        <Route element={<RootLayout />}>
-          <Route index element={<Home />} />
-          <Route path="/admin/all-users" element={<AllUsers />} />
-          <Route path="/create-contribution" element={<CreateContribution />} />
-          <Route path="/update-post/:id" element={<EditPost />} />
-          <Route path="/posts/:id" element={<PostDetails />} />
-          <Route path="/profile/:id/*" element={<Profile />} />
-          <Route path="/update-profile/:id" element={<UpdateProfile />} />
-          {/* admin routes */}
-          <Route path="/admin/users" element={<AllUsers />} />
-          {/* <Route path="/admin/contributions" element={<ContributionsList />} /> */}
-          {/* <Route path="/admin/congrats" element={<Empty />} /> */}
-        </Route>
-      </Routes>
-      <Toaster />
-    </main>
+  const [userData, setUserData] = useState<ILoginUser>(
+    JSON.parse(localStorage.getItem("userData")) || null
   );
-  // }
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("userData") || '""');
+    if (data) {
+      setUserData(data);
+    }
+  }, []);
+  const [authenticated, setauthenticated] = useState(
+    localStorage.getItem("authenticated") || false
+  );
+
+  useEffect(() => {
+    const items = localStorage.getItem("authenticated");
+    // @ts-ignore
+    if (items === true) {
+      // @ts-ignore
+      setauthenticated(true);
+    }
+  }, []);
+
+  if (!authenticated) {
+    return (
+      <main className="flex h-screen">
+        <Navigate replace to="/sign-in"/>
+        <Routes>
+          <Route element={<AuthLayout />}>
+            <Route path="/sign-in" element={<SigninForm />} />
+          </Route>
+        </Routes>
+      </main>
+    );
+  } else {
+    return (
+      <main className="flex h-screen">
+        <Routes>
+          {/* user routes */}
+          <Route element={<RootLayout userData={userData} />}>
+            <Route index element={<Home />} />
+            <Route
+              path="/create-contribution"
+              element={<CreateContribution userData={userData} />}
+            />
+            <Route
+              path="/update-post"
+              element={<EditPost userData={userData} />}
+            />
+            <Route
+              path="/posts"
+              element={<PostDetails userData={userData} />}
+            />
+            <Route path="/profile" element={<Profile userData={userData} />} />
+            <Route
+              path="/update-profile"
+              element={<UpdateProfile userData={userData} />}
+            />
+            {/* admin routes */}
+            <Route path="/admin/users" element={<AllUsers />} />
+            <Route path="/admin/all-users" element={<AllUsers />} />
+            {/* <Route path="/admin/contributions" element={<ContributionsList />} /> */}
+            {/* <Route path="/admin/congrats" element={<Empty />} /> */}
+          </Route>
+        </Routes>
+        <Toaster />
+      </main>
+    );
+  }
 };
 
 export default App;
