@@ -11,17 +11,21 @@ const LeftSidebar = () => {
   const { pathname } = useLocation();
 
   // @ts-ignore
-  const [userId, setUserId] = useState<ILoginUser>(JSON.parse(localStorage.getItem("userData")) || null);
+  const [userData, setUserData] = useState<ILoginUser>(JSON.parse(localStorage.getItem("userData")) || null);
 
   useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem("userData") || '""');
-    if (userData) {
-      // @ts-ignore
-      setUploadedUserId(userData);
+    const data = JSON.parse(localStorage.getItem("userData") || '""');
+    if (data) {
+      setUserData(data);
     }
   }, [])
   const role = userData.role;
   console.log(role);
+
+  function handleSignOut(): void {
+    localStorage.clear();
+    window.location.reload();
+  }
 
   if (userData.role === "STUDENT") {
     return (
@@ -85,11 +89,6 @@ const LeftSidebar = () => {
         </Button>
       </nav>
     );
-  }
-
-  function handleSignOut(): void {
-    localStorage.clear();
-    window.location.reload();
   }
 
   return (
