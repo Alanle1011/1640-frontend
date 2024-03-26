@@ -7,10 +7,12 @@ import {Button} from "@/components/ui/button";
 import {useNavigate} from 'react-router-dom';
 
 import {SigninValidation} from "@/lib/validation";
+import {useToast} from "@/components/ui";
 
 
 const SigninForm = () => {
     const navigate = useNavigate();
+    const { toast } = useToast()
     const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || ""
 
     const form = useForm<z.infer<typeof SigninValidation>>({
@@ -18,7 +20,7 @@ const SigninForm = () => {
     });
 
     function onSubmit(values: z.infer<typeof SigninValidation>) {
-        const response = saveLogin(values);
+        saveLogin(values);
     }
 
     async function saveLogin(data: any) {
@@ -35,15 +37,22 @@ const SigninForm = () => {
             body: JSON.stringify(loginBody),
         });
         if (!responseLogin.ok) {
+            toast({
+                description: "Login Failed",
+            })
             throw new Error("Invalid credentials or login failed"); // Handle non-2xx responses
-          }
-      
-          const loginData = await responseLogin.json();
-      
-          if (loginData.status) { // Check for login success status from response
-            localStorage.setItem("loginStatus", JSON.stringify(loginData));
+        }
+        const loginData = await responseLogin.json();
+        if (loginData.status) { // Check for login success status from response
+            localStorage.setItem("userData", JSON.stringify(loginData));
+            localStorage.setItem("authenticated", String(true));
+            toast({
+                description: "Login successful",
+            })
+            // @ts-ignore
+            setTimeout(1000);
             navigate("/"); // Redirect to home page on successful login
-          }
+        }
     }
 
     return (
@@ -94,7 +103,7 @@ const SigninForm = () => {
                     />
 
                     <Button type="submit" className="shad-button_primary">
-                        "Log in"
+                        Log in
                     </Button>
                 </form>
             </div>

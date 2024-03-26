@@ -10,34 +10,49 @@ import {
     FormLabel,
     FormMessage,
     Input,
-    Textarea,
+    Textarea, useToast,
 } from "@/components/ui";
 import {z} from "zod";
-import {FileUploader} from "@/components/shared";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {ContributionValidation} from "@/lib/validation";
+import ImageUploader from "@/components/shared/ImageUploader.tsx";
+import FileUploader from "@/components/shared/FileUploader.tsx";
+import {useEffect, useState} from "react";
+import {ILoginUser} from "@/types";
 
 
 const ContributionForm = () => {
     const navigate = useNavigate();
+    const { toast } = useToast()
     const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || ""
+    // @ts-ignore
+    const [uploadedUserId, setUploadedUserId] = useState<ILoginUser>(JSON.parse(localStorage.getItem("userData")) || null);
 
+
+    useEffect(() => {
+        const userData = JSON.parse(localStorage.getItem("userData")|| '""') ;
+        if (userData) {
+            // @ts-ignore
+            setUploadedUserId(userData);
+        }
+    },[]);
     const form = useForm<z.infer<typeof ContributionValidation>>({
         resolver: zodResolver(ContributionValidation),
     });
 
     // 2. Define a submit handler.
     function onSubmit(values: z.infer<typeof ContributionValidation>) {
-        const response = saveContribution(values)
+        if(uploadedUserId){
+            saveContribution(values);
+        }
     }
 
     async function saveContribution(data: any) {
         debugger
         const contributionBody = {
             content: data.content,
-            submissionPeriodId: parseInt(data.submissionPeriodId),
             title: data.title,
-            uploadedUserId: parseInt(data.uploadedUserId)
+            uploadedUserId: uploadedUserId.userId
         };
         const responseContribution = await fetch(`${VITE_WEBSERVICE_URL}/contribution`, {
             method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -47,23 +62,29 @@ const ContributionForm = () => {
             body: JSON.stringify(contributionBody), // body data type must match "Content-Type" header
         });
 
-        const imageBody = new FormData();
-        imageBody.append('images', data.file[0]);
-
         const contribution = await responseContribution?.json();
         const contributionId = contribution.id;
-        // if (contributionId) {
-        //     fetch(`${BACKEND_URL}/image?contributionId=${contributionId}`, {
-        //         method: "POST", // *GET, POST, PUT, DELETE, etc.
-        //         headers: {
-        //             'Content-Type': 'multipart/form-data'
-        //         },
-        //         body: imageBody, // body data type must match "Content-Type" header
-        //     });
-        // }
 
-
-        return responseContribution.json();
+        const imageBody = new FormData();
+        imageBody.append('images', data.image[0]);
+        if (contributionId) {
+            fetch(`${VITE_WEBSERVICE_URL}/image?contributionId=${contributionId}`, {
+                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                body: imageBody, // body data type must match "Content-Type" header
+            });
+        }
+        const docBody = new FormData();
+        docBody.append('doc', data.file);
+        if (contributionId) {
+            fetch(`${VITE_WEBSERVICE_URL}/document?contributionId=${contributionId}`, {
+                method: "POST",
+                body: docBody,
+            });
+        }
+        toast({
+            description: "Create Contribution Success",
+        })
+        return contribution;
     }
 
 
@@ -71,50 +92,6 @@ const ContributionForm = () => {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-9 w-full max-w-5xl">
-                <FormField
-                    control={form.control}
-                    name="uploadedUserId"
-                    render={({field}) => (
-                        <FormItem>
-                            <FormLabel className="shad-form_label">Uploaded User ID</FormLabel>
-                            <FormControl>
-                                <Input type="text" className="shad-input" {...field} />
-                            </FormControl>
-                            <FormMessage className="shad-form_message"/>
-                        </FormItem>
-                    )}
-                />
-                {/*<FormField*/}
-                {/*  control={form.control}*/}
-                {/*  name="faculty"*/}
-                {/*  render={({ field }) => (*/}
-                {/*    <FormItem>*/}
-                {/*      <FormLabel className="shad-form_label">Faculty</FormLabel>*/}
-                {/*      <FormControl>*/}
-                {/*        <FormItem>*/}
-                {/*          <Select*/}
-                {/*            onValueChange={field.onChange}*/}
-                {/*            defaultValue={field.value}>*/}
-                {/*            <FormControl>*/}
-                {/*              <SelectTrigger>*/}
-                {/*                <SelectValue placeholder="Select a Faculty" />*/}
-                {/*              </SelectTrigger>*/}
-                {/*            </FormControl>*/}
-                {/*            <SelectContent>*/}
-                {/*              <SelectItem value="CS">Computer Science</SelectItem>*/}
-                {/*              <SelectItem value="BA">*/}
-                {/*                Business Administration*/}
-                {/*              </SelectItem>*/}
-                {/*              <SelectItem value="GD">Graphics Design</SelectItem>*/}
-                {/*            </SelectContent>*/}
-                {/*          </Select>*/}
-                {/*          <FormMessage />*/}
-                {/*        </FormItem>*/}
-                {/*      </FormControl>*/}
-                {/*      <FormMessage className="shad-form_message" />*/}
-                {/*    </FormItem>*/}
-                {/*  )}*/}
-                {/*/>*/}
                 <FormField
                     control={form.control}
                     name="title"
@@ -146,14 +123,14 @@ const ContributionForm = () => {
                 />
                 <FormField
                     control={form.control}
-                    name="submissionPeriodId"
+                    name="image"
                     render={({field}) => (
                         <FormItem>
-                            <FormLabel className="shad-form_label">Submission Period Id</FormLabel>
+                            <FormLabel className="shad-form_label">Add Photos</FormLabel>
                             <FormControl>
-                                <Input
-                                    className="shad-textarea custom-scrollbar"
-                                    {...field}
+                                <ImageUploader
+                                    fieldChange={field.onChange}
+                                    mediaUrl={""}
                                 />
                             </FormControl>
                             <FormMessage className="shad-form_message"/>
@@ -169,7 +146,6 @@ const ContributionForm = () => {
                             <FormControl>
                                 <FileUploader
                                     fieldChange={field.onChange}
-                                    mediaUrl={""}
                                 />
                             </FormControl>
                             <FormMessage className="shad-form_message"/>
