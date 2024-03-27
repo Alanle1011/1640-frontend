@@ -1,4 +1,4 @@
-import { GridPostList, Loader } from "@/components/shared";
+import { GridPostList } from "@/components/shared";
 
 
 const LikedPosts = () => {
