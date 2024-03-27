@@ -1,6 +1,8 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import {
   AllUsers,
+  CreateUser,
+  EditUser,
   CreateContribution,
   EditPost,
   // Empty,
@@ -18,7 +20,7 @@ import "./globals.css";
 // import ContributionsList from "./_root/pages/ContributionsList";
 import AuthLayout from "./_auth/AuthLayout";
 import SigninForm from "./_auth/SigninForm";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ILoginUser } from "./types";
 
 const App = () => {
@@ -86,6 +88,8 @@ const App = () => {
             {/* admin routes */}
             <Route path="/admin/users" element={<AllUsers />} />
             <Route path="/admin/all-users" element={<AllUsers />} />
+            <Route path="/admin/create-user" element={<CreateUser />} />
+            <Route path="/admin/edit-user" element={<EditUser />} />
             {/* <Route path="/admin/contributions" element={<ContributionsList />} /> */}
             {/* <Route path="/admin/congrats" element={<Empty />} /> */}
           </Route>
