@@ -13,7 +13,7 @@ export type IUpdateUser = {
   file: File[];
 };
 
-export type INewPost = {
+export type INewContribution = {
   userId: string;
   caption: string;
   file: File[];
@@ -21,7 +21,7 @@ export type INewPost = {
   tags?: string;
 };
 
-export type IUpdatePost = {
+export type IUpdateContribution = {
   postId: string;
   caption: string;
   imageId: string;
@@ -48,10 +48,12 @@ export type INewUser = {
 };
 
 export type ILoginUser = {
-  message:string,
   status:boolean
   userId:number,
-  role: string
+  role: string,
+  name: string,
+  faculty: string,
+  email: string
 };
 
 export type FileUploaderProps = {

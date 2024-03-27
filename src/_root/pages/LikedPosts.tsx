@@ -1,9 +1,16 @@
-import React from 'react'
+import { GridPostList } from "@/components/shared";
+
 
 const LikedPosts = () => {
   return (
-    <div>LikedPosts</div>
-  )
-}
+    <>
+      {/* {currentUser.liked.length === 0 && (
+        <p className="text-light-4">No liked posts</p>
+      )}
 
-export default LikedPosts
+      <GridPostList posts={currentUser.liked} showStats={false} /> */}
+    </>
+  );
+};
+
+export default LikedPosts;

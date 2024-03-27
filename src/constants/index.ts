@@ -4,37 +4,31 @@ export const sidebarLinks = [
     route: "/",
     label: "Home",
   },
-  // {
-  //   imgURL: "/assets/icons/wallpaper.svg",
-  //   route: "/explore",
-  //   label: "Explore",
-  // },
-  // {
-  //   imgURL: "/assets/icons/people.svg",
-  //   route: "/all-users",
-  //   label: "People",
-  // },
-  // {
-  //   imgURL: "/assets/icons/bookmark.svg",
-  //   route: "/saved",
-  //   label: "Saved",
-  // },
-  // {
-  //   imgURL: "/assets/icons/gallery-add.svg",
-  //   route: "/create-post",
-  //   label: "Create Post",
-  // },
   {
-    imgURL: "/assets/icons/gallery-add.svg",
-    route: "/contribution",
-    label: "Contribution",
+    imgURL: "/assets/icons/wallpaper.svg",
+    route: "/my",
+    label: "My Contributions",
+  },
+  {
+    imgURL: "/assets/icons/people.svg",
+    route: "/all-users",
+    label: "People",
   },
   {
     imgURL: "/assets/icons/gallery-add.svg",
-    route: "/user-component",
-    label: "User Component",
+    route: "/create-contribution",
+    label: "Create Contribution",
   },
 ];
+export const adminSidebarLinks = [
+  {
+    imgURL: "/assets/icons/home.svg",
+    route: "/admin/all-users",
+    label: "All Users",
+  },
+
+];
+
 
 export const bottombarLinks = [
   {
@@ -42,82 +36,19 @@ export const bottombarLinks = [
     route: "/",
     label: "Home",
   },
-  // {
-  //   imgURL: "/assets/icons/wallpaper.svg",
-  //   route: "/explore",
-  //   label: "Explore",
-  // },
-  // {
-  //   imgURL: "/assets/icons/bookmark.svg",
-  //   route: "/saved",
-  //   label: "Saved",
-  // },
-  // {
-  //   imgURL: "/assets/icons/gallery-add.svg",
-  //   route: "/create-post",
-  //   label: "Create",
-  // },
   {
-    imgURL: "/assets/icons/gallery-add.svg",
-    route: "/contribution",
-    label: "Contribution",
-  },
-  {
-    imgURL: "/assets/icons/gallery-add.svg",
-    route: "/user-component",
-    label: "User Component",
-  },
-];
-
-export const tableHeader = [
-  {
-    header: "ID",
-  },
-  {
-    header: "Title",
-  },
-  {
-    header: "Faculty",
-  },
-];
-
-export const tableData = [
-  {
-    id: "01",
-    title: "The Contribution of Nguyen M. Tan",
-    faculty: "Computing ",
-  },
-  {
-    id: "02",
-    title: "The Contribution of Nguyen P. Thinh",
-    faculty: "Computing ",
-  },
-  {
-    id: "03",
-    title: "The Contribution of Le X. H. Phuc",
-    faculty: "Computing ",
-  },
-];
-
-export const adminSidebarLinks = [
-  {
-    imgURL: "/assets/icons/home.svg",
-    route: "/",
-    label: "Home",
-  },
-  {
-    imgURL: "/assets/icons/people.svg",
-    route: "/admin/users",
-    label: "Users",
+    imgURL: "/assets/icons/wallpaper.svg",
+    route: "/explore",
+    label: "Explore",
   },
   {
     imgURL: "/assets/icons/bookmark.svg",
-    route: "/admin/contributions",
-    label: "Contributions",
+    route: "/saved",
+    label: "Saved",
   },
-  // {
-  //   imgURL: "/assets/icons/gallery-add.svg",
-  //   route: "/create-post",
-  //   label: "Create Post",
-  // },
+  {
+    imgURL: "/assets/icons/gallery-add.svg",
+    route: "/create-contribution",
+    label: "Create",
+  },
 ];

@@ -1,22 +1,23 @@
-import BottomBar from '@/components/shared/BottomBar'
-import LeftSideBar from '@/components/shared/LeftSideBar'
-import TopBar from '@/components/shared/TopBar'
-import { Outlet } from 'react-router-dom'
+import { Outlet } from "react-router-dom";
 
-const RootLayout = () => {
+import Topbar from "@/components/shared/Topbar";
+import Bottombar from "@/components/shared/Bottombar";
+import LeftSidebar from "@/components/shared/LeftSidebar";
+import { ILoginUser } from "@/types";
+
+const RootLayout: React.FC<{userData: ILoginUser}> = ({userData}) => {
   return (
-    <div className='w-full md:flex'>
-      <TopBar />
+    <div className="w-full md:flex">
+      <Topbar />
+      <LeftSidebar userData={userData}/>
 
-      <LeftSideBar />
-
-      <section className='flex flex-1 h-full'>
+      <section className="flex flex-1 h-full">
         <Outlet />
       </section>
 
-      <BottomBar />
+      <Bottombar />
     </div>
-  )
-}
+  );
+};
 
-export default RootLayout
+export default RootLayout;
