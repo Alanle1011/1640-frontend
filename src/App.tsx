@@ -10,6 +10,7 @@ import {
   PostDetails,
   Profile,
   UpdateProfile,
+  PendingContribution,
   // UsersList,
 } from "@/_root/pages";
 import RootLayout from "./_root/RootLayout";
@@ -90,6 +91,8 @@ const App = () => {
             <Route path="/admin/all-users" element={<AllUsers />} />
             <Route path="/admin/create-user" element={<CreateUser />} />
             <Route path="/admin/edit-user" element={<EditUser />} />
+            <Route path="/admin/pending" element={<PendingContribution />} />
+
             {/* <Route path="/admin/contributions" element={<ContributionsList />} /> */}
             {/* <Route path="/admin/congrats" element={<Empty />} /> */}
           </Route>

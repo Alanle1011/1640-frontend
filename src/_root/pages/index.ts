@@ -6,5 +6,6 @@ export { default as EditPost } from "./EditPost";
 export { default as PostDetails } from "./PostDetails";
 export { default as MyContribution } from "./MyContribution";
 export { default as AllUsers } from "./AllUsers";
-export { default as CreateUser } from "./CreateUser.tsx";
-export { default as EditUser } from "./EditUser.tsx";
+export { default as CreateUser } from "./CreateUser";
+export { default as EditUser } from "./EditUser";
+export { default as PendingContribution } from "./PendingContributions";
