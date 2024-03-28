@@ -13,13 +13,13 @@ export type IUpdateUser = {
   file: File[];
 };
 
-export type INewContribution = {
-  userId: string;
-  caption: string;
-  file: File[];
-  location?: string;
-  tags?: string;
-};
+// export type INewContribution = {
+//   userId: string;
+//   caption: string;
+//   file: File[];
+//   location?: string;
+//   tags?: string;
+// };
 
 export type IUpdateContribution = {
   postId: string;
@@ -48,8 +48,8 @@ export type INewUser = {
 };
 
 export type ILoginUser = {
-  status:boolean
-  userId:number,
+  status: boolean
+  userId: number,
   role: string,
   name: string,
   faculty: string,
@@ -63,3 +63,22 @@ export type ImageUploaderProps = {
   fieldChange: (files: File[]) => void;
   mediaUrl: string;
 };
+
+export type Contribution = {
+  id: string,
+  uploadedUserId: string,
+  title: string,
+  content: string,
+  imageId: string,
+  documentId: string,
+  submissionPeriodId: string,
+}
+
+export type EditContribution = {
+  id: string,
+  uploadedUserId: string,
+  title: string,
+  content: string,
+  imageId: string,
+  documentId: string,
+}

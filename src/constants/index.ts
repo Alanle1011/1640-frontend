@@ -20,15 +20,6 @@ export const sidebarLinks = [
     label: "Create Contribution",
   },
 ];
-export const adminSidebarLinks = [
-  {
-    imgURL: "/assets/icons/home.svg",
-    route: "/admin/all-users",
-    label: "All Users",
-  },
-
-];
-
 
 export const bottombarLinks = [
   {
@@ -50,5 +41,31 @@ export const bottombarLinks = [
     imgURL: "/assets/icons/gallery-add.svg",
     route: "/create-contribution",
     label: "Create",
+  },
+];
+
+export const adminSidebarLinks = [
+  {
+    imgURL: "/assets/icons/people.svg",
+    route: "/admin/users",
+    label: "Users",
+  },
+  {
+    imgURL: "/assets/icons/bookmark.svg",
+    route: "/admin/contributions",
+    label: "Contributions",
+  },
+];
+
+export const adminBottombarLinks = [
+  {
+    imgURL: "/assets/icons/people.svg",
+    route: "/admin/users",
+    label: "Users",
+  },
+  {
+    imgURL: "/assets/icons/bookmark.svg",
+    route: "/admin/contributions",
+    label: "Contributions",
   },
 ];

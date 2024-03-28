@@ -9,4 +9,4 @@ export { default as AllUsers } from "./AllUsers";
 
 export { default as UsersList } from "./UsersList.tsx";
 export { default as ContributionsList } from "./ContributionsList.tsx";
-export { default as Empty } from "./Empty.tsx";
+export { default as EditContribution } from "./EditContribution.tsx";

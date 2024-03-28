@@ -1,56 +1,21 @@
 import { undefined } from "zod";
+
 import React, { useState, useEffect } from "react"
+import { Link } from "react-router-dom";
 
-import {
-    CaretSortIcon,
-    ChevronDownIcon,
-    ChevronLeftIcon,
-    ChevronRightIcon,
-    //DotsHorizontalIcon,
-} from "@radix-ui/react-icons"
+import { Label } from "@radix-ui/react-label";
+import { PenSquare, XSquare } from "lucide-react";
+import { CaretSortIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, DotsHorizontalIcon } from "@radix-ui/react-icons"
 
-import {
-    ColumnDef,
-    ColumnFiltersState,
-    SortingState,
-    VisibilityState,
-    flexRender,
-    getCoreRowModel,
-    getFilteredRowModel,
-    getPaginationRowModel,
-    getSortedRowModel,
-    useReactTable,
-} from "@tanstack/react-table"
+import { ColumnDef, ColumnFiltersState, SortingState, VisibilityState, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
 
-import { Button } from "@/components/ui/button"
-import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    //DropdownMenuItem,
-    //DropdownMenuLabel,
-    //DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
+import { Button } from "@/components/ui/button"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
-export type Contribution = {
-    id: string,
-    uploadedUserId: string,
-    title: string,
-    content: string,
-    imageId: string,
-    documentId: string,
-    submissionPeriodId: string,
-}
+import { Contribution } from "@/types";
+import { EditContribution } from ".";
 
 export const columns: ColumnDef<Contribution>[] = [
     {
@@ -69,10 +34,19 @@ export const columns: ColumnDef<Contribution>[] = [
     },
     {
         accessorKey: "title",
-        header: "Title",
-        cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("title")}</div>
-        ),
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="."
+                    className="flex"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Title
+                    <CaretSortIcon className="sort-icon" />
+                </Button>
+            )
+        },
+        cell: ({ row }) => <div className="capitalize">{row.getValue("title")}</div>,
     },
     {
         accessorKey: "content",
@@ -103,35 +77,49 @@ export const columns: ColumnDef<Contribution>[] = [
         ),
     },
 
-    //{
-    //   id: "actions",
-    //   enableHiding: false,
-    //   cell: ({ row }) => {
-    //     const payment = row.original
-    //
-    //     return (
-    //         <DropdownMenu>
-    //           <DropdownMenuTrigger asChild>
-    //             <Button variant="ghost" className="h-8 w-8 p-0">
-    //               <span className="sr-only">Open menu</span>
-    //               <DotsHorizontalIcon className="h-4 w-4" />
-    //             </Button>
-    //           </DropdownMenuTrigger>
-    //           <DropdownMenuContent align="end">
-    //             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-    //             <DropdownMenuItem
-    //                 onClick={() => navigator.clipboard.writeText(payment.id)}
-    //             >
-    //               Copy payment ID
-    //             </DropdownMenuItem>
-    //             <DropdownMenuSeparator />
-    //             <DropdownMenuItem>View customer</DropdownMenuItem>
-    //             <DropdownMenuItem>View payment details</DropdownMenuItem>
-    //           </DropdownMenuContent>
-    //         </DropdownMenu>
-    //     )
-    //   },
-    // },
+    {
+        id: "actions",
+        enableHiding: false,
+        cell: ({ row }) => {
+            const contribution = row.original
+
+            return (
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="h-8 w-8 p-0">
+                            <span className="sr-only">Open menu</span>
+                            <DotsHorizontalIcon className="h-4 w-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <DropdownMenuItem
+                            onClick={() => navigator.clipboard.writeText(contribution.id)}
+                        >
+                            Copy ID into clipboard
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem
+                            onClick={() => EditContribution(contribution.id)}
+                        >
+                            <Link to="/admin/contribution-edit/:id">
+                                <PenSquare className="mr-2" />Edit item
+                            </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem
+                            onClick={() => confirmDelete(contribution.id)}
+                        >
+                            {/* <Link to=""> */}
+                            <XSquare className="mr-2" />Delete
+                            {/* </Link> */}
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            )
+        },
+    },
 ]
 
 const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL;
@@ -145,6 +133,24 @@ const ContributionsList = () => {
     const [columnVisibility, setColumnVisibility] =
         React.useState<VisibilityState>({})
     const [rowSelection, setRowSelection] = React.useState({})
+
+    const [contributions, setContributions] = useState<Contribution[]>([]);
+
+    const deleteContribution = async (contribution: Contribution) => {
+        const confirmDelete = async () => {
+            try {
+                const response = await fetch(`${VITE_WEBSERVICE_URL}/contribution/delete/${contribution.id}`, { method: "DELETE" });
+
+                if (!response.ok) {
+                    throw new Error(`Failed to delete item: ${response.statusText}`);
+                }
+
+                setContributions(contributions.filter(c => c.id !== contribution.id));
+            } catch (error) {
+                console.log(contributions);
+            }
+        };
+    };
 
     useEffect(() => {
         fetch(`${VITE_WEBSERVICE_URL}/contribution`, {
@@ -267,6 +273,19 @@ const ContributionsList = () => {
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}>
                                             {flexRender(
+                                                // ({  }) => (
+                                                //     // Render the dropdown menu with delete functionality
+                                                //     // using the passed down props
+                                                //     <DropdownMenu>
+                                                //       {/* ... */}
+                                                //       <DropdownMenuItem
+                                                //         onClick={() => deleteContribution(row.original)} // Use row.original to access the contribution data
+                                                //       >
+                                                //         {/* ... */}
+                                                //       </DropdownMenuItem>
+                                                //       {/* ... */}
+                                                //     </DropdownMenu>
+                                                //   ),
                                                 cell.column.columnDef.cell,
                                                 cell.getContext()
                                             )}
@@ -311,6 +330,18 @@ const ContributionsList = () => {
                         disabled={!table.getCanNextPage()}
                     >
                         <ChevronRightIcon />
+                    </Button>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <Button
+                        variant="secondary"
+                        className="bg-white"
+                        size="rounded"
+                        onClick={() => deleteContribution()}
+                    >
+                        Edit
                     </Button>
                 </div>
             </div>

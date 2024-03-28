@@ -1,14 +1,15 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import {
   AllUsers,
+  ContributionsList,
   CreateContribution,
   EditPost,
-  // Empty,
+  EditContribution,
   Home,
   PostDetails,
   Profile,
   UpdateProfile,
-  // UsersList,
+  UsersList,
 } from "@/_root/pages";
 import RootLayout from "./_root/RootLayout";
 import { Toaster } from "@/components/ui/toaster";
@@ -49,7 +50,7 @@ const App = () => {
   if (!authenticated) {
     return (
       <main className="flex h-screen">
-        <Navigate replace to="/sign-in"/>
+        <Navigate replace to="/sign-in" />
         <Routes>
           <Route element={<AuthLayout />}>
             <Route path="/sign-in" element={<SigninForm />} />
@@ -65,7 +66,7 @@ const App = () => {
           {/* user routes */}
           <Route element={<RootLayout userData={userData} />}>
             <Route index element={<Home />} />
-            <Route path="/sign-in" element={ <Navigate replace to="/"/>} />
+            <Route path="/sign-in" element={<Navigate replace to="/" />} />
             <Route
               path="/create-contribution"
               element={<CreateContribution userData={userData} />}
@@ -84,10 +85,10 @@ const App = () => {
               element={<UpdateProfile userData={userData} />}
             />
             {/* admin routes */}
-            <Route path="/admin/users" element={<AllUsers />} />
             <Route path="/admin/all-users" element={<AllUsers />} />
-            {/* <Route path="/admin/contributions" element={<ContributionsList />} /> */}
-            {/* <Route path="/admin/congrats" element={<Empty />} /> */}
+            <Route path="/admin/users" element={<UsersList />} />
+            <Route path="/admin/contributions" element={<ContributionsList />} />
+            <Route path="/admin/contribution-edit/:id" element={<EditContribution />} />
           </Route>
         </Routes>
         <Toaster />
