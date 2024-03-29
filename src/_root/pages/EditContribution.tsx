@@ -1,9 +1,8 @@
 import { useParams } from "react-router-dom";
 
-import { Loader } from "@/components/shared";
-import PostForm from "@/components/forms/Contribution";
+import PostForm from "@/components/forms/ContributionForm";
 
-const EditPost = () => {
+const EditContribution = () => {
   const { id } = useParams();
 
   return (
@@ -26,4 +25,4 @@ const EditPost = () => {
   );
 };
 
-export default EditPost;
+export default EditContribution;
