@@ -16,8 +16,30 @@ import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMe
 
 import { Contribution } from "@/types";
 import { EditContribution } from ".";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export const columns: ColumnDef<Contribution>[] = [
+    {
+        accessorKey: "select",
+        header: ({ table }) => (
+            <Checkbox
+                checked={
+                    table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")
+                }
+                onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+                aria-label="Selected all"
+            />
+        ),
+        cell: ({ row }) => (
+            <Checkbox
+                checked={row.getIsSelected()}
+                onCheckedChange={(value) => row.toggleSelected(!!value)}
+                aria-label="Selected row"
+            />
+        ),
+        enableSorting: false,
+        enableHiding: false,
+    },
     {
         accessorKey: "id",
         header: "ID",
@@ -83,6 +105,24 @@ export const columns: ColumnDef<Contribution>[] = [
         cell: ({ row }) => {
             const contribution = row.original
 
+            const [contributions, setContributions] = useState<Contribution[]>([]);
+
+            const deleteContribution = async (contribution: Contribution) => {
+                const confirmDelete = async () => {
+                    try {
+                        const response = await fetch(`${VITE_WEBSERVICE_URL}/contribution/delete/${contribution.id}`, { method: "DELETE" });
+
+                        if (!response.ok) {
+                            throw new Error(`Failed to delete item: ${response.statusText}`);
+                        }
+
+                        setContributions(contributions.filter(c => c.id !== contribution.id));
+                    } catch (error) {
+                        console.log(contribution);
+                    }
+                };
+            };
+
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -102,13 +142,13 @@ export const columns: ColumnDef<Contribution>[] = [
                         <DropdownMenuItem
                             onClick={() => EditContribution(contribution.id)}
                         >
-                            <Link to="/admin/contribution-edit/:id">
+                            <Link to="/admin/contribution-edit/${contribution.id}">
                                 <PenSquare className="mr-2" />Edit item
                             </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
-                            onClick={() => confirmDelete(contribution.id)}
+                            onClick={() => deleteContribution(contribution.id)}
                         >
                             {/* <Link to=""> */}
                             <XSquare className="mr-2" />Delete
@@ -134,23 +174,23 @@ const ContributionsList = () => {
         React.useState<VisibilityState>({})
     const [rowSelection, setRowSelection] = React.useState({})
 
-    const [contributions, setContributions] = useState<Contribution[]>([]);
+    // const [contributions, setContributions] = useState<Contribution[]>([]);
 
-    const deleteContribution = async (contribution: Contribution) => {
-        const confirmDelete = async () => {
-            try {
-                const response = await fetch(`${VITE_WEBSERVICE_URL}/contribution/delete/${contribution.id}`, { method: "DELETE" });
+    // const deleteContribution = async (contribution: Contribution) => {
+    //     const confirmDelete = async () => {
+    //         try {
+    //             const response = await fetch(`${VITE_WEBSERVICE_URL}/contribution/delete/${contribution.id}`, { method: "DELETE" });
 
-                if (!response.ok) {
-                    throw new Error(`Failed to delete item: ${response.statusText}`);
-                }
+    //             if (!response.ok) {
+    //                 throw new Error(`Failed to delete item: ${response.statusText}`);
+    //             }
 
-                setContributions(contributions.filter(c => c.id !== contribution.id));
-            } catch (error) {
-                console.log(contributions);
-            }
-        };
-    };
+    //             setContributions(contributions.filter(c => c.id !== contribution.id));
+    //         } catch (error) {
+    //             console.log(contribution);
+    //         }
+    //     };
+    // };
 
     useEffect(() => {
         fetch(`${VITE_WEBSERVICE_URL}/contribution`, {
@@ -273,19 +313,6 @@ const ContributionsList = () => {
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}>
                                             {flexRender(
-                                                // ({  }) => (
-                                                //     // Render the dropdown menu with delete functionality
-                                                //     // using the passed down props
-                                                //     <DropdownMenu>
-                                                //       {/* ... */}
-                                                //       <DropdownMenuItem
-                                                //         onClick={() => deleteContribution(row.original)} // Use row.original to access the contribution data
-                                                //       >
-                                                //         {/* ... */}
-                                                //       </DropdownMenuItem>
-                                                //       {/* ... */}
-                                                //     </DropdownMenu>
-                                                //   ),
                                                 cell.column.columnDef.cell,
                                                 cell.getContext()
                                             )}
