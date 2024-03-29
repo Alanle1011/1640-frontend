@@ -1,4 +1,4 @@
-import ContributionForm from "@/components/forms/Contribution";
+import ContributionForm from "@/components/forms/ContributionForm";
 
 const EditUser = () => {
   return (

@@ -4,13 +4,14 @@ import {
   CreateUser,
   EditUser,
   CreateContribution,
-  EditPost,
   // Empty,
   Home,
   PostDetails,
   Profile,
   UpdateProfile,
   PendingContribution,
+  EditContribution,
+  MyContribution,
   // UsersList,
 } from "@/_root/pages";
 import RootLayout from "./_root/RootLayout";
@@ -47,12 +48,12 @@ const App = () => {
       setauthenticated(true);
     }
   });
-  console.log("authenticated", authenticated)
+  console.log("authenticated", authenticated);
 
   if (!authenticated) {
     return (
       <main className="flex h-screen">
-        <Navigate replace to="/sign-in"/>
+        <Navigate replace to="/sign-in" />
         <Routes>
           <Route element={<AuthLayout />}>
             <Route path="/sign-in" element={<SigninForm />} />
@@ -68,14 +69,14 @@ const App = () => {
           {/* user routes */}
           <Route element={<RootLayout userData={userData} />}>
             <Route index element={<Home />} />
-            <Route path="/sign-in" element={ <Navigate replace to="/"/>} />
+            <Route path="/sign-in" element={<Navigate replace to="/" />} />
             <Route
               path="/create-contribution"
               element={<CreateContribution userData={userData} />}
             />
             <Route
-              path="/update-post"
-              element={<EditPost userData={userData} />}
+              path="/update-contribution"
+              element={<EditContribution userData={userData} />}
             />
             <Route
               path="/posts"
@@ -85,6 +86,10 @@ const App = () => {
             <Route
               path="/update-profile"
               element={<UpdateProfile userData={userData} />}
+            />
+            <Route
+              path="/my"
+              element={<MyContribution userData={userData} />}
             />
             {/* admin routes */}
             <Route path="/admin/users" element={<AllUsers />} />
