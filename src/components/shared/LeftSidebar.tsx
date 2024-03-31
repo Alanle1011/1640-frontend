@@ -5,8 +5,6 @@ import { adminSidebarLinks, coordinatorSidebarLinks, managerSidebarLinks, sideba
 import { Button } from "../ui";
 import { useEffect, useState } from "react";
 
-// import { useUserContext, INITIAL_USER } from "@/context/AuthContext";
-
 const LeftSidebar: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
   const { pathname } = useLocation();
 

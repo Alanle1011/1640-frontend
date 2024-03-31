@@ -68,7 +68,7 @@ const App = () => {
         <Routes>
           {/* user routes */}
           <Route element={<RootLayout userData={userData} />}>
-            <Route index element={<Home />} />
+            <Route index element={<Home userData={userData} />} />
             <Route path="/sign-in" element={<Navigate replace to="/" />} />
             <Route
               path="/create-contribution"
