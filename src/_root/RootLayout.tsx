@@ -15,7 +15,7 @@ const RootLayout: React.FC<{userData: ILoginUser}> = ({userData}) => {
         <Outlet />
       </section>
 
-      <Bottombar />
+      <Bottombar  userData={userData}/>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 export { default as Bottombar } from "./Bottombar";
 export { default as LeftSidebar } from "./LeftSidebar";
-export { default as PostCard } from "./PostCard";
+export { default as ContributionCard } from "./ContributionCard.tsx";
 export { default as GridPostList } from "./GridPostList";
 export { default as Topbar } from "./Topbar";
 export { default as UserCard } from "./UserCard";
