@@ -75,8 +75,6 @@ export type Contribution = {
 }
 
 export type EditContribution = {
-  id: string,
-  uploadedUserId: string,
   title: string,
   content: string,
   imageId: string,
