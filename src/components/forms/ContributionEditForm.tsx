@@ -61,7 +61,7 @@ const ContributionEditForm = () => {
     // 2. Define a submit handler.
     function onSubmit(values: z.infer<typeof ContributionValidation>) {
         try {
-            saveContribution(values);
+            updateContribution(values);
             toast({title: "Successfully edited!"});
             navigate(-1);
         } catch (error) {
@@ -69,13 +69,12 @@ const ContributionEditForm = () => {
         }
     }
 
-    async function saveContribution(data: any) {
-        // debugger
+    async function updateContribution(data: any) {
         const contributionBody = {
             content: data.content,
             title: data.title,
         };
-
+        // Update Contribution
         const responseContribution = await fetch(`${VITE_WEBSERVICE_URL}/contribution/update/${id}`, {
             method: "PUT", // *GET, POST, PUT, DELETE, etc.
             headers: {
@@ -83,22 +82,23 @@ const ContributionEditForm = () => {
             },
             body: JSON.stringify(contributionBody), // body data type must match "Content-Type" header
         });
-
         const contribution = await responseContribution?.json();
-        // const contributionId = contribution.id;
 
+        // Update Image
         const imageBody = new FormData();
         imageBody.append('images', data.image[0]);
-        if (id) {
-            fetch(`${VITE_WEBSERVICE_URL}/image?contributionId=${id}`, {
+        if (contribution.imageId) {
+            fetch(`${VITE_WEBSERVICE_URL}/image?imageId=${contribution.imageId}`, {
                 method: "PUT", // *GET, POST, PUT, DELETE, etc.
                 body: imageBody, // body data type must match "Content-Type" header
             });
         }
+
+        // Update Doc
         const docBody = new FormData();
         docBody.append('doc', data.file);
-        if (id) {
-            fetch(`${VITE_WEBSERVICE_URL}/document?contributionId=${id}`, {
+        if (contribution.documentId) {
+            fetch(`${VITE_WEBSERVICE_URL}/document?documentId=${contribution.documentId}`, {
                 method: "PUT",
                 body: docBody,
             });
