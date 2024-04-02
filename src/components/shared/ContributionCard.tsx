@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import { multiFormatDateString } from "@/lib/utils";
 import { Contribution } from "@/_root/pages/Home";
 
-const ContributionCard: React.FC<{ contribution: Contribution }> = ({
+const ContributionCard: React.FC<{ contribution: Contribution}> = ({
   contribution,
 }) => {
+  const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
+
   if (!contribution.uploadedUserId) return;
 
   return (
@@ -34,7 +36,7 @@ const ContributionCard: React.FC<{ contribution: Contribution }> = ({
         </div>
       </div>
 
-      <Link to={`/contributions/`}>
+      <Link to={`/contributions/${contribution.id}`}>
         <div className="small-medium lg:base-medium py-5">
         <p>{contribution.content}</p>
         <ul className="flex gap-1 mt-2">
@@ -44,19 +46,15 @@ const ContributionCard: React.FC<{ contribution: Contribution }> = ({
               </li>
           </ul>
         </div>
-        <img
-          src={contribution.imageId || "/assets/icons/profile-placeholder.svg"}
+        <div>
+      
+        <img  src={`${VITE_WEBSERVICE_URL}/image/download/${contribution.imageId}`} 
           alt="contribution image"
           className="contribution-card_img"
-        />
-        {/* <img
-          src={contribution.imageUrl || "/assets/icons/profile-placeholder.svg"}
-          alt="contribution image"
-          className="contribution-card_img"
-        /> */}
+          />
+        </div>
+        
       </Link>
-
-      {/* <contributionStats contribution={contribution} userId={user.id} /> */}
     </div>
   );
 };
