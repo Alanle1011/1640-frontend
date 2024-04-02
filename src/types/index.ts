@@ -48,8 +48,8 @@ export type INewUser = {
 };
 
 export type ILoginUser = {
-  status:boolean
-  userId:number,
+  status: boolean
+  userId: number,
   role: string,
   name: string,
   faculty: string,
@@ -63,3 +63,35 @@ export type ImageUploaderProps = {
   fieldChange: (files: File[]) => void;
   mediaUrl: string;
 };
+
+export type Contribution = {
+  id: string,
+  uploadedUserId: string,
+  title: string,
+  content: string,
+  imageId: string,
+  documentId: string,
+  submissionPeriodId: string,
+}
+
+export type EditContribution = {
+  title: string,
+  content: string,
+  imageId: string,
+  documentId: string,
+}
+
+export type User = {
+  id: string
+  name: string
+  faculty: string
+  email: string,
+  userRole: string,
+}
+
+export type EditUser = {
+  name: string
+  faculty: string
+  email: string,
+  userRole: string,
+}

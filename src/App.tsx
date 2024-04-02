@@ -9,8 +9,11 @@ import {
   Profile,
   UpdateProfile,
   PendingContribution,
-  EditContribution,
   MyContribution,
+  PostDetails,
+  ContributionsList,
+  EditContribution,
+  DetailedContribution,
   // UsersList,
 } from "@/_root/pages";
 import RootLayout from "./_root/RootLayout";
@@ -23,7 +26,6 @@ import AuthLayout from "./_auth/AuthLayout";
 import SigninForm from "./_auth/SigninForm";
 import React, { useEffect, useState } from "react";
 import { ILoginUser } from "./types";
-import ContributionDetails from "./_root/pages/ContributionDetails";
 
 const App = () => {
   const [userData, setUserData] = useState<ILoginUser>(
@@ -80,7 +82,7 @@ const App = () => {
             />
             <Route
               path="/contributions"
-              element={<ContributionDetails userData={userData} />}
+              element={<PostDetails userData={userData} />}
             />
             <Route
               path="/profile"
@@ -101,7 +103,9 @@ const App = () => {
             <Route path="/admin/edit-user" element={<EditUser />} />
             <Route path="/admin/pending" element={<PendingContribution />} />
 
-            {/* <Route path="/admin/contributions" element={<ContributionsList />} /> */}
+            <Route path="/admin/contributions" element={<ContributionsList />} />
+            <Route path="/admin/contribution-edit/:id" element={<EditContribution />} />
+            <Route path="/admin/contribution-detailed/:id" element={<DetailedContribution />} />
             {/* <Route path="/admin/congrats" element={<Empty />} /> */}
           </Route>
         </Routes>
