@@ -1,47 +1,46 @@
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import {z} from "zod";
+import {zodResolver} from "@hookform/resolvers/zod";
 
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useForm} from "react-hook-form";
+import {useNavigate, useParams} from "react-router-dom";
 
-import { ILoginUser, EditContribution } from "@/types";
-import { ContributionValidation } from "@/lib/validation";
+import {ContributionValidation} from "@/lib/validation";
 
-import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Textarea, useToast } from "@/components/ui";
-import { ImageUploader, FileUploader } from "@/components/shared";
-import { error } from "console";
+import {
+    Button,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+    Input,
+    Textarea,
+    useToast
+} from "@/components/ui";
+import {FileUploader, ImageUploader} from "@/components/shared";
 
 const ContributionEditForm = () => {
-    const { contributionId } = useParams();
+    const {id} = useParams();
     const navigate = useNavigate();
-    const { toast } = useToast()
+    const {toast} = useToast()
     const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || ""
-    // @ts-ignore
-    const [uploadedUserId, setUploadedUserId] = useState<ILoginUser>(JSON.parse(localStorage.getItem("userData")) || null);
-
     const [contribution, setContribution] = useState(null);
-
-    useEffect(() => {
-        const userData = JSON.parse(localStorage.getItem("userData") || '""');
-        if (userData) {
-            // @ts-ignore
-            setUploadedUserId(userData);
-        }
-    }, []);
+    const [contributionImage, setContributionImage] = useState("");
 
     const form = useForm<z.infer<typeof ContributionValidation>>({
         resolver: zodResolver(ContributionValidation),
         defaultValues: {
             title: "",
             content: "",
-
         }
     });
 
+    // 1. GET Contribution
     console.log(contribution)
     useEffect(() => {
-        fetch(`${VITE_WEBSERVICE_URL}/contribution/${contributionId}`)
+        fetch(`${VITE_WEBSERVICE_URL}/contribution/${id}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -49,57 +48,57 @@ const ContributionEditForm = () => {
 
                 return response.json();
             })
-
-            .then(data => {
-                setContribution(data);
-                form.setValue("title", data.title);
-                form.setValue("content", data.content);
+            .then(response => {
+                debugger
+                setContribution(response);
+                setContributionImage(`${VITE_WEBSERVICE_URL}/image/download/${response.imageId}`)
+                form.setValue("title", response.title);
+                form.setValue("content", response.content);
             })
-
             .catch(error => console.error("Error fetching:", error));
-    }, [contributionId, form]);
+    }, [id, form]);
 
     // 2. Define a submit handler.
     function onSubmit(values: z.infer<typeof ContributionValidation>) {
         try {
-            saveContribution(values);
-            toast({ title: "Successfully edited!" });
+            updateContribution(values);
+            toast({title: "Successfully edited!"});
             navigate(-1);
         } catch (error) {
             console.error("Error editing:", error);
         }
-    };
+    }
 
-    async function saveContribution(data: any) {
-        // debugger
+    async function updateContribution(data: any) {
         const contributionBody = {
             content: data.content,
             title: data.title,
         };
-
-        const responseContribution = await fetch(`${VITE_WEBSERVICE_URL}/contribution/update/${contributionId}`, {
+        // Update Contribution
+        const responseContribution = await fetch(`${VITE_WEBSERVICE_URL}/contribution/update/${id}`, {
             method: "PUT", // *GET, POST, PUT, DELETE, etc.
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(contributionBody), // body data type must match "Content-Type" header
         });
-
         const contribution = await responseContribution?.json();
-        // const contributionId = contribution.id;
 
+        // Update Image
         const imageBody = new FormData();
         imageBody.append('images', data.image[0]);
-        if (contributionId) {
-            fetch(`${VITE_WEBSERVICE_URL}/image?contributionId=${contributionId}`, {
+        if (contribution.imageId) {
+            fetch(`${VITE_WEBSERVICE_URL}/image?imageId=${contribution.imageId}`, {
                 method: "PUT", // *GET, POST, PUT, DELETE, etc.
                 body: imageBody, // body data type must match "Content-Type" header
             });
         }
+
+        // Update Doc
         const docBody = new FormData();
         docBody.append('doc', data.file);
-        if (contributionId) {
-            fetch(`${VITE_WEBSERVICE_URL}/document?contributionId=${contributionId}`, {
+        if (contribution.documentId) {
+            fetch(`${VITE_WEBSERVICE_URL}/document?documentId=${contribution.documentId}`, {
                 method: "PUT",
                 body: docBody,
             });
@@ -117,20 +116,20 @@ const ContributionEditForm = () => {
                 <FormField
                     control={form.control}
                     name="title"
-                    render={({ field }) => (
+                    render={({field}) => (
                         <FormItem>
                             <FormLabel className="shad-form_label">Title</FormLabel>
                             <FormControl>
                                 <Input type="input" className="shad-input" {...field} />
                             </FormControl>
-                            <FormMessage className="shad-form_message" />
+                            <FormMessage className="shad-form_message"/>
                         </FormItem>
                     )}
                 />
                 <FormField
                     control={form.control}
                     name="content"
-                    render={({ field }) => (
+                    render={({field}) => (
                         <FormItem>
                             <FormLabel className="shad-form_label">Content</FormLabel>
                             <FormControl>
@@ -139,30 +138,30 @@ const ContributionEditForm = () => {
                                     {...field}
                                 />
                             </FormControl>
-                            <FormMessage className="shad-form_message" />
+                            <FormMessage className="shad-form_message"/>
                         </FormItem>
                     )}
                 />
                 <FormField
                     control={form.control}
                     name="image"
-                    render={({ field }) => (
+                    render={({field}) => (
                         <FormItem>
                             <FormLabel className="shad-form_label">Add Photos</FormLabel>
                             <FormControl>
                                 <ImageUploader
                                     fieldChange={field.onChange}
-                                    mediaUrl={""}
+                                    mediaUrl={contributionImage}
                                 />
                             </FormControl>
-                            <FormMessage className="shad-form_message" />
+                            <FormMessage className="shad-form_message"/>
                         </FormItem>
                     )}
                 />
                 <FormField
                     control={form.control}
                     name="file"
-                    render={({ field }) => (
+                    render={({field}) => (
                         <FormItem>
                             <FormLabel className="shad-form_label">Add Files</FormLabel>
                             <FormControl>
@@ -170,7 +169,7 @@ const ContributionEditForm = () => {
                                     fieldChange={field.onChange}
                                 />
                             </FormControl>
-                            <FormMessage className="shad-form_message" />
+                            <FormMessage className="shad-form_message"/>
                         </FormItem>
                     )}
                 />
@@ -184,7 +183,7 @@ const ContributionEditForm = () => {
                     <Button
                         type="submit"
                         className="shad-button_primary whitespace-nowrap"
-                    // disabled={isLoadingCreate || isLoadingUpdate}
+                        // disabled={isLoadingCreate || isLoadingUpdate}
                     >
                         {/* {(isLoadingCreate || isLoadingUpdate) && <Loader />} */}
                         Save

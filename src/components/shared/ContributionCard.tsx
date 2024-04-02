@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 
-import { multiFormatDateString } from "@/lib/utils";
 import { Contribution } from "@/_root/pages/Home";
 
 const ContributionCard: React.FC<{ contribution: Contribution}> = ({
