@@ -6,9 +6,9 @@ import LeftSidebar from "@/components/shared/LeftSidebar";
 import { ILoginUser } from "@/types";
 
 const AdminLayout: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
-  const navigate = useNavigate();
-  if (userData.role !== "ADMIN") {
-    navigate(-1);
+  if (!["ADMIN", "MANAGER", "COORDINATOR"].includes(userData.role)) {
+    window.history.back();
+    window.location.reload();
   }
 
   return (

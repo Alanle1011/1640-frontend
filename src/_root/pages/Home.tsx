@@ -28,7 +28,7 @@ const Home: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
   const [documentData, setDocumentData] = useState<Document[]>();
 
   useEffect(() => {
-    fetch(`${VITE_WEBSERVICE_URL}/contribution`, {
+    fetch(`${VITE_WEBSERVICE_URL}/contribution/approved`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
