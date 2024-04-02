@@ -8,8 +8,8 @@ const ContributionDetailedForm = () => {
     const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
 
     const [contribution, setContribution] = useState<any>(null);
-    const [contributionImage, setContributionImage] = useState("");
-    const [contributionFile, setContributionFile] = useState("");
+    const [contributionImage, setContributionImage] = useState<string>();
+    const [contributionFile, setContributionFile] = useState<string>();
 
     // 1. GET Contribution
     console.log(contribution)
@@ -29,8 +29,12 @@ const ContributionDetailedForm = () => {
             })
             .then(response => {
                 setContribution(response);
-                setContributionImage(`${VITE_WEBSERVICE_URL}/image/download/${response.imageId}`)
-                setContributionFile(`${VITE_WEBSERVICE_URL}/document/pdf-localconverter/${response.documentId}`)
+                if(response.imageId) {
+                    setContributionImage(`${VITE_WEBSERVICE_URL}/image/${response.imageId}`)
+                }
+                if(response.documentId) {
+                    setContributionFile(`${VITE_WEBSERVICE_URL}/document/pdf/${response.documentId}`)
+                }
             })
             .catch(error => console.error("Error fetching:", error));
     }, [id]);
@@ -49,16 +53,21 @@ const ContributionDetailedForm = () => {
             <div className="shad-input">
                 {contribution?.content}
             </div>
-            <div>
-                <h1>Image</h1>
-            </div>
-            <div className="flex flex-1 justify-center w-full h-full p-5 lg:p-10">
-                <img src={contributionImage} alt="image" className="object-contain w-[500px] h-[500px] "/>
-            </div>
-            <div>
-                <h1>DOCUMENT</h1>
-            </div>
-            <iframe className={'w-full h-screen p-2'} src={contributionFile}/>
+            {contributionImage && <div>
+                    <div>
+                        <h1>Image</h1>
+                    </div>
+                    <div className="flex flex-1 justify-center w-full h-full p-5 lg:p-10">
+                        <img src={contributionImage} alt="image" className="object-contain w-[500px] h-[500px] "/>
+                    </div>
+                </div>
+            }
+            {contributionFile &&
+                <div>
+                    <h1>DOCUMENT</h1>
+                    <iframe className={'w-full h-screen p-2'} src={contributionFile}/>
+                </div>
+            }
         </div>
 
     )

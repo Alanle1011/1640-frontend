@@ -38,9 +38,15 @@ const ContributionEditForm = () => {
     });
 
     // 1. GET Contribution
-    console.log(contribution)
+    console.log("contribution", contribution)
     useEffect(() => {
-        fetch(`${VITE_WEBSERVICE_URL}/contribution/${id}`)
+        fetch(`${VITE_WEBSERVICE_URL}/contribution/${id}`,
+            {
+                method: "GET",
+                headers: {
+                    "ngrok-skip-browser-warning": "69420",
+                },
+            })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -51,7 +57,9 @@ const ContributionEditForm = () => {
             .then(response => {
                 debugger
                 setContribution(response);
-                setContributionImage(`${VITE_WEBSERVICE_URL}/image/download/${response.imageId}`)
+                if(response.imageId) {
+                    setContributionImage(`${VITE_WEBSERVICE_URL}/image/${response.imageId}`)
+                }
                 form.setValue("title", response.title);
                 form.setValue("content", response.content);
             })
