@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import DocViewer, {DocViewerRenderers} from "@cyntler/react-doc-viewer";
+
 
 const ContributionDetailedForm = () => {
     const {id} = useParams();
@@ -14,7 +14,12 @@ const ContributionDetailedForm = () => {
     // 1. GET Contribution
     console.log(contribution)
     useEffect(() => {
-        fetch(`${VITE_WEBSERVICE_URL}/contribution/${id}`)
+        fetch(`${VITE_WEBSERVICE_URL}/contribution/${id}`, {
+            method: "GET",
+            headers: {
+                "ngrok-skip-browser-warning": "69420",
+            },
+        })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -25,7 +30,7 @@ const ContributionDetailedForm = () => {
             .then(response => {
                 setContribution(response);
                 setContributionImage(`${VITE_WEBSERVICE_URL}/image/download/${response.imageId}`)
-                setContributionFile(`${VITE_WEBSERVICE_URL}/document/${response.documentId}`)
+                setContributionFile(`${VITE_WEBSERVICE_URL}/document/pdf-localconverter/${response.documentId}`)
             })
             .catch(error => console.error("Error fetching:", error));
     }, [id]);
@@ -53,12 +58,7 @@ const ContributionDetailedForm = () => {
             <div>
                 <h1>DOCUMENT</h1>
             </div>
-            <DocViewer documents={[
-                {
-                    uri: contributionFile,
-                }
-            ]} pluginRenderers={DocViewerRenderers}/>
-
+            <iframe className={'w-full h-screen p-2'} src={contributionFile}/>
         </div>
 
     )
