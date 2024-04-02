@@ -11,24 +11,20 @@ export type Contribution = {
   documentId: string;
   updatedAt: string;
   uploadedUserName: string;
+  // faculty:string;
   submissionPeriod: string;
-};
-
-export type Image = {
-  id: string;
-  imageId: File[];
+  doc: Document;
 };
 
 export type Document = {
   id: string;
-  documentId: File[];
+  document: File[];
 };
 
 const Home: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
   const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
 
   const [contributionData, setContributionData] = useState<Contribution[]>();
-  const [imageData, setImageData] = useState<Image[]>();
   const [documentData, setDocumentData] = useState<Document[]>();
 
   useEffect(() => {
@@ -45,20 +41,18 @@ const Home: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
       .then((data) => {
         console.log(data);
         setContributionData(data);
-        setImageData(data);
-        setDocumentData(data);
       });
   }, []);
 
+
   console.log("contributionData", contributionData);
-  console.log("imageData", imageData);
   console.log("documentData", documentData);
 
   return (
     <div className="flex flex-1">
       <div className="home-container">
         <div className="home-contributions">
-          <h2 className="h3-bold md:h2-bold text-left w-full">Home Feed</h2>
+          <h2 className="h3-bold md:h2-bold text-left w-full">Show us ur design game Taylor - your dad</h2>
 
           <ul className="flex flex-col flex-1 gap-9 w-full ">
             {contributionData?.map((contribution: Contribution) => (

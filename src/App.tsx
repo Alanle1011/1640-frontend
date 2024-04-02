@@ -7,7 +7,6 @@ import {
   EditUser,
   // Empty,
   Home,
-  PostDetails,
   Profile,
   UpdateProfile,
   UsersList,
@@ -26,6 +25,7 @@ import AuthLayout from "./_auth/AuthLayout";
 import SigninForm from "./_auth/SigninForm";
 import React, { useEffect, useState } from "react";
 import { ILoginUser } from "./types";
+import ContributionDetails from "./_root/pages/ContributionDetails";
 
 const App = () => {
   const [userData, setUserData] = useState<ILoginUser>(
@@ -81,10 +81,13 @@ const App = () => {
               element={<EditContribution userData={userData} />}
             />
             <Route
-              path="/posts"
-              element={<PostDetails userData={userData} />}
+              path="/contributions"
+              element={<ContributionDetails userData={userData} />}
             />
-            <Route path="/profile" element={<Profile userData={userData} />} />
+            <Route
+              path="/profile"
+              element={<Profile userData={userData} />}
+            />
             <Route
               path="/update-profile"
               element={<UpdateProfile userData={userData} />}
