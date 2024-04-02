@@ -1,19 +1,16 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui";
-import { Loader } from "@/components/shared";
-import { GridPostList, PostStats } from "@/components/shared";
-
+import { GridPostList } from "@/components/shared";
 
 import { multiFormatDateString } from "@/lib/utils";
 
-
-const PostDetails = () => {
+const ContributionDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   return (
     <div className="post_details-container">
-      {/* <div className="hidden md:flex max-w-5xl w-full">
+      <div className="hidden md:flex max-w-5xl w-full">
         <Button
           onClick={() => navigate(-1)}
           variant="ghost"
@@ -27,11 +24,7 @@ const PostDetails = () => {
           <p className="small-medium lg:base-medium">Back</p>
         </Button>
       </div>
-
-      {isLoading || !post ? (
-        <Loader />
-      ) : (
-        <div className="post_details-card">
+      <div className="post_details-card">
           <img
             src={post?.imageUrl}
             alt="creator"
@@ -115,6 +108,12 @@ const PostDetails = () => {
             </div>
           </div>
         </div>
+      {/* 
+
+      {isLoading || !post ? (
+        <Loader />
+      ) : (
+        
       )}
 
       <div className="w-full max-w-5xl">
@@ -133,4 +132,4 @@ const PostDetails = () => {
   );
 };
 
-export default PostDetails;
+export default ContributionDetails;
