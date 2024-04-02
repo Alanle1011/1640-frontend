@@ -88,7 +88,7 @@ const App = () => {
             <Route path="/admin/all-users" element={<AllUsers />} />
             <Route path="/admin/users" element={<UsersList />} />
             <Route path="/admin/contributions" element={<ContributionsList />} />
-            <Route path="/admin/contribution-edit/:id" element={<EditContribution />} />
+            <Route path="/admin/contribution-edit/:contributionId" element={<EditContribution />} />
           </Route>
         </Routes>
         <Toaster />

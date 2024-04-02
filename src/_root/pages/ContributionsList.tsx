@@ -118,6 +118,13 @@ export const columns: ColumnDef<Contribution>[] = [
         enableHiding: false,
         cell: ({ row }) => {
             const contribution = row.original
+
+            const editContribution = (contributionId: string) => {
+                window.open(`/admin/contribution-edit/${contributionId}`
+                // , "_blank"
+                );
+            };
+
             const deleteContribution = async (contributionId: string) => {
                 if (!!contribution.id) {
                     try {
@@ -153,10 +160,12 @@ export const columns: ColumnDef<Contribution>[] = [
                             Copy ID into clipboard
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>
-                            <Link to={`/admin/contribution-edit/${contribution.id}`}>
+                        <DropdownMenuItem
+                            onClick={() => editContribution(contribution.id)}
+                        >
+                            {/* <Link to={`/admin/contribution-edit/${contribution.id}`}> */}
                                 <PenSquare className="flex flex-row mr-2" />Edit
-                            </Link>
+                            {/* </Link> */}
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>

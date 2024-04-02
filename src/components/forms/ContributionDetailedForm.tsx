@@ -12,8 +12,9 @@ import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage,
 import { ImageUploader, FileUploader } from "@/components/shared";
 import { error } from "console";
 
-const ContributionEditForm = () => {
+const ContributionDetailedForm = () => {
     const { contributionId } = useParams();
+
     const navigate = useNavigate();
     const { toast } = useToast()
     const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || ""
@@ -39,7 +40,6 @@ const ContributionEditForm = () => {
         }
     });
 
-    console.log(contribution)
     useEffect(() => {
         fetch(`${VITE_WEBSERVICE_URL}/contribution/${contributionId}`)
             .then(response => {
@@ -194,4 +194,4 @@ const ContributionEditForm = () => {
         </Form>
     );
 };
-export default ContributionEditForm;
+export default ContributionDetailedForm;
