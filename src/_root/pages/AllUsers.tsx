@@ -37,6 +37,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import {undefined} from "zod";
+import { Link } from "react-router-dom";
 
 export type User = {
   id: string
@@ -289,6 +290,18 @@ const AllUsers = ()=> {
                 disabled={!table.getCanNextPage()}
             >
               Next
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+            >
+              <Link to = "/admin/create-user">Add</Link>
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+            >
+              <Link to = "/admin/edit-user">Edit</Link>
             </Button>
           </div>
         </div>

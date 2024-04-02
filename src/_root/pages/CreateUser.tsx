@@ -1,6 +1,6 @@
 import ContributionForm from "@/components/forms/ContributionForm";
 
-const CreateContribution = () => {
+const CreateUser = () => {
   return (
     <div className="flex flex-1">
       <div className="common-container">
@@ -11,7 +11,7 @@ const CreateContribution = () => {
             height={36}
             alt="add"
           />
-          <h2 className="h3-bold md:h2-bold text-left w-full">Create Contribution</h2>
+          <h2 className="h3-bold md:h2-bold text-left w-full">Create New User</h2>
         </div>
 
         <ContributionForm />
@@ -20,4 +20,4 @@ const CreateContribution = () => {
   );
 };
 
-export default CreateContribution;
+export default CreateUser;

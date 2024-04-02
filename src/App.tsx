@@ -5,11 +5,19 @@ import {
   CreateContribution,
   EditPost,
   EditContribution,
+  CreateUser,
+  EditUser,
+  CreateContribution,
+  // Empty,
   Home,
   PostDetails,
   Profile,
   UpdateProfile,
   UsersList,
+  PendingContribution,
+  EditContribution,
+  MyContribution,
+  // UsersList,
 } from "@/_root/pages";
 import RootLayout from "./_root/RootLayout";
 import { Toaster } from "@/components/ui/toaster";
@@ -19,7 +27,7 @@ import "./globals.css";
 // import ContributionsList from "./_root/pages/ContributionsList";
 import AuthLayout from "./_auth/AuthLayout";
 import SigninForm from "./_auth/SigninForm";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ILoginUser } from "./types";
 
 const App = () => {
@@ -45,7 +53,7 @@ const App = () => {
       setauthenticated(true);
     }
   });
-  console.log("authenticated", authenticated)
+  console.log("authenticated", authenticated);
 
   if (!authenticated) {
     return (
@@ -65,15 +73,15 @@ const App = () => {
         <Routes>
           {/* user routes */}
           <Route element={<RootLayout userData={userData} />}>
-            <Route index element={<Home />} />
+            <Route index element={<Home userData={userData} />} />
             <Route path="/sign-in" element={<Navigate replace to="/" />} />
             <Route
               path="/create-contribution"
               element={<CreateContribution userData={userData} />}
             />
             <Route
-              path="/update-post"
-              element={<EditPost userData={userData} />}
+              path="/update-contribution"
+              element={<EditContribution userData={userData} />}
             />
             <Route
               path="/posts"
@@ -84,11 +92,21 @@ const App = () => {
               path="/update-profile"
               element={<UpdateProfile userData={userData} />}
             />
+            <Route
+              path="/my"
+              element={<MyContribution userData={userData} />}
+            />
             {/* admin routes */}
             <Route path="/admin/all-users" element={<AllUsers />} />
             <Route path="/admin/users" element={<UsersList />} />
             <Route path="/admin/contributions" element={<ContributionsList />} />
             <Route path="/admin/contribution-edit/:contributionId" element={<EditContribution />} />
+            <Route path="/admin/create-user" element={<CreateUser />} />
+            <Route path="/admin/edit-user" element={<EditUser />} />
+            <Route path="/admin/pending" element={<PendingContribution />} />
+
+            {/* <Route path="/admin/contributions" element={<ContributionsList />} /> */}
+            {/* <Route path="/admin/congrats" element={<Empty />} /> */}
           </Route>
         </Routes>
         <Toaster />

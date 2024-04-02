@@ -10,14 +10,26 @@ export const sidebarLinks = [
     label: "My Contributions",
   },
   {
-    imgURL: "/assets/icons/people.svg",
-    route: "/all-users",
-    label: "People",
-  },
-  {
     imgURL: "/assets/icons/gallery-add.svg",
     route: "/create-contribution",
     label: "Create Contribution",
+  },
+];
+export const adminSidebarLinks = [
+  {
+    imgURL: "/assets/icons/home.svg",
+    route: "/",
+    label: "Home",
+  },
+  {
+    imgURL: "/assets/icons/wallpaper.svg",
+    route: "/admin/pending",
+    label: "Pending Contributions",
+  },
+  {
+    imgURL: "/assets/icons/people.svg",
+    route: "/admin/all-users",
+    label: "All Users",
   },
 ];
 
@@ -29,13 +41,8 @@ export const bottombarLinks = [
   },
   {
     imgURL: "/assets/icons/wallpaper.svg",
-    route: "/explore",
-    label: "Explore",
-  },
-  {
-    imgURL: "/assets/icons/bookmark.svg",
-    route: "/saved",
-    label: "Saved",
+    route: "/my",
+    label: "My",
   },
   {
     imgURL: "/assets/icons/gallery-add.svg",
@@ -43,29 +50,44 @@ export const bottombarLinks = [
     label: "Create",
   },
 ];
-
-export const adminSidebarLinks = [
+export const adminBottombarLinks = [
   {
-    imgURL: "/assets/icons/people.svg",
-    route: "/admin/users",
-    label: "Users",
+    imgURL: "/assets/icons/home.svg",
+    route: "/",
+    label: "Home",
   },
   {
-    imgURL: "/assets/icons/bookmark.svg",
-    route: "/admin/contributions",
+    imgURL: "/assets/icons/wallpaper.svg",
+    route: "/admin/pending",
+    label: "Pending Contributions",
+  },
+  {
+    imgURL: "/assets/icons/people.svg",
+    route: "/admin/all-users",
+    label: "All Users",
+  },
+];
+export const coordinatorSidebarLinks = [
+  {
+    imgURL: "/assets/icons/home.svg",
+    route: "/",
+    label: "Home",
+  },
+  {
+    imgURL: "/assets/icons/wallpaper.svg",
+    route: "/my",
     label: "Contributions",
   },
 ];
-
-export const adminBottombarLinks = [
+export const managerSidebarLinks = [
   {
-    imgURL: "/assets/icons/people.svg",
-    route: "/admin/users",
-    label: "Users",
+    imgURL: "/assets/icons/home.svg",
+    route: "/",
+    label: "Home",
   },
   {
-    imgURL: "/assets/icons/bookmark.svg",
-    route: "/admin/contributions",
+    imgURL: "/assets/icons/wallpaper.svg",
+    route: "/my",
     label: "Contributions",
   },
 ];
