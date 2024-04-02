@@ -47,7 +47,7 @@ const ContributionCard: React.FC<{ contribution: Contribution}> = ({
         </div>
         <div>
       
-        <img  src={`${VITE_WEBSERVICE_URL}/image/download/${contribution.imageId}`} 
+        <img  src={`${VITE_WEBSERVICE_URL}/image/${contribution.imageId}`}
           alt="contribution image"
           className="contribution-card_img"
           />
