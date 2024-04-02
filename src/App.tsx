@@ -9,23 +9,19 @@ import {
   Profile,
   UpdateProfile,
   PendingContribution,
-  MyContribution,
-  PostDetails,
-  ContributionsList,
   EditContribution,
-  DetailedContribution,
+  MyContribution,
   // UsersList,
 } from "@/_root/pages";
 import RootLayout from "./_root/RootLayout";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
-
-// import ContributionForm from "./components/forms/ContributionForm";
-// import ContributionsList from "./_root/pages/ContributionsList";
 import AuthLayout from "./_auth/AuthLayout";
 import SigninForm from "./_auth/SigninForm";
 import React, { useEffect, useState } from "react";
 import { ILoginUser } from "./types";
+import ContributionDetails from "./_root/pages/ContributionDetails";
+import AdminLayout from "./_root/AdminLayout";
 
 const App = () => {
   const [userData, setUserData] = useState<ILoginUser>(
@@ -82,12 +78,9 @@ const App = () => {
             />
             <Route
               path="/contributions"
-              element={<PostDetails userData={userData} />}
+              element={<ContributionDetails userData={userData} />}
             />
-            <Route
-              path="/profile"
-              element={<Profile userData={userData} />}
-            />
+            <Route path="/profile" element={<Profile userData={userData} />} />
             <Route
               path="/update-profile"
               element={<UpdateProfile userData={userData} />}
@@ -96,16 +89,14 @@ const App = () => {
               path="/my"
               element={<MyContribution userData={userData} />}
             />
+          </Route>
+          <Route element={<AdminLayout userData={userData} />}>
             {/* admin routes */}
-            <Route path="/admin/users" element={<AllUsers />} />
-            <Route path="/admin/all-users" element={<AllUsers />} />
-            <Route path="/admin/create-user" element={<CreateUser />} />
-            <Route path="/admin/edit-user" element={<EditUser />} />
-            <Route path="/admin/pending" element={<PendingContribution />} />
-
-            <Route path="/admin/contributions" element={<ContributionsList />} />
-            <Route path="/admin/contribution-edit/:id" element={<EditContribution />} />
-            <Route path="/admin/contribution-detailed/:id" element={<DetailedContribution />} />
+            <Route path="/users" element={<AllUsers />} />
+            <Route path="/create-user" element={<CreateUser />} />
+            <Route path="/edit-user" element={<EditUser />} />
+            <Route path="/pending" element={<PendingContribution />} />
+            {/* <Route path="/admin/contributions" element={<ContributionsList />} /> */}
             {/* <Route path="/admin/congrats" element={<Empty />} /> */}
           </Route>
         </Routes>

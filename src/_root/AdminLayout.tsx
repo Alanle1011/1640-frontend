@@ -6,9 +6,10 @@ import LeftSidebar from "@/components/shared/LeftSidebar";
 import { ILoginUser } from "@/types";
 
 const AdminLayout: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
+  const navigate = useNavigate();
   if (userData.role !== "ADMIN") {
-    
-}
+    navigate(-1);
+  }
 
   return (
     <div className="w-full md:flex">
