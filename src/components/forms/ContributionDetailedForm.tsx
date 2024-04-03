@@ -1,10 +1,27 @@
-import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {z} from "zod";
+import {zodResolver} from "@hookform/resolvers/zod";
 
+import {useEffect, useState} from "react";
+import {useForm} from "react-hook-form";
+import {useNavigate, useParams} from "react-router-dom";
+
+import {
+    Button,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+    Input,
+    Textarea,
+    useToast
+} from "@/components/ui";
 
 const ContributionDetailedForm = () => {
     const {id} = useParams();
-
+    const navigate = useNavigate();
+    
     const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
 
     const [contribution, setContribution] = useState<any>(null);
