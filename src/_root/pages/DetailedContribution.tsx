@@ -1,13 +1,20 @@
-import { useParams } from "react-router-dom";
 import ContributionDetailedForm from "@/components/forms/ContributionDetailedForm";
+import {Button} from "@/components/ui";
+import {useNavigate} from "react-router-dom";
 
 const DetailedContribution = () => {
-    const { id } = useParams();
+    const navigate = useNavigate();
 
     return (
         <div className="flex flex-1">
             <div className="common-container">
                 <div className="max-w-5xl flex-start gap-3 justify-start w-full">
+                    <Button
+                        type="button"
+                        className="shad-button_primary_4"
+                        onClick={() => navigate(-1)}>
+                        Back
+                    </Button>
                     <img
                         src="/assets/icons/edit.svg"
                         width={36}
@@ -16,8 +23,7 @@ const DetailedContribution = () => {
                     />
                     <h2 className="h3-bold md:h2-bold text-left w-full">Contribution Details</h2>
                 </div>
-
-                <ContributionDetailedForm />
+                <ContributionDetailedForm/>
             </div>
         </div>
     );

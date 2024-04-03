@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import {
   AllUsers,
   CreateUser,
@@ -25,44 +25,47 @@ import AdminLayout from "./_root/AdminLayout";
 import UserLayout from "./_root/UserLayout";
 import ManagerLayout from "./_root/ManagerLayout";
 
+
 const App = () => {
-  const [userData, setUserData] = useState<ILoginUser>(
-    JSON.parse(localStorage.getItem("userData")) || null
-  );
 
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("userData") || '""');
-    if (data) {
-      setUserData(data);
-    }
-  }, []);
-  const [authenticated, setauthenticated] = useState(
-    localStorage.getItem("authenticated") || false
-  );
-
-  useEffect(() => {
-    const items = localStorage.getItem("authenticated");
-    // @ts-ignore
-    if (items === true) {
-      // @ts-ignore
-      setauthenticated(true);
-    }
-  });
-  console.log("authenticated", authenticated);
-
-  if (!authenticated) {
-    return (
-      <main className="flex h-screen">
-        <Navigate replace to="/sign-in" />
-        <Routes>
-          <Route element={<AuthLayout />}>
-            <Route path="/sign-in" element={<SigninForm />} />
-          </Route>
-        </Routes>
-        <Toaster />
-      </main>
+    const [userData, setUserData] = useState<ILoginUser>(
+        // @ts-ignore
+        JSON.parse(localStorage.getItem("userData")) || null
     );
-  } else {
+    useEffect(() => {
+        const data = JSON.parse(localStorage.getItem("userData") || '""');
+        if (data) {
+            setUserData(data);
+        }
+    }, []);
+    const [authenticated, setauthenticated] = useState(
+        localStorage.getItem("authenticated") || false
+
+    );
+
+    useEffect(() => {
+        const items = localStorage.getItem("authenticated");
+        // @ts-ignore
+        if (items === true) {
+            // @ts-ignore
+            setauthenticated(true);
+        }
+    });
+    console.log("authenticated", authenticated);
+
+    if (!authenticated) {
+        return (
+            <main className="flex h-screen">
+                <Navigate replace to="/sign-in"/>
+                <Routes>
+                    <Route element={<AuthLayout/>}>
+                        <Route path="/sign-in" element={<SigninForm/>}/>
+                    </Route>
+                </Routes>
+                <Toaster/>
+            </main>
+        );
+     } else {
     return (
       <main className="flex h-screen">
         <Routes>
@@ -106,8 +109,8 @@ const App = () => {
         </Routes>
         <Toaster />
       </main>
-    );
-  }
+        );
+    }
 };
 
 export default App;
