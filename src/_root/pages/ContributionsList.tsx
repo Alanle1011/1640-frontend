@@ -177,13 +177,13 @@ export const columns: ColumnDef<Contribution>[] = [
                         </DropdownMenuItem>
                         <DropdownMenuSeparator/>
                         <DropdownMenuItem className={'w-full'}>
-                            <Link className={'flex justify-start w-full'} to={`/admin/contribution-edit/${contribution.id}`}>
+                            <Link className={'flex justify-start w-full'} to={`/contribution-edit/${contribution.id}`}>
                                 <PenSquare className="flex flex-row mr-2"/>Edit
                             </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator/>
                         <DropdownMenuItem>
-                            <Link className={'flex justify-start w-full'} to={`/admin/contribution-details/${contribution.id}`}>
+                            <Link className={'flex justify-start w-full'} to={`/contribution-details/${contribution.id}`}>
                                 <View className="mr-2"/>View
                             </Link>
                         </DropdownMenuItem>

@@ -51,7 +51,6 @@ const SigninForm = () => {
             throw new Error("Invalid credentials or login failed"); // Handle non-2xx responses
         }
         const loginData = await responseLogin.json();
-        debugger
         if (loginData.status) { // Check for login success status from response
             localStorage.setItem("userData", JSON.stringify(loginData));
             localStorage.setItem("authenticated", String(true));
