@@ -9,7 +9,6 @@ import {
   Profile,
   UpdateProfile,
   PendingContribution,
-  EditContribution,
   MyContribution,
   ContributionsList,
   // UsersList,
@@ -18,13 +17,13 @@ import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 import AuthLayout from "./_auth/AuthLayout";
 import SigninForm from "./_auth/SigninForm";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ILoginUser } from "./types";
-import ContributionDetails from "./_root/pages/ContributionDetails";
 import AdminLayout from "./_root/AdminLayout";
 import UserLayout from "./_root/UserLayout";
 import ManagerLayout from "./_root/ManagerLayout";
-
+import ContributionDetailedForm from "./components/forms/ContributionDetailedForm";
+import ContributionEditForm from "./components/forms/ContributionEditForm";
 
 const App = () => {
   const [userData, setUserData] = useState<ILoginUser>(
@@ -39,7 +38,6 @@ const App = () => {
   }, []);
   const [authenticated, setauthenticated] = useState(
     localStorage.getItem("authenticated") || false
-
   );
 
   useEffect(() => {
@@ -52,19 +50,19 @@ const App = () => {
   });
   console.log("authenticated", authenticated);
 
-    if (!authenticated) {
-        return (
-            <main className="flex h-screen">
-                <Navigate replace to="/sign-in"/>
-                <Routes>
-                    <Route element={<AuthLayout/>}>
-                        <Route path="/sign-in" element={<SigninForm/>}/>
-                    </Route>
-                </Routes>
-                <Toaster/>
-            </main>
-        );
-     } else {
+  if (!authenticated) {
+    return (
+      <main className="flex h-screen">
+        <Navigate replace to="/sign-in" />
+        <Routes>
+          <Route element={<AuthLayout />}>
+            <Route path="/sign-in" element={<SigninForm />} />
+          </Route>
+        </Routes>
+        <Toaster />
+      </main>
+    );
+  } else {
     return (
       <main className="flex h-screen">
         <Routes>
@@ -75,14 +73,6 @@ const App = () => {
             <Route
               path="/create-contribution"
               element={<CreateContribution userData={userData} />}
-            />
-            <Route
-              path="/update-contribution"
-              element={<EditContribution userData={userData} />}
-            />
-            <Route
-              path="/contributions"
-              element={<ContributionDetails userData={userData} />}
             />
             <Route path="/profile" element={<Profile userData={userData} />} />
             <Route
@@ -103,13 +93,21 @@ const App = () => {
           <Route element={<ManagerLayout userData={userData} />}>
             {/* manager routes */}
             <Route path="/pending" element={<PendingContribution />} />
-            <Route path="/contributions" element={<ContributionsList />} /> 
+            <Route path="/contributions" element={<ContributionsList />} />
+            <Route
+              path="/contribution-edit/:id"
+              element={<ContributionEditForm userData={userData} />}
+            />
+            <Route
+              path="/contribution-details/:id"
+              element={<ContributionDetailedForm userData={userData} />}
+            />
           </Route>
         </Routes>
         <Toaster />
       </main>
-        );
-    }
+    );
+  }
 };
 
 export default App;
