@@ -23,12 +23,12 @@ export const adminSidebarLinks = [
   },
   {
     imgURL: "/assets/icons/wallpaper.svg",
-    route: "/admin/pending",
+    route: "/pending",
     label: "Pending Contributions",
   },
   {
     imgURL: "/assets/icons/people.svg",
-    route: "/admin/all-users",
+    route: "/users",
     label: "All Users",
   },
 ];
@@ -75,8 +75,13 @@ export const coordinatorSidebarLinks = [
   },
   {
     imgURL: "/assets/icons/wallpaper.svg",
-    route: "/my",
-    label: "Contributions",
+    route: "/pending",
+    label: "Pending Contributions",
+  },
+  {
+    imgURL: "/assets/icons/wallpaper.svg",
+    route: "/contributions",
+    label: "All Contributions",
   },
 ];
 export const managerSidebarLinks = [
@@ -87,7 +92,12 @@ export const managerSidebarLinks = [
   },
   {
     imgURL: "/assets/icons/wallpaper.svg",
-    route: "/my",
-    label: "Contributions",
+    route: "/pending",
+    label: "Pending Contributions",
+  },
+  {
+    imgURL: "/assets/icons/wallpaper.svg",
+    route: "/contributions",
+    label: "All Contributions",
   },
 ];

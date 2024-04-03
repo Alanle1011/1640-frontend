@@ -77,7 +77,7 @@ const LeftSidebar: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
   } else if (userData.role === "COORDINATOR") {
     return (
       <nav className="leftsidebarThinh">
-        <div className="flex flex-col gap-11 bg-red">
+        <div className="flex flex-col gap-11">
           <Link to="/" className="flex gap-3 items-center">
             <img
               src="/assets/images/logo.png"
@@ -139,7 +139,7 @@ const LeftSidebar: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
   else if (userData.role === "MANAGER") {
     return (
       <nav className="leftsidebarThinh">
-        <div className="flex flex-col gap-11 bg-red">
+        <div className="flex flex-col gap-11">
           <Link to="/" className="flex gap-3 items-center">
             <img
               src="/assets/images/logo.png"
