@@ -27,23 +27,23 @@ const Home: React.FC<{ userData: ILoginUser }> = ({userData}) => {
     const [contributionData, setContributionData] = useState<Contribution[]>();
     const [documentData, setDocumentData] = useState<Document[]>();
 
-    useEffect(() => {
-        fetch(`${VITE_WEBSERVICE_URL}/contribution`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "ngrok-skip-browser-warning": "69420",
-            },
-        })
-            .then((res) => {
-                return res.json();
-            })
-            .then((data) => {
-                console.log(data);
-                setContributionData(data);
-            });
-    }, []);
 
+  useEffect(() => {
+    fetch(`${VITE_WEBSERVICE_URL}/contribution/approved`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "69420",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setContributionData(data);
+      });
+  }, []);
 
     console.log("contributionData", contributionData);
     console.log("documentData", documentData);

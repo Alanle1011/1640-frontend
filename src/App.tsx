@@ -1,32 +1,36 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import {
   AllUsers,
-  ContributionsList,
-  CreateContribution,
   CreateUser,
-  DetailedContribution,
-  EditContribution,
   EditUser,
+  CreateContribution,
+  // Empty,
   Home,
-  MyContribution,
-  PendingContribution,
   Profile,
   UpdateProfile,
+  PendingContribution,
+  EditContribution,
+  MyContribution,
+  ContributionsList,
+  // UsersList,
 } from "@/_root/pages";
-import RootLayout from "./_root/RootLayout";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 import AuthLayout from "./_auth/AuthLayout";
 import SigninForm from "./_auth/SigninForm";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ILoginUser } from "./types";
+import ContributionDetails from "./_root/pages/ContributionDetails";
+import AdminLayout from "./_root/AdminLayout";
+import UserLayout from "./_root/UserLayout";
+import ManagerLayout from "./_root/ManagerLayout";
+
 
 const App = () => {
   const [userData, setUserData] = useState<ILoginUser>(
     // @ts-ignore
     JSON.parse(localStorage.getItem("userData")) || null
   );
-
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("userData") || '""');
     if (data) {
@@ -35,6 +39,7 @@ const App = () => {
   }, []);
   const [authenticated, setauthenticated] = useState(
     localStorage.getItem("authenticated") || false
+
   );
 
   useEffect(() => {
@@ -47,38 +52,37 @@ const App = () => {
   });
   console.log("authenticated", authenticated);
 
-  if (!authenticated) {
-    return (
-      <main className="flex h-screen">
-        <Navigate replace to="/sign-in" />
-        <Routes>
-          <Route element={<AuthLayout />}>
-            <Route path="/sign-in" element={<SigninForm />} />
-          </Route>
-        </Routes>
-        <Toaster />
-      </main>
-    );
-  } else {
+    if (!authenticated) {
+        return (
+            <main className="flex h-screen">
+                <Navigate replace to="/sign-in"/>
+                <Routes>
+                    <Route element={<AuthLayout/>}>
+                        <Route path="/sign-in" element={<SigninForm/>}/>
+                    </Route>
+                </Routes>
+                <Toaster/>
+            </main>
+        );
+     } else {
     return (
       <main className="flex h-screen">
         <Routes>
           {/* user routes */}
-          <Route element={<RootLayout userData={userData} />}>
+          <Route element={<UserLayout userData={userData} />}>
             <Route index element={<Home userData={userData} />} />
             <Route path="/sign-in" element={<Navigate replace to="/" />} />
             <Route
               path="/create-contribution"
-              element={<CreateContribution />}
+              element={<CreateContribution userData={userData} />}
             />
-            <Route path="/update-contribution" element={<EditContribution />} />
+            <Route
+              path="/update-contribution"
+              element={<EditContribution userData={userData} />}
+            />
             <Route
               path="/contributions"
-              element={<ContributionsList userData={userData} />}
-            />
-            <Route
-              path="/contributions/:id"
-              element={<ContributionsList userData={userData} />}
+              element={<ContributionDetails userData={userData} />}
             />
             <Route path="/profile" element={<Profile userData={userData} />} />
             <Route
@@ -89,31 +93,23 @@ const App = () => {
               path="/my"
               element={<MyContribution userData={userData} />}
             />
+          </Route>
+          <Route element={<AdminLayout userData={userData} />}>
             {/* admin routes */}
             <Route path="/users" element={<AllUsers />} />
-            <Route path="/admin/create-user" element={<CreateUser />} />
-            <Route path="/admin/user-edit/:id" element={<EditUser />} />
-            <Route path="/admin/pending" element={<PendingContribution />} />
-
-            <Route
-              path="/admin/contributions"
-              element={<ContributionsList />}
-            />
-            <Route
-              path="/admin/contribution-edit/:id"
-              element={<EditContribution />}
-            />
-            <Route
-              path="/admin/contribution-details/:id"
-              element={<DetailedContribution />}
-            />
-            {/* <Route path="/admin/congrats" element={<Empty />} /> */}
+            <Route path="/create-user" element={<CreateUser />} />
+            <Route path="/edit-user" element={<EditUser />} />
+          </Route>
+          <Route element={<ManagerLayout userData={userData} />}>
+            {/* manager routes */}
+            <Route path="/pending" element={<PendingContribution />} />
+            <Route path="/contributions" element={<ContributionsList />} /> 
           </Route>
         </Routes>
         <Toaster />
       </main>
-    );
-  }
+        );
+    }
 };
 
 export default App;
