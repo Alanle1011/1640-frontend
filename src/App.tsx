@@ -11,9 +11,9 @@ import {
   PendingContribution,
   EditContribution,
   MyContribution,
+  ContributionsList,
   // UsersList,
 } from "@/_root/pages";
-import RootLayout from "./_root/RootLayout";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 import AuthLayout from "./_auth/AuthLayout";
@@ -22,6 +22,8 @@ import React, { useEffect, useState } from "react";
 import { ILoginUser } from "./types";
 import ContributionDetails from "./_root/pages/ContributionDetails";
 import AdminLayout from "./_root/AdminLayout";
+import UserLayout from "./_root/UserLayout";
+import ManagerLayout from "./_root/ManagerLayout";
 
 const App = () => {
   const [userData, setUserData] = useState<ILoginUser>(
@@ -65,7 +67,7 @@ const App = () => {
       <main className="flex h-screen">
         <Routes>
           {/* user routes */}
-          <Route element={<RootLayout userData={userData} />}>
+          <Route element={<UserLayout userData={userData} />}>
             <Route index element={<Home userData={userData} />} />
             <Route path="/sign-in" element={<Navigate replace to="/" />} />
             <Route
@@ -95,9 +97,11 @@ const App = () => {
             <Route path="/users" element={<AllUsers />} />
             <Route path="/create-user" element={<CreateUser />} />
             <Route path="/edit-user" element={<EditUser />} />
+          </Route>
+          <Route element={<ManagerLayout userData={userData} />}>
+            {/* manager routes */}
             <Route path="/pending" element={<PendingContribution />} />
-            {/* <Route path="/admin/contributions" element={<ContributionsList />} /> */}
-            {/* <Route path="/admin/congrats" element={<Empty />} /> */}
+            <Route path="/contributions" element={<ContributionsList />} /> 
           </Route>
         </Routes>
         <Toaster />

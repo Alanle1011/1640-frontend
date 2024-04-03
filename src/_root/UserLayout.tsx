@@ -5,7 +5,7 @@ import Bottombar from "@/components/shared/Bottombar";
 import LeftSidebar from "@/components/shared/LeftSidebar";
 import { ILoginUser } from "@/types";
 
-const RootLayout: React.FC<{userData: ILoginUser}> = ({userData}) => {
+const UserLayout: React.FC<{userData: ILoginUser}> = ({userData}) => {
   return (
     <div className="w-full md:flex">
       <Topbar />
@@ -20,4 +20,4 @@ const RootLayout: React.FC<{userData: ILoginUser}> = ({userData}) => {
   );
 };
 
-export default RootLayout;
+export default UserLayout;
