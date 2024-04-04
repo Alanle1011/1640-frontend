@@ -281,4 +281,16 @@
   .shad-button_ghost {
     @apply flex gap-4 items-center justify-start hover:bg-transparent hover:text-white !important;
   }
+
+  .button_edit {
+    @apply bg-blue-500 hover:bg-black text-light-1 flex gap-2 !important;
+  }
+
+  .button_view {
+    @apply bg-green-500 hover:bg-black text-light-1 flex gap-2 !important;
+  }
+
+  .button_delete {
+    @apply bg-red hover:bg-black text-light-1 flex gap-2 !important;
+  }
 }

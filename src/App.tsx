@@ -11,6 +11,8 @@ import {
   PendingContribution,
   MyContribution,
   ContributionsList,
+  EditContribution,
+  DetailedContribution,
   // UsersList,
 } from "@/_root/pages";
 import { Toaster } from "@/components/ui/toaster";
@@ -94,14 +96,16 @@ const App = () => {
             {/* manager routes */}
             <Route path="/pending" element={<PendingContribution />} />
             <Route path="/contributions" element={<ContributionsList />} />
+            
             <Route
               path="/contribution-edit/:id"
-              element={<ContributionEditForm userData={userData} />}
+              element={<EditContribution userData={userData} />}
             />
             <Route
               path="/contribution-details/:id"
-              element={<ContributionDetailedForm userData={userData} />}
+              element={<DetailedContribution userData={userData} />}
             />
+
           </Route>
         </Routes>
         <Toaster />

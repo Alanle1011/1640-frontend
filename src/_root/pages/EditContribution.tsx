@@ -12,7 +12,7 @@ const EditContribution = () => {
                 <Button
                     size="icon"
                     variant="ghost"
-                    className="rounded-full"
+                    className="h-full w-20"
                     onClick={() => navigate(-1)}>
                     <ChevronsLeft />
                 </Button>
