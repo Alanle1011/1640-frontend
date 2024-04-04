@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import { Contribution } from "@/_root/pages/Home";
 
-const ContributionCard: React.FC<{ contribution: Contribution}> = ({
+const ContributionCard: React.FC<{ contribution: Contribution }> = ({
   contribution,
 }) => {
   const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
@@ -24,7 +24,6 @@ const ContributionCard: React.FC<{ contribution: Contribution}> = ({
           <div className="flex flex-col">
             <p className="base-medium lg:body-bold text-black">
               {contribution.uploadedUserName} - {contribution.uploadedUserId}
-
             </p>
             <div className="flex gap-2 text-light-3">
               <p className="subtle-semibold lg:small-regular">
@@ -35,24 +34,23 @@ const ContributionCard: React.FC<{ contribution: Contribution}> = ({
         </div>
       </div>
 
-      <Link to={`/contributions/${contribution.id}`}>
+      <Link to={`/contribution-details/${contribution.id}`}>
         <div className="small-medium lg:base-medium py-5">
-        <p>{contribution.content}</p>
-        <ul className="flex gap-1 mt-2">
-              <li className="text-light-3 small-regular">
-                #
-                {/* {contribution.uploadedUserId.faculty} */}
-              </li>
+          <p>{contribution.content}</p>
+          <ul className="flex gap-1 mt-2">
+            <li className="text-light-3 small-regular">
+              #{/* {contribution.uploadedUserId.faculty} */}
+            </li>
           </ul>
         </div>
+
         <div>
-      
-        <img  src={`${VITE_WEBSERVICE_URL}/image/${contribution.imageId}`}
-          alt="contribution image"
-          className="contribution-card_img"
+          <img
+            src={`${VITE_WEBSERVICE_URL}/image/${contribution.imageId}`}
+            alt="contribution image"
+            className="contribution-card_img"
           />
         </div>
-        
       </Link>
     </div>
   );
