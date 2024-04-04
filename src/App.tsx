@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import {
-  AllUsers,
+  UsersList,
   CreateUser,
   EditUser,
   CreateContribution,
@@ -86,9 +86,9 @@ const App = () => {
           </Route>
           <Route element={<AdminLayout userData={userData} />}>
             {/* admin routes */}
-            <Route path="/users" element={<AllUsers />} />
+            <Route path="/users" element={<UsersList />} />
             <Route path="/create-user" element={<CreateUser />} />
-            <Route path="/edit-user" element={<EditUser />} />
+            <Route path="/edit-user/:id" element={<EditUser />} />
           </Route>
           <Route element={<ManagerLayout userData={userData} />}>
             {/* manager routes */}
@@ -96,11 +96,11 @@ const App = () => {
             <Route path="/contributions" element={<ContributionsList />} />
             <Route
               path="/contribution-edit/:id"
-              element={<ContributionEditForm userData={userData} />}
+              element={<ContributionEditForm />}
             />
             <Route
               path="/contribution-details/:id"
-              element={<ContributionDetailedForm userData={userData} />}
+              element={<ContributionDetailedForm />}
             />
           </Route>
         </Routes>
