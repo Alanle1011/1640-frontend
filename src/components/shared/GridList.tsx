@@ -8,33 +8,36 @@ const GridList: React.FC<{ contribution: Contribution[] }> = ({
   return (
     <ul className="grid-container">
       {contribution.map((contribution: Contribution) => (
-        <li key={contribution.id} className="relative min-w-80 h-80">
-          <Link
-            to={`/contribution-details/${contribution.id}`}
-            className="grid-post_link">
-            <div className="image-container">
-              {contribution.imageId ? (
-                <img
-                  src={`${VITE_WEBSERVICE_URL}/images/${contribution.imageId}`}
-                  alt={contribution.title || "Contribution Image"}
-                  className="h-full w-full object-cover"
-                />
-              ) : (
-                <p className="line-clamp-1">{contribution.uploadedUserName}</p>
-              )}
+        <li key={contribution.id}>
+          {contribution.imageId ? (
+            <div className="relative min-w-80 h-80">
+              <Link
+                to={`/contribution-details/${contribution.id}`}
+                className="grid-post_link">
+                <div className="image-container">
+                  <img
+                    src={`${VITE_WEBSERVICE_URL}/image/${contribution.imageId}`}
+                    className="h-full w-full object-cover"
+                  />
+                  <p className="line-clamp-1">
+                    {contribution.uploadedUserName}
+                  </p>
+                </div>
+              </Link>
             </div>
-          </Link>
-
-          <div className="grid-contribution_user">
-            <div className="flex items-center justify-start gap-2 flex-1">
-              <img
-                src={"/assets/icons/profile-placeholder.svg"}
-                alt="creator"
-                className="w-8 h-8 rounded-full"
-              />
-              <p className="line-clamp-1">{contribution.uploadedUserName}</p>
+          ) : (
+            <div className="relative min-w-80 h-20">
+              <Link
+                to={`/contribution-details/${contribution.id}`}
+                className="grid-post_link">
+                <div className="image-container">
+                  <p className="line-clamp-1">
+                    {contribution.uploadedUserName}
+                  </p>
+                </div>
+              </Link>
             </div>
-          </div>
+          )}
         </li>
       ))}
     </ul>

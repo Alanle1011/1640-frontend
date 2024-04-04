@@ -11,7 +11,7 @@ export type Contribution = {
     documentId: string;
     updatedAt: string;
     uploadedUserName: string;
-    // faculty:string;
+    faculty:string;
     submissionPeriod: string;
     doc: Document;
 };

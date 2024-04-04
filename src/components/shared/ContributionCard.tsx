@@ -39,7 +39,7 @@ const ContributionCard: React.FC<{ contribution: Contribution }> = ({
           <p>{contribution.content}</p>
           <ul className="flex gap-1 mt-2">
             <li className="text-light-3 small-regular">
-              #{/* {contribution.uploadedUserId.faculty} */}
+              #{contribution.faculty}
             </li>
           </ul>
         </div>
