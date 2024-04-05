@@ -1,4 +1,4 @@
-import ContributionForm from "@/components/forms/ContributionForm";
+import UserForm from "@/components/forms/UserForm.tsx";
 
 const CreateUser = () => {
   return (
@@ -14,7 +14,7 @@ const CreateUser = () => {
           <h2 className="h3-bold md:h2-bold text-left w-full">Create New User</h2>
         </div>
 
-        <ContributionForm />
+        <UserForm />
       </div>
     </div>
   );
