@@ -254,7 +254,7 @@ const ContributionsList = () => {
 
     if (!contributionData) {
         return (
-            <div className="w-full">
+            <div className="w-full ml-4">
                 <div className="flex flex-1 justify-end px-7 py-5">
                     <h1 className="h1-bold">
                         List of Contributions
@@ -351,10 +351,10 @@ const ContributionsList = () => {
                     {table.getFilteredSelectedRowModel().rows.length} of{" "}
                     {table.getFilteredRowModel().rows.length} row(s) selected.
                 </div> */}
-                    <div className="space-x-2 pr-4">
+                    <div className="space-x-2 mr-4">
                         <Button
                             variant="secondary"
-                            className="bg-light-1"
+                            className="bg-white"
                             // onClick={() => table.previousPage()}
                             disabled
                         >
@@ -372,11 +372,11 @@ const ContributionsList = () => {
                     </div>
                 </div>
             </div>
-        );
+        )
     };
 
     return (
-        <div className="w-full">
+        <div className="w-full ml-4">
             <div className="flex flex-1 justify-end px-7 py-5">
                 <h1 className="h1-bold">
                     List of Contributions
@@ -473,7 +473,7 @@ const ContributionsList = () => {
                     {table.getFilteredSelectedRowModel().rows.length} of{" "}
                     {table.getFilteredRowModel().rows.length} row(s) selected.
                 </div> */}
-                <div className="space-x-2 pr-4">
+                <div className="space-x-2 mr-4">
                     <Button
                         variant="secondary"
                         className="bg-white"
