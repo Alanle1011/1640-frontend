@@ -12,11 +12,11 @@ const ContributionDetailedForm = () => {
     const [contribution, setContribution] = useState<any>(null);
     const [contributionImage, setContributionImage] = useState<string>();
     const [contributionFile, setContributionFile] = useState<string>();
+    const [contributionFileType, setContributionFileType] = useState<string>();
 
   const docs = [
-    { uri: `https://quiet-hyena-solely.ngrok-free.app/api/document/5`,
-      fileType: "pdf",
-      fileName: "ngu.docx"
+    { uri: contributionFile,
+      fileType: contributionFileType,
     },
   ];
 
@@ -42,7 +42,9 @@ const ContributionDetailedForm = () => {
                     setContributionImage(`${VITE_WEBSERVICE_URL}/image/${response.imageId}`)
                 }
                 if (response.documentId) {
+                    debugger
                     setContributionFile(`${VITE_WEBSERVICE_URL}/document/${response.documentId}`)
+                    setContributionFileType(response.documentType.toString());
                 }
             })
             .catch(error => console.error("Error fetching:", error));
