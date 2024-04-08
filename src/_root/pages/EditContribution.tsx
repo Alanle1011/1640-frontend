@@ -17,17 +17,18 @@ const EditContribution = () => {
                     <ChevronsLeft />
                 </Button>
             </div>
-            <div className="common-container">
-                <div className="max-w-5xl flex-start gap-3 justify-start w-full">
-                    <img
-                        src="/assets/icons/edit.svg"
-                        width={36}
-                        height={36}
-                        alt="edit"
-                    />
-                    <h2 className="h3-bold md:h2-bold text-left w-full">Contribution Editing</h2>
-                </div>
 
+
+            <div className="flex-start gap-3 justify-start w-full p-5 fixed bg-blue-500 border-topbar">
+                <img
+                    src="/assets/icons/edit.svg"
+                    width={36}
+                    height={36}
+                    alt="edit"
+                />
+                <h2 className="h3-bold md:h2-bold text-left w-full text-white">Contribution Editing</h2>
+            </div>
+            <div className="common-container mt-8">
                 <ContributionEditForm />
             </div>
         </div>

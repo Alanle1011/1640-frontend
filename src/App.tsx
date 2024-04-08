@@ -24,8 +24,6 @@ import { ILoginUser } from "./types";
 import AdminLayout from "./_root/AdminLayout";
 import UserLayout from "./_root/UserLayout";
 import ManagerLayout from "./_root/ManagerLayout";
-import ContributionDetailedForm from "./components/forms/ContributionDetailedForm";
-import ContributionEditForm from "./components/forms/ContributionEditForm";
 
 const App = () => {
   const [userData, setUserData] = useState<ILoginUser>(
