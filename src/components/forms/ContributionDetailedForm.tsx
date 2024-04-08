@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
-import {useForm} from "react-hook-form";
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 
-import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Textarea} from "@/components/ui";
+
+import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
 
 const ContributionDetailedForm = () => {
     const {id} = useParams();
@@ -12,10 +12,13 @@ const ContributionDetailedForm = () => {
     const [contribution, setContribution] = useState<any>(null);
     const [contributionImage, setContributionImage] = useState<string>();
     const [contributionFile, setContributionFile] = useState<string>();
+    const [contributionFileType, setContributionFileType] = useState<string>();
 
-    // const 
-
-    const form = useForm();
+  const docs = [
+    { uri: contributionFile,
+      fileType: contributionFileType,
+    },
+  ];
 
     // 1. GET Contribution
     console.log(contribution)
@@ -39,7 +42,9 @@ const ContributionDetailedForm = () => {
                     setContributionImage(`${VITE_WEBSERVICE_URL}/image/${response.imageId}`)
                 }
                 if (response.documentId) {
+                    debugger
                     setContributionFile(`${VITE_WEBSERVICE_URL}/document/${response.documentId}`)
+                    setContributionFileType(response.documentType.toString());
                 }
             })
             .catch(error => console.error("Error fetching:", error));
@@ -70,11 +75,14 @@ const ContributionDetailedForm = () => {
                     </div>
                 </div>
             }
-            {contributionFile &&
+            {contributionFile && docs &&
+              <div>
                 <div>
-                    <h1>DOCUMENT</h1>
-                    <iframe className={'w-full h-screen p-2'} src={contributionFile} />
+                  <h1>Documents Demo</h1>
+                  <DocViewer documents={docs} pluginRenderers={DocViewerRenderers}
+                             style={{ height: 1000 }}/>
                 </div>
+              </div>
             }
         </div>
     );
