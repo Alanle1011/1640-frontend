@@ -10,3 +10,4 @@ export { default as PendingContribution } from "./PendingContributions";
 export { default as ContributionsList } from "./ContributionsList";
 export { default as EditContribution } from "./EditContribution";
 export { default as DetailedContribution } from "./DetailedContribution";
+

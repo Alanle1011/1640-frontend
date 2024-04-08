@@ -37,7 +37,7 @@ import {
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
 
-import { Contribution } from "@/types";
+import { Contribution, ILoginUser } from "@/types";
 import { Link } from "react-router-dom";
 
 export const columns: ColumnDef<Contribution>[] = [
@@ -209,22 +209,50 @@ const ContributionsList = () => {
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
     const [rowSelection, setRowSelection] = React.useState({})
 
-    useEffect(() => {
+    const [userData, setUserData] = useState<ILoginUser>(
+        // @ts-ignore
+        JSON.parse(localStorage.getItem("userData")) || null
+    );
 
-        fetch(`${VITE_WEBSERVICE_URL}/contribution`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                "ngrok-skip-browser-warning": "69420",
-            }
-        })
-            .then((res) => {
-                return res.json();
+    useEffect(() => {
+        const data = JSON.parse(localStorage.getItem("userData") || '""');
+        if (data) {
+            setUserData(data);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (userData.role === "COORDINATOR") {
+            fetch(`${VITE_WEBSERVICE_URL}/contribution/coordinator/${userData.userId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "ngrok-skip-browser-warning": "69420",
+                }
             })
-            .then((data) => {
-                console.log(data);
-                setContributionData(data);
-            });
+                .then((res) => {
+                    return res.json();
+                })
+                .then((data) => {
+                    console.log(data);
+                    setContributionData(data);
+                });
+        } else {
+            fetch(`${VITE_WEBSERVICE_URL}/contribution`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "ngrok-skip-browser-warning": "69420",
+                }
+            })
+                .then((res) => {
+                    return res.json();
+                })
+                .then((data) => {
+                    console.log(data);
+                    setContributionData(data);
+                });
+        }
     }, []);
     console.log("contributionData", contributionData)
 
@@ -270,12 +298,12 @@ const ContributionsList = () => {
                         className="max-w-sm"
                     />
                     {/* <DropdownMenu> */}
-                        {/* <DropdownMenuTrigger asChild>
+                    {/* <DropdownMenuTrigger asChild>
                             <Button variant="outline" className="ml-auto mr-4">
                                 Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
                             </Button>
                         </DropdownMenuTrigger> */}
-                        {/* <DropdownMenuContent align="end">
+                    {/* <DropdownMenuContent align="end">
                             {table
                                 .getAllColumns()
                                 .filter((column) => column.getCanHide())
@@ -334,14 +362,14 @@ const ContributionsList = () => {
                                     </TableRow>
                                 ))
                             ) : ( */}
-                                <TableRow>
-                                    <TableCell
-                                        colSpan={columns.length}
-                                        className="h-24 text-center"
-                                    >
-                                        No results.
-                                    </TableCell>
-                                </TableRow>
+                            <TableRow>
+                                <TableCell
+                                    colSpan={columns.length}
+                                    className="h-24 text-center"
+                                >
+                                    No results.
+                                </TableCell>
+                            </TableRow>
                             {/* )} */}
                         </TableBody>
                     </Table>
