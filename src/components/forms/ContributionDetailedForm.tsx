@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
-import {useForm} from "react-hook-form";
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 
-import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Textarea} from "@/components/ui";
+
+import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
 
 const ContributionDetailedForm = () => {
     const {id} = useParams();
@@ -13,9 +13,12 @@ const ContributionDetailedForm = () => {
     const [contributionImage, setContributionImage] = useState<string>();
     const [contributionFile, setContributionFile] = useState<string>();
 
-    // const 
-
-    const form = useForm();
+  const docs = [
+    { uri: `https://quiet-hyena-solely.ngrok-free.app/api/document/5`,
+      fileType: "pdf",
+      fileName: "ngu.docx"
+    },
+  ];
 
     // 1. GET Contribution
     console.log(contribution)
@@ -70,11 +73,14 @@ const ContributionDetailedForm = () => {
                     </div>
                 </div>
             }
-            {contributionFile &&
+            {contributionFile && docs &&
+              <div>
                 <div>
-                    <h1>DOCUMENT</h1>
-                    <iframe className={'w-full h-screen p-2'} src={contributionFile} />
+                  <h1>Documents Demo</h1>
+                  <DocViewer documents={docs} pluginRenderers={DocViewerRenderers}
+                             style={{ height: 1000 }}/>
                 </div>
+              </div>
             }
         </div>
     );

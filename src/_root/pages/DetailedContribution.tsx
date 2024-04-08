@@ -27,7 +27,9 @@ const DetailedContribution = () => {
                     />
                     <h2 className="h3-bold md:h2-bold text-left w-full">Contribution Details</h2>
                 </div>
-                <ContributionDetailedForm />
+                <ContributionDetailedForm
+
+                />
             </div>
         </div>
     );
