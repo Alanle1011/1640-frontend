@@ -1,24 +1,60 @@
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-
-
-import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
+import DocViewer, {DocViewerRenderers, IDocument} from "@cyntler/react-doc-viewer";
+import {ILoginUser} from "@/types";
+import {toast} from "@/components/ui";
 
 const ContributionDetailedForm = () => {
     const {id} = useParams();
-
+    const [userData, setUserData] = useState<ILoginUser>(
+        // @ts-ignore
+        JSON.parse(localStorage.getItem("userData")) || null
+    );
     const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
-
     const [contribution, setContribution] = useState<any>(null);
     const [contributionImage, setContributionImage] = useState<string>();
     const [contributionFile, setContributionFile] = useState<string>();
     const [contributionFileType, setContributionFileType] = useState<string>();
+    const docs = [
+        {
+            uri: contributionFile,
+            fileType: contributionFileType,
+        },
+    ] as IDocument[];
 
-  const docs = [
-    { uri: contributionFile,
-      fileType: contributionFileType,
-    },
-  ];
+    const handleApprove = (id:string) => {
+        fetch(`${VITE_WEBSERVICE_URL}/contribution/setStatus/${id}`, {
+            method: "PUT",
+            headers: {
+                "ngrok-skip-browser-warning": "69420",
+            },
+            body: JSON.stringify({
+                status: "APPROVED",
+            }),
+        }).then(response => {
+            if(response.ok){
+                toast({title: "APPROVED successfully!"});
+                window.location.reload();
+            }
+        })
+    }
+
+    const handleReject = (id:string) => {
+        fetch(`${VITE_WEBSERVICE_URL}/contribution/setStatus/${id}`, {
+            method: "PUT",
+            headers: {
+                "ngrok-skip-browser-warning": "69420",
+            },
+            body: JSON.stringify({
+                status: "REJECTED",
+            }),
+        }).then(response => {
+            if(response.ok){
+                toast({title: "REJECTED successfully!"});
+                window.location.reload();
+            }
+        })
+    }
 
     // 1. GET Contribution
     console.log(contribution)
@@ -37,12 +73,12 @@ const ContributionDetailedForm = () => {
                 return response.json();
             })
             .then(response => {
+                debugger
                 setContribution(response);
                 if (response.imageId) {
                     setContributionImage(`${VITE_WEBSERVICE_URL}/image/${response.imageId}`)
                 }
                 if (response.documentId) {
-                    debugger
                     setContributionFile(`${VITE_WEBSERVICE_URL}/document/${response.documentId}`)
                     setContributionFileType(response.documentType.toString());
                 }
@@ -50,10 +86,16 @@ const ContributionDetailedForm = () => {
             .catch(error => console.error("Error fetching:", error));
     }, [id]);
 
+    useEffect(() => {
+        const data = JSON.parse(localStorage.getItem("userData") || '""');
+        if (data) {
+            setUserData(data);
+        }
+    }, []);
 
     return (
         <div>
-            <div >
+            <div>
                 <text className="shad-form_label">Title</text>
             </div>
             <div className="shad-input border-input">
@@ -65,24 +107,35 @@ const ContributionDetailedForm = () => {
             <div className="shad-input border-input">
                 {contribution?.content}
             </div>
+            <div>
+                <text className="shad-form_label">Status: {contribution?.status}</text>
+            </div>
             {contributionImage &&
                 <div>
                     <div>
                         <h1>Image</h1>
                     </div>
                     <div className="flex flex-1 justify-center w-full h-full p-5 lg:p-10">
-                        <img src={contributionImage} alt="image" className="object-contain w-[500px] h-[500px] " />
+                        <img src={contributionImage} alt="image" className="object-contain w-[500px] h-[500px] "/>
                     </div>
                 </div>
             }
             {contributionFile && docs &&
-              <div>
                 <div>
-                  <h1>Documents Demo</h1>
-                  <DocViewer documents={docs} pluginRenderers={DocViewerRenderers}
-                             style={{ height: 1000 }}/>
+                    <div>
+                        <h1>Documents Demo</h1>
+                        <DocViewer documents={docs} pluginRenderers={DocViewerRenderers}
+                                   style={{height: 1000}}/>
+                    </div>
                 </div>
-              </div>
+            }
+            {
+                userData?.role === "COORDINATOR" && contribution?.status === "FINAL_CLOSED" && (
+                    <div className="flex gap-2">
+                        <button className={'border rounded-full border-full border-black p-2 hover:bg-blue-400'} onClick={() => handleApprove(contribution.id)}>APPROVED</button>
+                        <button className={'border rounded-full border-full border-black p-2 hover:bg-red-400'} onClick={() => handleReject(contribution.id)}>REJECTED</button>
+                    </div>
+                )
             }
         </div>
     );
