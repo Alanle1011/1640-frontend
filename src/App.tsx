@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import {
-  AllUsers,
+  UsersList,
   CreateUser,
   EditUser,
   CreateContribution,
@@ -11,6 +11,8 @@ import {
   PendingContribution,
   MyContribution,
   ContributionsList,
+  EditContribution,
+  DetailedContribution,
   // UsersList,
 } from "@/_root/pages";
 import { Toaster } from "@/components/ui/toaster";
@@ -22,8 +24,6 @@ import { ILoginUser } from "./types";
 import AdminLayout from "./_root/AdminLayout";
 import UserLayout from "./_root/UserLayout";
 import ManagerLayout from "./_root/ManagerLayout";
-import ContributionDetailedForm from "./components/forms/ContributionDetailedForm";
-import ContributionEditForm from "./components/forms/ContributionEditForm";
 
 const App = () => {
   const [userData, setUserData] = useState<ILoginUser>(
@@ -91,7 +91,7 @@ const App = () => {
 
           <Route element={<AdminLayout userData={userData} />}>
             {/* admin routes */}
-            <Route path="/users" element={<AllUsers />} />
+            <Route path="/users" element={<UsersList />} />
             <Route path="/create-user" element={<CreateUser />} />
             <Route path="/edit-user" element={<EditUser />} />
             <Route
@@ -103,14 +103,16 @@ const App = () => {
             {/* manager routes */}
             <Route path="/pending" element={<PendingContribution />} />
             <Route path="/contributions" element={<ContributionsList />} />
+            
             <Route
               path="/contribution-edit/:id"
-              element={<ContributionEditForm userData={userData} />}
+              element={<EditContribution userData={userData} />}
             />
             <Route
               path="/contribution-details/:id"
-              element={<ContributionDetailedForm userData={userData} />}
+              element={<DetailedContribution userData={userData} />}
             />
+
           </Route>
         </Routes>
         <Toaster />

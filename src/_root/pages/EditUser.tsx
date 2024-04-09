@@ -1,3 +1,5 @@
+import UserEditForm from "@/components/forms/UserEditForm.tsx";
+
 const EditUser = () => {
     return (
         <div className="flex flex-1">
@@ -12,7 +14,7 @@ const EditUser = () => {
                     <h2 className="h3-bold md:h2-bold text-left w-full">Edit User</h2>
                 </div>
 
-                {/*<ContributionForm />*/}
+                <UserEditForm />
             </div>
         </div>
     );

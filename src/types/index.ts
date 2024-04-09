@@ -73,6 +73,11 @@ export type Contribution = {
   documentId: string,
   submissionPeriodId: string,
 }
+export type Faculty = {
+  id: number;
+  facultyName: string;
+  coordinatorId: string;
+};
 
 export type EditContribution = {
   title: string,
@@ -82,9 +87,10 @@ export type EditContribution = {
 }
 
 export type User = {
-  id: string
-  name: string
-  faculty: string
+  id: string,
+  name: string,
+  imageId: string,
+  faculty: string,
   email: string,
   userRole: string,
 }
