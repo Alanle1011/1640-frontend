@@ -83,12 +83,21 @@ const App = () => {
               path="/my"
               element={<MyContribution userData={userData} />}
             />
+            <Route
+              path="/contribution-details/:id"
+              element={<ContributionDetailedForm userData={userData} />}
+            />
           </Route>
+
           <Route element={<AdminLayout userData={userData} />}>
             {/* admin routes */}
             <Route path="/users" element={<AllUsers />} />
             <Route path="/create-user" element={<CreateUser />} />
             <Route path="/edit-user" element={<EditUser />} />
+            <Route
+              path="/contribution-details/:id"
+              element={<ContributionDetailedForm userData={userData} />}
+            />
           </Route>
           <Route element={<ManagerLayout userData={userData} />}>
             {/* manager routes */}
