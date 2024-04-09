@@ -24,6 +24,8 @@ import { ILoginUser } from "./types";
 import AdminLayout from "./_root/AdminLayout";
 import UserLayout from "./_root/UserLayout";
 import ManagerLayout from "./_root/ManagerLayout";
+import ContributionDetailedForm from "./components/forms/ContributionDetailedForm";
+import ViewContribution from "./_root/pages/ViewContribution";
 
 const App = () => {
   const [userData, setUserData] = useState<ILoginUser>(
@@ -85,7 +87,11 @@ const App = () => {
             />
             <Route
               path="/contribution-details/:id"
-              element={<ContributionDetailedForm userData={userData} />}
+              element={<DetailedContribution userData={userData} />}
+            />
+            <Route
+              path="/test"
+              element={<ViewContribution/>}
             />
           </Route>
 
@@ -98,6 +104,7 @@ const App = () => {
               path="/contribution-details/:id"
               element={<ContributionDetailedForm userData={userData} />}
             />
+            
           </Route>
           <Route element={<ManagerLayout userData={userData} />}>
             {/* manager routes */}
