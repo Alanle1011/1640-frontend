@@ -119,7 +119,6 @@ const App = () => {
               path="/contribution-details/:id"
               element={<DetailedContribution userData={userData} />}
             />
-
           </Route>
         </Routes>
         <Toaster />

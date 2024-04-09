@@ -135,6 +135,13 @@ export const columns: ColumnDef<Contribution>[] = [
         ),
     },
     {
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }) => (
+            <div className="capitalize">{row.getValue("status")}</div>
+        ),
+    },
+    {
         id: "actions",
         enableHiding: false,
         cell: ({ row }) => {

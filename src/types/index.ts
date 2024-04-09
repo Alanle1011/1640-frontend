@@ -71,6 +71,7 @@ export type Contribution = {
   content: string,
   imageId: string,
   documentId: string,
+  status: string,
   submissionPeriodId: string,
 }
 export type Faculty = {
