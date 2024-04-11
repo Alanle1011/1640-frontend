@@ -1,5 +1,4 @@
 import { ContributionCard, GridList } from "@/components/shared";
-import { useToast } from "@/components/ui/use-toast";
 import { ILoginUser } from "@/types";
 import { useState, useEffect } from "react";
 export type Contribution = {
@@ -11,7 +10,6 @@ export type Contribution = {
   documentId: string;
   updatedAt: string;
   uploadedUserName: string;
-  // faculty:string;
   submissionPeriod: string;
   doc: Document;
 };
