@@ -56,7 +56,7 @@ const ContributionDetails = () => {
       </h2>
       <div className="flex flex-col">
         <p className="base-medium lg:body-bold text-black">
-          {contribution.uploadedUserName} - {contribution.uploadedUserId}
+          {contribution?.uploadedUserName} - {contribution?.uploadedUserId}
         </p>
         <div className="flex gap-2 text-light-3">
           <p className="subtle-semibold lg:small-regular">

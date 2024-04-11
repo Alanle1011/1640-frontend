@@ -8,33 +8,30 @@ const ViewContribution = () => {
 
   return (
     <div className="flex flex-1">
-      <div className="hidden md:flex max-w-5xl w-full">
-        <Button
-          onClick={() => navigate(-1)}
-          variant="ghost"
-          className="shad-button_ghost">
-          <img
-            src={"/assets/icons/back.svg"}
-            alt="back"
-            width={24}
-            height={24}
-          />
-          <p className="small-medium lg:base-medium">Back</p>
-        </Button>
-          <div className="max-w-5xl flex-start gap-3 justify-start w-full">
-            <img
-              src="/assets/icons/edit.svg"
-              width={36}
-              height={36}
-              alt="details"
-            />
-            <h2 className="h3-bold md:h2-bold text-left w-full">
-              Contribution Details
-            </h2>
-          </div>
-          <ContributionDetails />
+            <div className="flex-start">
+                <Button
+                    size="icon"
+                    variant="ghost"
+                    className="h-full w-20"
+                    onClick={() => navigate(-1)}>
+                    <ChevronsLeft />
+                </Button>
+            </div>
+
+
+            <div className="flex-start gap-3 justify-start w-full p-5 fixed bg-light-2 border-topbar">
+                <img
+                    src="/assets/icons/edit.svg"
+                    width={36}
+                    height={36}
+                    alt="details"
+                />
+                <h2 className="h3-bold md:h2-bold text-left w-full text-black">Contribution Editing</h2>
+            </div>
+            <div className="common-container mt-14">
+                <ContributionDetails />
+            </div>
         </div>
-      </div>
   );
 };
 

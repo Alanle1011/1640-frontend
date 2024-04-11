@@ -258,10 +258,7 @@
   }
 
   .border-input {
-    border-bottom-left-radius: 1cap;
-    border-bottom-right-radius: 1cap;
-    border-top-left-radius: 1cap;
-    border-top-right-radius: 1cap;
+    border-radius: 0.5cap;
   }
 }
 

@@ -108,16 +108,16 @@ export const columns: ColumnDef<Contribution>[] = [
     },
     {
         accessorKey: "imageId",
-        header: "Image ID",
+        header: "Image",
         cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("imageId")}</div>
+            <div className="capitalize">{row.getValue("imageId") ? row.getValue("imageId") : "-"}</div>
         ),
     },
     {
         accessorKey: "documentId",
-        header: "Document ID",
+        header: "Document",
         cell: ({ row }) => (
-            <div className="lowercase">{row.getValue("documentId")}</div>
+            <div className="lowercase flex-1">{row.getValue("documentId") ? row.getValue("documentId") : "-"}</div>
         ),
     },
     {
@@ -304,32 +304,6 @@ const ContributionsList = () => {
                         }
                         className="max-w-sm"
                     />
-                    {/* <DropdownMenu> */}
-                    {/* <DropdownMenuTrigger asChild>
-                            <Button variant="outline" className="ml-auto mr-4">
-                                Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
-                            </Button>
-                        </DropdownMenuTrigger> */}
-                    {/* <DropdownMenuContent align="end">
-                            {table
-                                .getAllColumns()
-                                .filter((column) => column.getCanHide())
-                                .map((column) => {
-                                    return (
-                                        <DropdownMenuCheckboxItem
-                                            key={column.id}
-                                            className="capitalize"
-                                            checked={column.getIsVisible()}
-                                            onCheckedChange={(value) =>
-                                                column.toggleVisibility(!!value)
-                                            }
-                                        >
-                                            {column.id}
-                                        </DropdownMenuCheckboxItem>
-                                    )
-                                })}
-                        </DropdownMenuContent> */}
-                    {/* </DropdownMenu> */}
                 </div>
                 <div className="rounded-md border mr-4">
                     <Table>
@@ -352,23 +326,6 @@ const ContributionsList = () => {
                             ))}
                         </TableHeader>
                         <TableBody>
-                            {/* {table.getRowModel().rows?.length ? (
-                                table.getRowModel().rows.map((row) => (
-                                    <TableRow
-                                        key={row.id}
-                                        data-state={row.getIsSelected() && "selected"}
-                                    >
-                                        {row.getVisibleCells().map((cell) => (
-                                            <TableCell key={cell.id}>
-                                                {flexRender(
-                                                    cell.column.columnDef.cell,
-                                                    cell.getContext()
-                                                )}
-                                            </TableCell>
-                                        ))}
-                                    </TableRow>
-                                ))
-                            ) : ( */}
                             <TableRow>
                                 <TableCell
                                     colSpan={columns.length}
@@ -377,20 +334,14 @@ const ContributionsList = () => {
                                     No results.
                                 </TableCell>
                             </TableRow>
-                            {/* )} */}
                         </TableBody>
                     </Table>
                 </div>
                 <div className="flex items-center justify-end space-x-2 py-4">
-                    {/* <div className="flex-1 text-sm text-muted-foreground">
-                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                    {table.getFilteredRowModel().rows.length} row(s) selected.
-                </div> */}
                     <div className="space-x-2 mr-4">
                         <Button
                             variant="secondary"
                             className="bg-white"
-                            // onClick={() => table.previousPage()}
                             disabled
                         >
                             <ChevronLeftIcon />
@@ -399,7 +350,6 @@ const ContributionsList = () => {
                         <Button
                             variant="secondary"
                             className="bg-white"
-                            // onClick={() => table.nextPage()}
                             disabled
                         >
                             <ChevronRightIcon />

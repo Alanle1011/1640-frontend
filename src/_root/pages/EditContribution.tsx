@@ -28,7 +28,7 @@ const EditContribution = () => {
                 />
                 <h2 className="h3-bold md:h2-bold text-left w-full text-white">Contribution Editing</h2>
             </div>
-            <div className="common-container mt-8">
+            <div className="common-container mt-14">
                 <ContributionEditForm />
             </div>
         </div>
