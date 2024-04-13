@@ -19,7 +19,7 @@ const EditContribution = () => {
             </div>
 
 
-            <div className="flex-start gap-3 justify-start w-full p-5 fixed bg-blue-500 border-topbar">
+            <div className="custom-topbar">
                 <img
                     src="/assets/icons/edit.svg"
                     width={36}

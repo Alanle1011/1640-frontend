@@ -113,6 +113,10 @@
     @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14;
   }
 
+  .custom-container {
+    @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14 w-full;
+  }
+
   /* All Users */
   .user-container {
     @apply max-w-5xl flex flex-col items-start w-full gap-6 md:gap-9;
@@ -243,6 +247,10 @@
   /* Topbar */
   .topbar {
     @apply sticky top-0 z-50 md:hidden bg-dark-2 w-full;
+  }
+
+  .custom-topbar {
+    @apply flex-start gap-3 justify-start w-full p-5 fixed bg-primary-500 border-topbar;
   }
 
   /* User card */

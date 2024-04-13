@@ -4,10 +4,10 @@ import { ChevronsLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const ViewContribution = () => {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  return (
-    <div className="flex flex-1">
+    return (
+        <div className="flex flex-1">
             <div className="flex-start">
                 <Button
                     size="icon"
@@ -18,21 +18,20 @@ const ViewContribution = () => {
                 </Button>
             </div>
 
-
-            <div className="flex-start gap-3 justify-start w-full p-5 fixed bg-light-2 border-topbar">
+            <div className="custom-topbar">
                 <img
-                    src="/assets/icons/edit.svg"
+                    src="/assets/icons/details.svg"
                     width={36}
                     height={36}
                     alt="details"
                 />
-                <h2 className="h3-bold md:h2-bold text-left w-full text-black">Contribution Editing</h2>
+                <h2 className="h3-bold md:h2-bold text-left w-full text-white">Contribution Details</h2>
             </div>
-            <div className="common-container mt-14">
+            <div className="custom-container mt-14">
                 <ContributionDetails />
             </div>
         </div>
-  );
+    );
 };
 
 export default ViewContribution;
