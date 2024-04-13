@@ -1,10 +1,10 @@
-import ContributionEditForm from "@/components/forms/ContributionEditForm";
+import ContributionDetails from "@/components/forms/ContributionDetails";
 import { Button } from "@/components/ui";
 import { ChevronsLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const EditContribution = () => {
-    const navigate = useNavigate()
+const ViewContribution = () => {
+    const navigate = useNavigate();
 
     return (
         <div className="flex flex-1">
@@ -18,21 +18,20 @@ const EditContribution = () => {
                 </Button>
             </div>
 
-
             <div className="custom-topbar">
                 <img
-                    src="/assets/icons/edit.svg"
+                    src="/assets/icons/details.svg"
                     width={36}
                     height={36}
-                    alt="edit"
+                    alt="details"
                 />
-                <h2 className="h3-bold md:h2-bold text-left w-full text-white">Contribution Editing</h2>
+                <h2 className="h3-bold md:h2-bold text-left w-full text-white">Contribution Details</h2>
             </div>
-            <div className="common-container mt-14">
-                <ContributionEditForm />
+            <div className="custom-container mt-14">
+                <ContributionDetails />
             </div>
         </div>
     );
 };
 
-export default EditContribution;
+export default ViewContribution;

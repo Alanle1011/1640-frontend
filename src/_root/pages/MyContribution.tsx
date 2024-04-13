@@ -1,4 +1,4 @@
-import { ContributionCard } from "@/components/shared";
+import { ContributionCard, GridList } from "@/components/shared";
 import { useToast } from "@/components/ui/use-toast";
 import { ILoginUser } from "@/types";
 import { useState, useEffect } from "react";
@@ -11,9 +11,11 @@ export type Contribution = {
   documentId: string;
   updatedAt: string;
   uploadedUserName: string;
+  // faculty:string;
   submissionPeriod: string;
   doc: Document;
 };
+
 
 export type Document = {
   id: string;
@@ -23,11 +25,12 @@ export type Document = {
 const MyContribution: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
   const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
 
-  const [contributionData, setContributionData] = useState<Contribution[]>();
+  const [contributionData, setContributionData] = useState<Contribution[]>([]);
   const [documentData, setDocumentData] = useState<Document[]>();
 
+  //contributionData = array of Contribution
   useEffect(() => {
-    fetch(`${VITE_WEBSERVICE_URL}/contribution`, {
+    fetch(`${VITE_WEBSERVICE_URL}/contribution/user/${userData.userId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +46,6 @@ const MyContribution: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
       });
   }, []);
 
-
   console.log("contributionData", contributionData);
   console.log("documentData", documentData);
 
@@ -51,14 +53,12 @@ const MyContribution: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
     <div className="flex flex-1">
       <div className="home-container">
         <div className="home-contributions">
-          <h2 className="h3-bold md:h2-bold text-left w-full">My Contributions</h2>
+          <h2 className="h3-bold md:h2-bold text-left w-full">
+            My Contributions
+          </h2>
 
           <ul className="flex flex-col flex-1 gap-9 w-full ">
-            {contributionData?.map((contribution: Contribution) => (
-              <li key={contribution.id} className="flex justify-center w-full">
-                <ContributionCard contribution={contribution}/>
-              </li>
-            ))}
+              <GridList contribution={contributionData} />
           </ul>
         </div>
       </div>

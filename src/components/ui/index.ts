@@ -11,3 +11,5 @@ export * from './popover';
 export * from './drawer';
 export * from './combobox';
 export * from './select';
+export * from './scroll-area';
+

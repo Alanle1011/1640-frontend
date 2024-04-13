@@ -110,7 +110,11 @@
   }
 
   .common-container {
-    @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14 custom-scrollbar;
+    @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14;
+  }
+
+  .custom-container {
+    @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14 w-full;
   }
 
   /* All Users */
@@ -245,6 +249,10 @@
     @apply sticky top-0 z-50 md:hidden bg-dark-2 w-full;
   }
 
+  .custom-topbar {
+    @apply flex-start gap-3 justify-start w-full p-5 fixed bg-primary-500 border-topbar;
+  }
+
   /* User card */
   .user-card {
     @apply flex-center flex-col gap-4 border border-dark-4 rounded-[20px] px-5 py-8;
@@ -258,10 +266,7 @@
   }
 
   .border-input {
-    border-bottom-left-radius: 1cap;
-    border-bottom-right-radius: 1cap;
-    border-top-left-radius: 1cap;
-    border-top-right-radius: 1cap;
+    border-radius: 0.5cap;
   }
 }
 

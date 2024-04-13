@@ -1,11 +1,11 @@
-import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
-import DocViewer, {DocViewerRenderers, IDocument} from "@cyntler/react-doc-viewer";
-import {ILoginUser} from "@/types";
-import {toast} from "@/components/ui";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import DocViewer, { DocViewerRenderers, IDocument } from "@cyntler/react-doc-viewer";
+import { ILoginUser } from "@/types";
+import { toast } from "@/components/ui";
 
 const ContributionDetailedForm = () => {
-    const {id} = useParams();
+    const { id } = useParams();
     const [userData, setUserData] = useState<ILoginUser>(
         // @ts-ignore
         JSON.parse(localStorage.getItem("userData")) || null
@@ -22,7 +22,7 @@ const ContributionDetailedForm = () => {
         },
     ] as IDocument[];
 
-    const handleApprove = (id:string) => {
+    const handleApprove = (id: string) => {
         fetch(`${VITE_WEBSERVICE_URL}/contribution/setStatus/${id}`, {
             method: "PUT",
             headers: {
@@ -32,14 +32,14 @@ const ContributionDetailedForm = () => {
                 status: "APPROVED",
             }),
         }).then(response => {
-            if(response.ok){
-                toast({title: "APPROVED successfully!"});
+            if (response.ok) {
+                toast({ title: "APPROVED successfully!" });
                 window.location.reload();
             }
         })
     }
 
-    const handleReject = (id:string) => {
+    const handleReject = (id: string) => {
         fetch(`${VITE_WEBSERVICE_URL}/contribution/setStatus/${id}`, {
             method: "PUT",
             headers: {
@@ -49,8 +49,8 @@ const ContributionDetailedForm = () => {
                 status: "REJECTED",
             }),
         }).then(response => {
-            if(response.ok){
-                toast({title: "REJECTED successfully!"});
+            if (response.ok) {
+                toast({ title: "REJECTED successfully!" });
                 window.location.reload();
             }
         })
@@ -94,18 +94,19 @@ const ContributionDetailedForm = () => {
     }, []);
 
     return (
-        <div>
-            <div>
+        <div className="flex flex-col gap-5 w-[1000px]">
+            <div className="">
                 <text className="shad-form_label">Title</text>
+                <div className="shad-input border-input flex items-center pl-3">
+                    {contribution?.title}
+                </div>
             </div>
-            <div className="shad-input border-input">
-                {contribution?.title}
-            </div>
+
             <div>
                 <text className="shad-form_label">Content</text>
-            </div>
-            <div className="shad-input border-input">
-                {contribution?.content}
+                <div className="shad-input border-input">
+                    {contribution?.content}
+                </div>
             </div>
             <div>
                 <text className="shad-form_label">Status: {contribution?.status}</text>
@@ -116,7 +117,7 @@ const ContributionDetailedForm = () => {
                         <h1>Image</h1>
                     </div>
                     <div className="flex flex-1 justify-center w-full h-full p-5 lg:p-10">
-                        <img src={contributionImage} alt="image" className="object-contain w-[500px] h-[500px] "/>
+                        <img src={contributionImage} alt="image" className="object-contain w-[500px] h-[500px] " />
                     </div>
                 </div>
             }
@@ -125,7 +126,7 @@ const ContributionDetailedForm = () => {
                     <div>
                         <h1>Documents Demo</h1>
                         <DocViewer documents={docs} pluginRenderers={DocViewerRenderers}
-                                   style={{height: 1000}}/>
+                            style={{ height: 1000 }} />
                     </div>
                 </div>
             }

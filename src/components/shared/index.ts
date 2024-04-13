@@ -1,7 +1,7 @@
 export { default as Bottombar } from "./Bottombar";
 export { default as LeftSidebar } from "./LeftSidebar";
 export { default as ContributionCard } from "./ContributionCard.tsx";
-export { default as GridPostList } from "./GridPostList";
+export { default as GridList } from "./GridList.tsx";
 export { default as Topbar } from "./Topbar";
 export { default as UserCard } from "./UserCard";
 export { default as FileUploader } from "./FileUploader.tsx";
