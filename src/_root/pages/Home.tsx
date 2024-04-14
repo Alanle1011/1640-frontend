@@ -52,7 +52,7 @@ const Home: React.FC<{ userData: ILoginUser }> = ({userData}) => {
         <div className="flex flex-1">
             <div className="home-container">
                 <div className="home-contributions">
-                    <h2 className="h3-bold md:h2-bold text-left w-full">Show us ur design game Taylor - your dad</h2>
+                    <h2 className="h3-bold md:h2-bold text-left w-full">Home Page</h2>
 
                     <ul className="flex flex-col flex-1 gap-9 w-full ">
                         {contributionData?.map((contribution: Contribution) => (

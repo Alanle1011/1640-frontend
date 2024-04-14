@@ -51,62 +51,58 @@ const ContributionDetails = () => {
   }, [id]);
 
   if (!contribution) {
-    return (
-      <div>
-        There's nothing to show here.
-      </div>
-    )
-  };
+    return <div>There's nothing to show here.</div>;
+  }
 
   return (
-    <div className="w-full">
-      <h2 className="h3-bold md:h2-bold text-center w-full pb-20">
-        {contribution?.title}
-      </h2>
-
-      <div className="flex flex-row gap-32 justify-center">
-        <div className="flex flex-col gap-5">
-          <div className="flex flex-col gap-1">
-            <p className="base-medium lg:body-bold text-black">
-              {contribution?.uploadedUserName} - {contribution?.uploadedUserId}
-            </p>
-            <p className="subtle-semibold lg:small-regular text-light-3">
-              {contribution?.createdAt}
-            </p>
+    <div className="home-container">
+      <div className="home-contributions">
+        {" "}
+        <h2 className="h3-bold md:h2-bold text-left w-full pb-10">
+          {contribution?.title}
+        </h2>
+        <div className="flex flex-col gap-4 justify-center">
+          <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-1">
+              <p className="base-medium lg:body-bold text-black">
+                {contribution?.uploadedUserName} -{" "}
+                {contribution?.uploadedUserId}
+              </p>
+              <p className="subtle-semibold lg:small-regular text-light-3">
+                {contribution?.createdAt}
+              </p>
+            </div>
           </div>
 
-          <ScrollArea className="h-[] w-[400px] rounded-lg border p-4">
-            {contribution?.content}
-          </ScrollArea>
+          <div className="flex flex-col gap-12">
+            {contributionImage && (
+              <div>
+                <img
+                  src={contributionImage}
+                  alt="image"
+                  height={500}
+                  width={500}
+                  // className="object-contain w-[500px] h-[500px]"
+                />
+              </div>
+            )}
+            <ScrollArea className="h-[] w-[400px] rounded-lg ">
+              {contribution?.content}
+            </ScrollArea>
+            {contributionFile && docs && (
+              <div>
+                <h2 className="h3-bold md:h2-bold pb-3">Document</h2>
+                <DocViewer
+                  documents={docs}
+                  pluginRenderers={DocViewerRenderers}
+                  // style={{ height: 500 }}
+                />
+              </div>
+            )}
+          </div>
         </div>
-
-        <div className="flex flex-col gap-14">
-          {contributionImage && (
-            <div>
-              <h2 className="h3-bold md:h2-bold pb-3">Image</h2>
-              <img
-                src={contributionImage}
-                alt="image"
-                height={500}
-                width={500}
-              // className="object-contain w-[500px] h-[500px]"
-              />
-            </div>
-          )}
-
-          {contributionFile && docs && (
-            <div>
-              <h2 className="h3-bold md:h2-bold pb-3">Document</h2>
-              <DocViewer
-                documents={docs}
-                pluginRenderers={DocViewerRenderers}
-              // style={{ height: 500 }}
-              />
-            </div>
-          )}
-        </div>
+        <ContributionComment contribution={contribution} />
       </div>
-      <ContributionComment contribution={contribution} />
     </div>
   );
 };
