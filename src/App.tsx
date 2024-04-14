@@ -90,8 +90,8 @@ const App = () => {
               element={<ViewContribution userData={userData} />}
             />
             <Route
-              path="/test"
-              element={<ViewContribution/>}
+              path="/contribution-detailsold/:id"
+              element={<DetailedContribution userData={userData} />}
             />
           </Route>
 

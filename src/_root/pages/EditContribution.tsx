@@ -19,7 +19,7 @@ const EditContribution = () => {
             </div>
 
 
-            <div className="flex-start gap-3 justify-start w-full p-5 fixed bg-blue-500 border-topbar">
+            <div className="custom-topbar">
                 <img
                     src="/assets/icons/edit.svg"
                     width={36}
@@ -28,7 +28,7 @@ const EditContribution = () => {
                 />
                 <h2 className="h3-bold md:h2-bold text-left w-full text-white">Contribution Editing</h2>
             </div>
-            <div className="common-container mt-8">
+            <div className="common-container mt-14">
                 <ContributionEditForm />
             </div>
         </div>
