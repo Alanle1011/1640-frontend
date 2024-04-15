@@ -26,7 +26,7 @@ const EditContribution = () => {
                     height={36}
                     alt="edit"
                 />
-                <h2 className="h3-bold md:h2-bold text-left w-full text-white">Contribution Editing</h2>
+                <h2 className="h3-bold md:h2-bold text-left w-full text-black">Contribution Editing</h2>
             </div>
             <div className="common-container mt-14">
                 <ContributionEditForm />
