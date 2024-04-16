@@ -2,8 +2,9 @@ import ContributionDetails from "@/components/forms/ContributionDetails";
 import { Button } from "@/components/ui";
 import { ChevronsLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import {ILoginUser} from "@/types";
 
-const ViewContribution = () => {
+const ViewContribution: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
     const navigate = useNavigate();
 
     return (
@@ -28,7 +29,7 @@ const ViewContribution = () => {
                 <h2 className="h3-bold md:h2-bold text-left w-full text-black">Contribution Details</h2>
             </div>
             <div className="custom-container mt-14">
-                <ContributionDetails />
+                <ContributionDetails userData={userData}/>
             </div>
         </div>
     );
