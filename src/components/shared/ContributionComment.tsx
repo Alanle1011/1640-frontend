@@ -1,7 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Contribution } from "@/types";
+import { Contribution, ILoginUser } from "@/types";
 import { Loader } from "lucide-react";
+import { Button, Textarea, toast } from "../ui";
 
 export type Comment = {
   id: string;
@@ -13,10 +14,38 @@ const ContributionComment: React.FC<{ contribution: Contribution }> = ({
   contribution,
 }) => {
   const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
+  const [userData, setUserData] = useState<ILoginUser>(
+    // @ts-ignore
+    JSON.parse(localStorage.getItem("userData")) || null
+  );
   const [commentData, setCommentData] = useState<Comment[]>();
+  const [content, setContent] = useState<string>()
+
+  const handleChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(e.target.value);
+  }
+
+  const submitNewComment = () => {
+    if (content) {
+      fetch(`${VITE_WEBSERVICE_URL}/comment?coordinatorId=${userData.userId}&contributionId=${contribution.id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "69420",
+        },
+        body: JSON.stringify({
+          content: content
+        })
+      })
+      toast({
+        description: "Comment sent.",
+      })
+      window.location.reload();
+    }
+  }
 
   useEffect(() => {
-    if(contribution){
+    if (contribution) {
       fetch(`${VITE_WEBSERVICE_URL}/comment/contribution/${contribution.id}`, {
         method: "GET",
         headers: {
@@ -32,44 +61,63 @@ const ContributionComment: React.FC<{ contribution: Contribution }> = ({
           setCommentData(data);
         });
     }
-  }, [contribution]);
-
-  console.log("commentData", commentData);
+  }, [contribution, setContent]);
 
   if (!contribution || !commentData || commentData.length < 1) {
-    <div className="flex flex-1">
-      <div className="flex-start gap-3 justify-start w-full px-5 fixed bg-blue-500 border-topbar">
-        <img src="/assets/icons/edit.svg" width={36} height={36} alt="edit" />
-        <h2 className="h3-bold_comment md:h2-bold_comment text-left w-full text-black">
-          Contribution Comment
-        </h2>
+    return (
+      <div className="w-full flex flex-col gap-5">
+        <p className="base-semibold mt-5 text-left text-black">
+          There are no comments yet.
+        </p>
+
+        {userData.role === "COORDINATOR" && (
+          <div className="flex flex-col gap-3">
+            <Textarea
+              placeholder="Please type comment..."
+              onChange={handleChangeContent} />
+            <Button
+              className="button_view"
+              onClick={() => submitNewComment()}
+            >
+              Send
+            </Button>
+          </div>
+        )}
       </div>
-      <div>
-        <h2 className="h3-bold_comment md:h2-bold_comment text-left w-full text-black">
-          There are no comments yet
-        </h2>
-      </div>
-    </div>;
-  }
+    )
+  };
 
   return (
-    <div className="flex flex-1">
-      <div className="flex-start gap-3 justify-start w-full px-5 fixed bg-blue-500 border-topbar">
-        <img src="/assets/icons/edit.svg" width={36} height={36} alt="edit" />
-        <h2 className="h3-bold_comment md:h2-bold_comment text-left w-full text-black">
-          Contribution Comment
-        </h2>
-      </div>
-      <ul className="flex flex-col flex-1 gap-9 w-full ">
-        {commentData?.map((comment: Comment) => (
-          <li key={comment?.id} className="flex justify-center w-full">
-            <div className="shad-input border-input">
-              <p> {comment.content}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
+    <div className="w-full flex flex-col gap-5">
+      {commentData && commentData?.map((comment: Comment) => (
+        <div
+          key={comment?.id}
+          className="flex flex-col gap-1 justify-center w-full">
+          <div className="flex flex-row gap-3 justify-between items-center">
+            <p className="base-semibold">{comment?.coordinatorName}</p>
+            <p className="small-regular text-light-3">{comment?.createdAt}</p>
+          </div>
+          <div>
+            <p className="small-semibold text-slate-500 ml-1">{comment?.content}</p>
+          </div>
+        </div>
+      ))}
+
+      {userData.role === "COORDINATOR" && (
+        <div className="flex flex-col gap-3">
+          <Textarea
+            placeholder="Please type comment..."
+            onChange={handleChangeContent} />
+          <Button
+            className="button_view"
+            onClick={() => submitNewComment()}
+          >
+            Send
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
+
 export default ContributionComment;

@@ -236,7 +236,7 @@
   }
 
   .custom-topbar {
-    @apply flex-start gap-3 justify-start w-full p-5 fixed bg-light-2 border-topbar;
+    @apply flex-start gap-3 justify-start w-full p-5 fixed bg-slate-50 border-topbar;
   }
 
   /* User card */

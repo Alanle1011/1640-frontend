@@ -14,8 +14,13 @@ const ContributionDetails = () => {
   const [contributionImage, setContributionImage] = useState<string>();
   const [contributionFile, setContributionFile] = useState<string>();
   const [contributionFileType, setContributionFileType] = useState<string>();
+  const [contributionFileName, setContributionFileName] = useState<string>();
 
-  const docs = [{ uri: contributionFile, fileType: contributionFileType }];
+  const docs = [{
+    uri: contributionFile,
+    fileType: contributionFileType,
+    fileName: contributionFileName
+  }];
 
   // 1. GET Contribution
   console.log(contribution);
@@ -45,63 +50,69 @@ const ContributionDetails = () => {
             `${VITE_WEBSERVICE_URL}/document/${response.documentId}`
           );
           setContributionFileType(response.documentType.toString());
+          setContributionFileName(response.documentName.toString());
         }
       })
       .catch((error) => console.error("Error fetching:", error));
   }, [id]);
 
   if (!contribution) {
-    return <div>There's nothing to show here.</div>;
-  }
+    return (
+      <div>
+        There's nothing to show here.
+      </div>
+    )
+  };
 
   return (
-    <div className="home-container">
-      <div className="home-contributions">
-        {" "}
-        <h2 className="h3-bold md:h2-bold text-left w-full pb-10">
+    <div className="w-full">
+      <div className="flex md:flex-row flex-col">
+        <h2 className="h3-bold md:h2-bold text-left w-full pb-14">
           {contribution?.title}
         </h2>
-        <div className="flex flex-col gap-4 justify-center">
-          <div className="flex flex-col gap-5">
-            <div className="flex flex-col gap-1">
-              <p className="base-medium lg:body-bold text-black">
-                {contribution?.uploadedUserName} -{" "}
-                {contribution?.uploadedUserId}
-              </p>
-              <p className="subtle-semibold lg:small-regular text-light-3">
-                {contribution?.createdAt}
-              </p>
-            </div>
-          </div>
+        <p className="subtle-semibold lg:small-regular text-light-3">
+          {contribution?.createdAt}
+        </p>
+      </div>
 
-          <div className="flex flex-col gap-12">
-            {contributionImage && (
-              <div>
-                <img
-                  src={contributionImage}
-                  alt="image"
-                  height={500}
-                  width={500}
-                  // className="object-contain w-[500px] h-[500px]"
-                />
-              </div>
-            )}
-            <ScrollArea className="h-[200px] w-[400px] rounded-lg ">
-              {contribution?.content}
-            </ScrollArea>
-            {contributionFile && docs && (
-              <div>
-                <h2 className="h3-bold md:h2-bold pb-3">Document</h2>
-                <DocViewer
-                  documents={docs}
-                  pluginRenderers={DocViewerRenderers}
-                  // style={{ height: 500 }}
-                />
-              </div>
-            )}
+      <div className="flex flex-col gap-7 justify-center">
+        <div className="flex flex-col gap-5">
+          <ScrollArea className="h-[] w-full rounded-lg border p-4">
+            {contribution?.content}
+          </ScrollArea>
+
+          <div className="flex flex-col gap-1">
+            <p className="base-medium lg:body-bold text-black text-right">
+              {contribution?.uploadedUserName}
+            </p>
           </div>
         </div>
-        <ContributionComment contribution={contribution} />
+
+        <div className="flex flex-col justify-center items-center w-full gap-12">
+          {contributionImage && (
+            <img
+              src={contributionImage}
+              alt="image"
+              // height={500}
+              // width={500}
+              className="object-contain w-[1000px] h-[500px]"
+            />
+          )}
+
+          {contributionFile && docs && (
+            <DocViewer
+              documents={docs}
+              pluginRenderers={DocViewerRenderers}
+              style={{ height: 1250, width: 900 }}
+              prefetchMethod="GET"
+            />
+          )}
+
+          <div className="flex flex-col w-full pt-7 gap-3">
+            <p className="h2-bold md:h3-bold mb-2">Comment</p>
+            <ContributionComment contribution={contribution} />
+          </div>
+        </div>
       </div>
     </div>
   );

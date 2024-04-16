@@ -24,6 +24,7 @@ import { ILoginUser } from "./types";
 import AdminLayout from "./_root/AdminLayout";
 import ManagerLayout from "./_root/ManagerLayout";
 import UserLayout from "./_root/UserLayout";
+import { ContributionComment } from "./components/shared";
 
 const App = () => {
   const [userData, setUserData] = useState<ILoginUser>(
@@ -98,12 +99,13 @@ const App = () => {
               path="/contribution-details/:id"
               element={<ViewContribution userData={userData} />}
             />
+            
           </Route>
           <Route element={<ManagerLayout userData={userData} />}>
             {/* manager routes */}
             <Route path="/pending" element={<PendingContribution />} />
             <Route path="/contributions" element={<ContributionsList />} />
-
+            
             <Route
               path="/contribution-edit/:id"
               element={<EditContribution userData={userData} />}
@@ -111,6 +113,14 @@ const App = () => {
             <Route
               path="/contribution-details/:id"
               element={<ViewContribution userData={userData} />}
+            />
+            <Route
+              path="/contribution-comment/:id"
+              element={<ContributionComment userData={userData} />}
+            />
+            <Route
+              path="/contribution-comment/:id"
+              element={<ContributionComment userData={userData} />}
             />
           </Route>
         </Routes>

@@ -1,11 +1,11 @@
-import {z} from "zod";
-import {zodResolver} from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-import {useEffect, useState} from "react";
-import {useForm} from "react-hook-form";
-import {useNavigate, useParams} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
 
-import {ContributionValidation} from "@/lib/validation";
+import { ContributionValidation } from "@/lib/validation";
 
 import {
     Button,
@@ -19,12 +19,12 @@ import {
     Textarea,
     useToast
 } from "@/components/ui";
-import {FileUploader, ImageUploader} from "@/components/shared";
+import { FileUploader, ImageUploader } from "@/components/shared";
 
 const ContributionEditForm = () => {
-    const {id} = useParams();
+    const { id } = useParams();
     const navigate = useNavigate();
-    const {toast} = useToast()
+    const { toast } = useToast()
     const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || ""
     const [contribution, setContribution] = useState(null);
     const [contributionImage, setContributionImage] = useState("");
@@ -57,7 +57,7 @@ const ContributionEditForm = () => {
             .then(response => {
                 debugger
                 setContribution(response);
-                if(response.imageId) {
+                if (response.imageId) {
                     setContributionImage(`${VITE_WEBSERVICE_URL}/image/${response.imageId}`)
                 }
                 form.setValue("title", response.title);
@@ -70,7 +70,7 @@ const ContributionEditForm = () => {
     function onSubmit(values: z.infer<typeof ContributionValidation>) {
         try {
             updateContribution(values);
-            toast({title: "Successfully edited!"});
+            toast({ title: "Successfully edited!" });
             navigate(-1);
         } catch (error) {
             console.error("Error editing:", error);
@@ -117,6 +117,14 @@ const ContributionEditForm = () => {
         return contribution;
     }
 
+    if (!contribution) {
+        return (
+            <div>
+                There's nothing to show here.
+            </div>
+        )
+    };
+
     // Handler
     return (
         <Form {...form}>
@@ -124,20 +132,20 @@ const ContributionEditForm = () => {
                 <FormField
                     control={form.control}
                     name="title"
-                    render={({field}) => (
+                    render={({ field }) => (
                         <FormItem>
                             <FormLabel className="shad-form_label">Title</FormLabel>
                             <FormControl>
                                 <Input type="input" className="shad-input" {...field} />
                             </FormControl>
-                            <FormMessage className="shad-form_message"/>
+                            <FormMessage className="shad-form_message" />
                         </FormItem>
                     )}
                 />
                 <FormField
                     control={form.control}
                     name="content"
-                    render={({field}) => (
+                    render={({ field }) => (
                         <FormItem>
                             <FormLabel className="shad-form_label">Content</FormLabel>
                             <FormControl>
@@ -146,14 +154,14 @@ const ContributionEditForm = () => {
                                     {...field}
                                 />
                             </FormControl>
-                            <FormMessage className="shad-form_message"/>
+                            <FormMessage className="shad-form_message" />
                         </FormItem>
                     )}
                 />
                 <FormField
                     control={form.control}
                     name="image"
-                    render={({field}) => (
+                    render={({ field }) => (
                         <FormItem>
                             <FormLabel className="shad-form_label">Add Photos</FormLabel>
                             <FormControl>
@@ -162,14 +170,14 @@ const ContributionEditForm = () => {
                                     mediaUrl={contributionImage}
                                 />
                             </FormControl>
-                            <FormMessage className="shad-form_message"/>
+                            <FormMessage className="shad-form_message" />
                         </FormItem>
                     )}
                 />
                 <FormField
                     control={form.control}
                     name="file"
-                    render={({field}) => (
+                    render={({ field }) => (
                         <FormItem>
                             <FormLabel className="shad-form_label">Add Files</FormLabel>
                             <FormControl>
@@ -177,7 +185,7 @@ const ContributionEditForm = () => {
                                     fieldChange={field.onChange}
                                 />
                             </FormControl>
-                            <FormMessage className="shad-form_message"/>
+                            <FormMessage className="shad-form_message" />
                         </FormItem>
                     )}
                 />
@@ -185,7 +193,7 @@ const ContributionEditForm = () => {
                     <Button
                         type="submit"
                         className="shad-button_primary whitespace-nowrap"
-                        // disabled={isLoadingCreate || isLoadingUpdate}
+                    // disabled={isLoadingCreate || isLoadingUpdate}
                     >
                         {/* {(isLoadingCreate || isLoadingUpdate) && <Loader />} */}
                         Save
