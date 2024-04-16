@@ -9,5 +9,4 @@ export { default as EditUser } from "./EditUser";
 export { default as PendingContribution } from "./PendingContributions";
 export { default as ContributionsList } from "./ContributionsList";
 export { default as EditContribution } from "./EditContribution";
-export { default as DetailedContribution } from "./DetailedContribution";
-
+export { default as ViewContribution } from "./ViewContribution";

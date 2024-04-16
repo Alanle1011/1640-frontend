@@ -12,7 +12,7 @@ import {
   MyContribution,
   ContributionsList,
   EditContribution,
-  DetailedContribution,
+  ViewContribution,
   // UsersList,
 } from "@/_root/pages";
 import { Toaster } from "@/components/ui/toaster";
@@ -22,10 +22,8 @@ import SigninForm from "./_auth/SigninForm";
 import { useEffect, useState } from "react";
 import { ILoginUser } from "./types";
 import AdminLayout from "./_root/AdminLayout";
-import UserLayout from "./_root/UserLayout";
 import ManagerLayout from "./_root/ManagerLayout";
-import ContributionDetailedForm from "./components/forms/ContributionDetailedForm";
-import ViewContribution from "./_root/pages/ViewContribution";
+import UserLayout from "./_root/UserLayout";
 
 const App = () => {
   const [userData, setUserData] = useState<ILoginUser>(
@@ -89,10 +87,6 @@ const App = () => {
               path="/contribution-details/:id"
               element={<ViewContribution userData={userData} />}
             />
-            <Route
-              path="/contribution-detailsold/:id"
-              element={<DetailedContribution userData={userData} />}
-            />
           </Route>
 
           <Route element={<AdminLayout userData={userData} />}>
@@ -102,22 +96,21 @@ const App = () => {
             <Route path="/edit-user" element={<EditUser />} />
             <Route
               path="/contribution-details/:id"
-              element={<ContributionDetailedForm userData={userData} />}
+              element={<ViewContribution userData={userData} />}
             />
-            
           </Route>
           <Route element={<ManagerLayout userData={userData} />}>
             {/* manager routes */}
             <Route path="/pending" element={<PendingContribution />} />
             <Route path="/contributions" element={<ContributionsList />} />
-            
+
             <Route
               path="/contribution-edit/:id"
               element={<EditContribution userData={userData} />}
             />
             <Route
               path="/contribution-details/:id"
-              element={<DetailedContribution userData={userData} />}
+              element={<ViewContribution userData={userData} />}
             />
           </Route>
         </Routes>

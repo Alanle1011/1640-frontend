@@ -86,7 +86,7 @@ const ContributionDetails = () => {
                 />
               </div>
             )}
-            <ScrollArea className="h-[] w-[400px] rounded-lg ">
+            <ScrollArea className="h-[200px] w-[400px] rounded-lg ">
               {contribution?.content}
             </ScrollArea>
             {contributionFile && docs && (
