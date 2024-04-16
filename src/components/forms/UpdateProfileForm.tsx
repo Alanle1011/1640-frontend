@@ -21,7 +21,6 @@ const UpdateProfileForm: React.FC<{ userData: ILoginUser }> = ({userData}) => {
             name: "",
             oldPassword: "",
             newPassword: "",
-            email: "",
         }
     });
 
@@ -44,7 +43,6 @@ const UpdateProfileForm: React.FC<{ userData: ILoginUser }> = ({userData}) => {
             .then((response) => {
                 debugger
                 form.setValue("name", response.name);
-                form.setValue("email", response.email);
                 if (response.imageId) {
                     setUserImageUrl(
                         `${VITE_WEBSERVICE_URL}/image/${response.imageId}`
@@ -78,15 +76,12 @@ const UpdateProfileForm: React.FC<{ userData: ILoginUser }> = ({userData}) => {
                 name: data.name,
                 oldPassword: data.oldPassword,
                 newPassword: data.newPassword,
-                email: data.email,
             };
 
         } else {
             // Update without password
             userBody = {
                 name: data.name,
-                email: data.email,
-
             };
         }
 
@@ -178,19 +173,6 @@ const UpdateProfileForm: React.FC<{ userData: ILoginUser }> = ({userData}) => {
                     render={({field}) => (
                         <FormItem>
                             <FormLabel className="shad-form_label">New Password</FormLabel>
-                            <FormControl>
-                                <Input type="input" className="shad-input" {...field} />
-                            </FormControl>
-                            <FormMessage className="shad-form_message"/>
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="email"
-                    render={({field}) => (
-                        <FormItem>
-                            <FormLabel className="shad-form_label">Title</FormLabel>
                             <FormControl>
                                 <Input type="input" className="shad-input" {...field} />
                             </FormControl>

@@ -68,7 +68,6 @@ const UserForm = () => {
         if (data.userRole === "STUDENT") {
             userBody = {
                 name: data.name,
-                password: data.password,
                 email: data.email,
                 userRole: data.userRole,
                 faculty: data.faculty
@@ -76,7 +75,6 @@ const UserForm = () => {
         } else {
             userBody = {
                 name: data.name,
-                password: data.password,
                 email: data.email,
                 userRole: data.userRole,
             };
@@ -108,19 +106,6 @@ const UserForm = () => {
                     render={({field}) => (
                         <FormItem>
                             <FormLabel className="shad-form_label">Name</FormLabel>
-                            <FormControl>
-                                <Input type="input" className="shad-input" {...field} />
-                            </FormControl>
-                            <FormMessage className="shad-form_message"/>
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="password"
-                    render={({field}) => (
-                        <FormItem>
-                            <FormLabel className="shad-form_label">Password</FormLabel>
                             <FormControl>
                                 <Input type="input" className="shad-input" {...field} />
                             </FormControl>

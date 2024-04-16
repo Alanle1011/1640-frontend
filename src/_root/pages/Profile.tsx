@@ -103,7 +103,7 @@ const Profile: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
         <div className="flex xl:flex-row flex-col max-xl:items-center flex-1 gap-4">
           <div className="relative">
             <img
-              src={"/assets/icons/profile-placeholder.svg"}
+              src={userData.imageId ? `${VITE_WEBSERVICE_URL}/image/${userData.imageId}` : "/assets/icons/profile-placeholder.svg"}
               alt="profile"
               className="w-22 h-full lg:h-28 lg:w-28 rounded-full hover:bg "
             />
