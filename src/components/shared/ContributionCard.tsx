@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 
 import { Contribution } from "@/_root/pages/Home";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
 
 const ContributionCard: React.FC<{ contribution: Contribution }> = ({
   contribution,
 }) => {
   const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
 
-  if (!contribution.uploadedUserId) return;
+  if (!contribution.uploadedUserId) return <div>No Contribution</div>;
 
   return (
     <div className="contribution-card">
@@ -36,7 +37,12 @@ const ContributionCard: React.FC<{ contribution: Contribution }> = ({
 
       <Link to={`/contribution-details/${contribution.id}`}>
         <div className="small-medium lg:base-medium py-5">
-          <p>{contribution.content}</p>
+          <p className="base-medium lg:body-bold text-black">
+            {contribution?.title}
+          </p>
+          <ScrollArea className="h-[100] w-[400px] rounded-lg ">
+            {contribution?.content}
+          </ScrollArea>
           <ul className="flex gap-1 mt-2">
             <li className="text-light-3 small-regular">
               #{contribution.faculty}
@@ -44,13 +50,37 @@ const ContributionCard: React.FC<{ contribution: Contribution }> = ({
           </ul>
         </div>
 
-        <div>
-          <img
-            src={`${VITE_WEBSERVICE_URL}/image/${contribution.imageId}`}
-            alt="contribution image"
-            className="contribution-card_img"
-          />
-        </div>
+        {contribution.imageId && (
+          <div>
+            <img
+              src={`${VITE_WEBSERVICE_URL}/image/${contribution.imageId}`}
+              alt="contribution image"
+              className="contribution-card_img"
+            />
+          </div>
+        )}
+
+        {contribution.documentType && (
+          <div className="small-medium lg:base-medium py-5 flex items-center border rounded-lg border-dark-2 p-4 w-fit">
+            <>
+              {contribution.documentType === "docx" && (
+                <img
+                  src="/assets/icons/docx-file.png"
+                  className="w-7 h-full mr-3"
+                  title="docx icons"
+                />
+              )}
+              {contribution.documentType === "pdf" && (
+                <img
+                  src="/assets/icons/pdf.png"
+                  className="w-7 h-full mr-3"
+                  title="pdf icons"
+                />
+              )}
+              <p>{contribution.documentName}</p>
+            </>
+          </div>
+        )}
       </Link>
     </div>
   );

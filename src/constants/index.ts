@@ -5,11 +5,6 @@ export const sidebarLinks = [
     label: "Home",
   },
   {
-    imgURL: "/assets/icons/wallpaper.svg",
-    route: "/my",
-    label: "My Contributions",
-  },
-  {
     imgURL: "/assets/icons/gallery-add.svg",
     route: "/create-contribution",
     label: "Create Contribution",

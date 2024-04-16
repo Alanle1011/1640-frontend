@@ -1,32 +1,27 @@
-import { Navigate, Route, Routes } from "react-router-dom";
 import {
-  UsersList,
-  CreateUser,
-  EditUser,
+  ContributionsList,
   CreateContribution,
-  // Empty,
+  CreateUser,
+  EditContribution,
+  EditUser,
   Home,
+  MyContribution,
+  PendingContribution,
   Profile,
   UpdateProfile,
-  PendingContribution,
-  MyContribution,
-  ContributionsList,
-  EditContribution,
-  DetailedContribution,
-  // UsersList,
+  UsersList,
+  ViewContribution,
 } from "@/_root/pages";
 import { Toaster } from "@/components/ui/toaster";
-import "./globals.css";
+import { useEffect, useState } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 import AuthLayout from "./_auth/AuthLayout";
 import SigninForm from "./_auth/SigninForm";
-import { useEffect, useState } from "react";
-import { ILoginUser } from "./types";
 import AdminLayout from "./_root/AdminLayout";
-import UserLayout from "./_root/UserLayout";
 import ManagerLayout from "./_root/ManagerLayout";
-import ContributionDetailedForm from "./components/forms/ContributionDetailedForm";
-import ViewContribution from "./_root/pages/ViewContribution";
-import { ContributionComment } from "./components/shared";
+import UserLayout from "./_root/UserLayout";
+import "./globals.css";
+import { ILoginUser } from "./types";
 
 const App = () => {
   const [userData, setUserData] = useState<ILoginUser>(
@@ -88,11 +83,7 @@ const App = () => {
             />
             <Route
               path="/contribution-details/:id"
-              element={<ViewContribution userData={userData} />}
-            />
-            <Route
-              path="/contribution-detailsold/:id"
-              element={<DetailedContribution userData={userData} />}
+              element={<ViewContribution/>}
             />
           </Route>
 
@@ -103,9 +94,8 @@ const App = () => {
             <Route path="/edit-user" element={<EditUser />} />
             <Route
               path="/contribution-details/:id"
-              element={<ContributionDetailedForm userData={userData} />}
+              element={<ViewContribution/>}
             />
-
           </Route>
           <Route element={<ManagerLayout userData={userData} />}>
             {/* manager routes */}
@@ -118,11 +108,7 @@ const App = () => {
             />
             <Route
               path="/contribution-details/:id"
-              element={<DetailedContribution userData={userData} />}
-            />
-            <Route
-              path="/contribution-comment/:id"
-              element={<ContributionComment userData={userData} />}
+              element={<ViewContribution/>}
             />
           </Route>
         </Routes>
