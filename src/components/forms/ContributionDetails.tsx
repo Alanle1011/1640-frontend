@@ -3,7 +3,6 @@ import { ScrollArea } from "@/components/ui";
 import { useParams } from "react-router-dom";
 
 import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
-import { useFullscreen } from "react-use";
 import { ContributionComment } from "../shared";
 
 const ContributionDetails = () => {
@@ -15,10 +14,12 @@ const ContributionDetails = () => {
   const [contributionImage, setContributionImage] = useState<string>();
   const [contributionFile, setContributionFile] = useState<string>();
   const [contributionFileType, setContributionFileType] = useState<string>();
+  const [contributionFileName, setContributionFileName] = useState<string>();
 
   const docs = [{
     uri: contributionFile,
-    fileType: contributionFileType
+    fileType: contributionFileType,
+    fileName: contributionFileName
   }];
 
   // 1. GET Contribution
@@ -49,6 +50,7 @@ const ContributionDetails = () => {
             `${VITE_WEBSERVICE_URL}/document/${response.documentId}`
           );
           setContributionFileType(response.documentType.toString());
+          setContributionFileName(response.documentName.toString());
         }
       })
       .catch((error) => console.error("Error fetching:", error));
@@ -86,7 +88,7 @@ const ContributionDetails = () => {
           </div>
         </div>
 
-        <div className="flex flex-col justify-center items-center w-full gap-5">
+        <div className="flex flex-col justify-center items-center w-full gap-12">
           {contributionImage && (
             <img
               src={contributionImage}
@@ -101,12 +103,13 @@ const ContributionDetails = () => {
             <DocViewer
               documents={docs}
               pluginRenderers={DocViewerRenderers}
-              style={{ height: 500, width: 900 }}
+              style={{ height: 1250, width: 900 }}
               prefetchMethod="GET"
             />
           )}
+
           <div className="flex flex-col w-full pt-7 gap-3">
-            <h2 className="base-medium md:base-semibold">Comment</h2>
+            <p className="h2-bold md:h3-bold mb-2">Comment</p>
             <ContributionComment contribution={contribution} />
           </div>
         </div>
