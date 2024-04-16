@@ -7,3 +7,5 @@ export { default as UserCard } from "./UserCard";
 export { default as FileUploader } from "./FileUploader.tsx";
 export { default as ImageUploader } from "./ImageUploader.tsx";
 export { default as ProfileUploader } from "./ProfileUploader";
+export { default as Loader } from "./Loader";
+export { default as ContributionComment } from "./ContributionComment.tsx";

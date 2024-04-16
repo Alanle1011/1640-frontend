@@ -25,7 +25,7 @@ const ViewContribution = () => {
                     height={36}
                     alt="details"
                 />
-                <h2 className="h3-bold md:h2-bold text-left w-full text-white">Contribution Details</h2>
+                <h2 className="h3-bold md:h2-bold text-left w-full text-black">Contribution Details</h2>
             </div>
             <div className="custom-container mt-14">
                 <ContributionDetails />

@@ -141,7 +141,7 @@
 
   /* Home */
   .home-container {
-    @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14 custom-scrollbar;
+    @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14;
   }
 
   .home-contributions {
@@ -250,7 +250,7 @@
   }
 
   .custom-topbar {
-    @apply flex-start gap-3 justify-start w-full p-5 fixed bg-primary-500 border-topbar;
+    @apply flex-start gap-3 justify-start w-full p-5 fixed bg-slate-50 border-topbar;
   }
 
   /* User card */
@@ -260,8 +260,6 @@
 
   /* Border */
   .border-topbar {
-    border-bottom-left-radius: 2cap;
-    border-bottom-right-radius: 2cap;
     border-width: 0cap;
   }
 
