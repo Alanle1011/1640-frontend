@@ -99,13 +99,12 @@ const App = () => {
               path="/contribution-details/:id"
               element={<ViewContribution userData={userData} />}
             />
-            
           </Route>
           <Route element={<ManagerLayout userData={userData} />}>
             {/* manager routes */}
             <Route path="/pending" element={<PendingContribution />} />
             <Route path="/contributions" element={<ContributionsList />} />
-            
+
             <Route
               path="/contribution-edit/:id"
               element={<EditContribution userData={userData} />}
