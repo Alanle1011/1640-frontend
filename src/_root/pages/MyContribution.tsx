@@ -1,4 +1,4 @@
-import { ContributionCard, GridList } from "@/components/shared";
+import { GridList } from "@/components/shared";
 import { ILoginUser } from "@/types";
 import { useState, useEffect } from "react";
 export type Contribution = {

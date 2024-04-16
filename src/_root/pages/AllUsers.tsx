@@ -28,7 +28,7 @@ import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/
 import {undefined} from "zod";
 import {Link} from "react-router-dom";
 import {User} from "@/types"
-import {PenSquare, View, XSquare} from "lucide-react"
+import {PenSquare, XSquare} from "lucide-react"
 import {toast} from "@/components/ui"
 
 const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
@@ -67,7 +67,8 @@ export const columns: ColumnDef<User>[] = [
         header: "",
         cell: ({row}) => (
             <div className="capitalize">
-                <img className={'h-8 w-8'} src={row.getValue("imageId") ? `${VITE_WEBSERVICE_URL}/image/${row.getValue("imageId")}` : "/assets/icons/profile-placeholder.svg"}/>
+                <img className={'h-8 w-8'}
+                     src={row.getValue("imageId") ? `${VITE_WEBSERVICE_URL}/image/${row.getValue("imageId")}` : "/assets/icons/profile-placeholder.svg"}/>
             </div>
         ),
     },
