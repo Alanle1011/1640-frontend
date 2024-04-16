@@ -1,30 +1,27 @@
-import { Navigate, Route, Routes } from "react-router-dom";
 import {
-  UsersList,
-  CreateUser,
-  EditUser,
+  ContributionsList,
   CreateContribution,
-  // Empty,
+  CreateUser,
+  EditContribution,
+  EditUser,
   Home,
+  MyContribution,
+  PendingContribution,
   Profile,
   UpdateProfile,
-  PendingContribution,
-  MyContribution,
-  ContributionsList,
-  EditContribution,
+  UsersList,
   ViewContribution,
-  // UsersList,
 } from "@/_root/pages";
 import { Toaster } from "@/components/ui/toaster";
-import "./globals.css";
+import { useEffect, useState } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 import AuthLayout from "./_auth/AuthLayout";
 import SigninForm from "./_auth/SigninForm";
-import { useEffect, useState } from "react";
-import { ILoginUser } from "./types";
 import AdminLayout from "./_root/AdminLayout";
 import ManagerLayout from "./_root/ManagerLayout";
 import UserLayout from "./_root/UserLayout";
-import { ContributionComment } from "./components/shared";
+import "./globals.css";
+import { ILoginUser } from "./types";
 
 const App = () => {
   const [userData, setUserData] = useState<ILoginUser>(
@@ -86,7 +83,7 @@ const App = () => {
             />
             <Route
               path="/contribution-details/:id"
-              element={<ViewContribution userData={userData} />}
+              element={<ViewContribution/>}
             />
           </Route>
 
@@ -97,7 +94,7 @@ const App = () => {
             <Route path="/edit-user" element={<EditUser />} />
             <Route
               path="/contribution-details/:id"
-              element={<ViewContribution userData={userData} />}
+              element={<ViewContribution/>}
             />
           </Route>
           <Route element={<ManagerLayout userData={userData} />}>
@@ -111,15 +108,7 @@ const App = () => {
             />
             <Route
               path="/contribution-details/:id"
-              element={<ViewContribution userData={userData} />}
-            />
-            <Route
-              path="/contribution-comment/:id"
-              element={<ContributionComment userData={userData} />}
-            />
-            <Route
-              path="/contribution-comment/:id"
-              element={<ContributionComment userData={userData} />}
+              element={<ViewContribution/>}
             />
           </Route>
         </Routes>

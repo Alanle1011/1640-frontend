@@ -1,9 +1,9 @@
 import { Link, Outlet } from "react-router-dom";
 
 import { ContributionCard, Loader } from "@/components/shared";
+import { Button, useToast } from "@/components/ui";
 import { ILoginUser } from "@/types";
 import { useEffect, useState } from "react";
-import { Button, useToast } from "@/components/ui";
 
 export type Contribution = {
   id: string;
@@ -28,7 +28,7 @@ export type Document = {
 
 const Profile: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
   const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
-  const { toast } = useToast;
+  const { toast } = useToast();
 
   const [contributionData, setContributionData] = useState<Contribution[]>();
   const [isLoading, setisLoading] = useState(false);
@@ -147,7 +147,7 @@ const Profile: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
                 <Button
                   onClick={() => downloadAll()}
                   className={` h-12 bg-light-1 px-5 text-black flex-center gap-2 border rounded-lg border-dark-2 p-4 w-fit`}>
-                  {isLoading && <Loader  />}
+                  {isLoading && <Loader />}
                   {!isLoading && (
                     <>
                       <img

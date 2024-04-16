@@ -1,6 +1,7 @@
 import ContributionForm from "@/components/forms/ContributionForm";
+import { ILoginUser } from "@/types";
 
-const CreateContribution = () => {
+const CreateContribution: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
   return (
     <div className="flex flex-1">
       <div className="common-container">
@@ -14,7 +15,7 @@ const CreateContribution = () => {
           <h2 className="h3-bold md:h2-bold text-left w-full">Create Contribution</h2>
         </div>
 
-        <ContributionForm />
+        <ContributionForm userData={userData}/>
       </div>
     </div>
   );

@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+import FileUploader from "@/components/shared/FileUploader.tsx";
+import ImageUploader from "@/components/shared/ImageUploader.tsx";
 import {
   Button,
   Form,
@@ -13,22 +15,18 @@ import {
   Textarea,
   useToast,
 } from "@/components/ui";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { ContributionValidation } from "@/lib/validation";
-import ImageUploader from "@/components/shared/ImageUploader.tsx";
-import FileUploader from "@/components/shared/FileUploader.tsx";
-import { useEffect, useState } from "react";
 import { ILoginUser } from "@/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
+import { z } from "zod";
 
-const ContributionForm = () => {
+const ContributionForm: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
   // @ts-ignore
-  const [uploadedUserId, setUploadedUserId] = useState<ILoginUser>(
-    JSON.parse(localStorage.getItem("userData")) || null
-  );
+  const [uploadedUserId, setUploadedUserId] = useState<ILoginUser>(userData);
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("userData") || '""');

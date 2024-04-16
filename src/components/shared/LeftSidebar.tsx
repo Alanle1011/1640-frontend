@@ -1,9 +1,8 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 
-import { ILoginUser, INavLink } from "@/types";
 import { adminSidebarLinks, coordinatorSidebarLinks, managerSidebarLinks, sidebarLinks } from "@/constants";
+import { ILoginUser, INavLink } from "@/types";
 import { Button } from "../ui";
-import { useEffect, useState } from "react";
 
 const LeftSidebar: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
   const { pathname } = useLocation();
