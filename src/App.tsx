@@ -75,7 +75,7 @@ const App = () => {
             <Route path="/profile" element={<Profile userData={userData} />} />
             <Route
               path="/update-profile"
-              element={<UpdateProfile />}
+              element={<UpdateProfile userData={userData}/>}
             />
             <Route
               path="/my"
@@ -91,7 +91,7 @@ const App = () => {
             {/* admin routes */}
             <Route path="/users" element={<UsersList />} />
             <Route path="/create-user" element={<CreateUser />} />
-            <Route path="/edit-user" element={<EditUser />} />
+            <Route path="/edit-user/:id" element={<EditUser />} />
             <Route
               path="/contribution-details/:id"
               element={<ViewContribution userData={userData}/>}

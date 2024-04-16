@@ -25,6 +25,13 @@ export const ContributionValidation = z.object({
   image: z.custom<File[]>(),
   file: z.custom<File[]>(),
 });
+export const UserProfileEditValidation = z.object({
+  image: z.custom<File[]>(),
+  name: z.string().min(1, { message: "This field is required" }).max(1000, { message: "Maximum 1000 characters." }),
+  oldPassword: z.string(),
+  newPassword: z.string(),
+  email: z.string()
+});
 export const UserValidation = z.object({
   name: z.string().min(1, { message: "This field is required" }).max(1000, { message: "Maximum 1000 characters." }),
   oldPassword: z.string(),

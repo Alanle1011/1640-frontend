@@ -50,6 +50,7 @@ export type INewUser = {
 export type ILoginUser = {
   status: boolean
   userId: number,
+  imageId: string,
   role: string,
   name: string,
   faculty: string,

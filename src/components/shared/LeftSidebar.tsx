@@ -6,6 +6,7 @@ import { Button } from "../ui";
 
 const LeftSidebar: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
   const { pathname } = useLocation();
+  const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
 
   function handleSignOut(): void {
     localStorage.clear();
@@ -18,7 +19,7 @@ const LeftSidebar: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
         <div className="flex flex-col gap-11">
           <Link to="/" className="flex gap-3 items-center">
             <img
-              src="/assets/images/logo.png"
+              src={"/assets/images/logo.png"}
               alt="logo"
               width={170}
               height={36}
@@ -26,7 +27,7 @@ const LeftSidebar: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
           </Link>
           <Link to="/profile" className="flex gap-3 items-center">
             <img
-              src={"/assets/icons/profile-placeholder.svg"}
+              src={userData.imageId ? `${VITE_WEBSERVICE_URL}/image/${userData.imageId}` : "/assets/icons/profile-placeholder.svg"}
               alt="profile"
               className="h-14 w-14 rounded-full"
             />
