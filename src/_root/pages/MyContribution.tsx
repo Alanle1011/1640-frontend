@@ -24,7 +24,6 @@ const MyContribution: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
   const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
 
   const [contributionData, setContributionData] = useState<Contribution[]>([]);
-  const [documentData, setDocumentData] = useState<Document[]>();
 
   //contributionData = array of Contribution
   useEffect(() => {
@@ -43,10 +42,7 @@ const MyContribution: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
         setContributionData(data);
       });
   }, []);
-
   console.log("contributionData", contributionData);
-  console.log("documentData", documentData);
-
   return (
     <div className="flex flex-1">
       <div className="home-container">
