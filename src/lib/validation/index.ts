@@ -46,3 +46,18 @@ export const CreateUserValidation = z.object({
   faculty: z.string()
 });
 
+export const SubmissionEditValidation = z.object({
+  id: z.string(),
+  name: z.string().min(1, { message: "This field is required" }).max(1000, { message: "Maximum 1000 characters." }),
+  startDate: z.date(),
+  closureDate: z.date(),
+  finalClosureDate: z.date()
+});
+
+export const CreateSubmissionValidation = z.object({
+  name: z.string().min(1, { message: "This field is required" }).max(1000, { message: "Maximum 1000 characters." }),
+  startDate: z.date(),
+  closureDate: z.date(),
+  finalClosureDate: z.date()
+});
+
