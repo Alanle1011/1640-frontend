@@ -124,7 +124,7 @@ const ContributionDetails: React.FC<{ userData: ILoginUser }> = ({userData}) => 
 
             <div className="flex flex-col gap-7 justify-center">
                 <div className="flex flex-col gap-5">
-                    <ScrollArea className="h-[] w-full rounded-lg border p-4">
+                    <ScrollArea className="h-[200] w-full rounded-lg border p-4">
                         {contribution?.content}
                     </ScrollArea>
 
@@ -150,7 +150,7 @@ const ContributionDetails: React.FC<{ userData: ILoginUser }> = ({userData}) => 
                         <DocViewer
                             documents={docs}
                             pluginRenderers={DocViewerRenderers}
-                            style={{height: 1250, width: 900}}
+                            style={{height: 900, width: 900}}
                             prefetchMethod="GET"
                         />
                     )}

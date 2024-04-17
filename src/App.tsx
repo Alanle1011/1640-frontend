@@ -75,7 +75,7 @@ const App = () => {
             <Route path="/profile" element={<Profile userData={userData} />} />
             <Route
               path="/update-profile"
-              element={<UpdateProfile userData={userData}/>}
+              element={<UpdateProfile userData={userData} />}
             />
             <Route
               path="/my"
@@ -83,7 +83,7 @@ const App = () => {
             />
             <Route
               path="/contribution-details/:id"
-              element={<ViewContribution userData={userData}/>}
+              element={<ViewContribution userData={userData} />}
             />
           </Route>
 
@@ -94,7 +94,7 @@ const App = () => {
             <Route path="/edit-user/:id" element={<EditUser />} />
             <Route
               path="/contribution-details/:id"
-              element={<ViewContribution userData={userData}/>}
+              element={<ViewContribution userData={userData} />}
             />
           </Route>
           <Route element={<ManagerLayout userData={userData} />}>
@@ -108,7 +108,7 @@ const App = () => {
             />
             <Route
               path="/contribution-details/:id"
-              element={<ViewContribution userData={userData}/>}
+              element={<ViewContribution userData={userData} />}
             />
           </Route>
         </Routes>

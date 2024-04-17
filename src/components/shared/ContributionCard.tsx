@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 import { Contribution } from "@/_root/pages/Home";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { ScrollArea } from "@/components/ui";
 
 const ContributionCard: React.FC<{ contribution: Contribution }> = ({
   contribution,
@@ -36,11 +36,11 @@ const ContributionCard: React.FC<{ contribution: Contribution }> = ({
       </div>
 
       <Link to={`/contribution-details/${contribution.id}`}>
-        <div className="small-medium lg:base-medium py-5">
+        <div className="small-medium lg:base-medium py-3">
           <p className="base-medium lg:body-bold text-black">
             {contribution?.title}
           </p>
-          <ScrollArea className="h-[100] w-[400px] rounded-lg ">
+          <ScrollArea className="h-[40px] w-full md:h-[100px] rounded-lg ">
             {contribution?.content}
           </ScrollArea>
           <ul className="flex gap-1 mt-2">
@@ -61,7 +61,7 @@ const ContributionCard: React.FC<{ contribution: Contribution }> = ({
         )}
 
         {contribution.documentType && (
-          <div className="small-medium lg:base-medium py-5 flex items-center border rounded-lg border-dark-2 p-4 w-fit">
+          <div className="small-medium lg:base-medium py-3 flex items-center border rounded-lg border-dark-2 p-4 w-fit">
             <>
               {contribution.documentType === "docx" && (
                 <img

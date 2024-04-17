@@ -9,7 +9,7 @@ const Bottombar: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
   if (userData.role === "STUDENT") {
     return (
       <section className="bottom-bar">
-        {adminBottombarLinks.map((link) => {
+        {bottombarLinks.map((link) => {
           const isActive = pathname === link.route;
           return (
             <Link
@@ -35,7 +35,7 @@ const Bottombar: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
   }
   return (
     <section className="bottom-bar">
-      {bottombarLinks.map((link) => {
+      {adminBottombarLinks.map((link) => {
         const isActive = pathname === link.route;
         return (
           <Link

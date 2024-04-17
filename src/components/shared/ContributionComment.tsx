@@ -1,7 +1,5 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { Contribution, ILoginUser } from "@/types";
-import { Loader } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Button, Textarea, toast } from "../ui";
 
 export type Comment = {
@@ -46,7 +44,7 @@ const ContributionComment: React.FC<{ contribution: Contribution }> = ({
 
   useEffect(() => {
     if (contribution) {
-      fetch(`${VITE_WEBSERVICE_URL}/comment/contribution/${contribution.id}`, {
+      fetch(`${VITE_WEBSERVICE_URL}/comment/private/contribution/${contribution.id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -41,8 +41,8 @@ export const bottombarLinks = [
   },
   {
     imgURL: "/assets/icons/wallpaper.svg",
-    route: "/my",
-    label: "My",
+    route: "/profile",
+    label: "Profile",
   },
   {
     imgURL: "/assets/icons/gallery-add.svg",
