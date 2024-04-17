@@ -160,20 +160,20 @@ const ContributionDetails: React.FC<{ userData: ILoginUser }> = ({userData}) => 
                         <ContributionComment contribution={contribution}/>
                     </div>
 
-                    {userData.role === 'COORDINATOR' && contribution.status === "CLOSED" && (
+                    {userData.role === 'COORDINATOR' && contribution.status === "FINAL_CLOSED" && (
                         <div className={'flex gap-4'}>
                             <button className='bg-green-700 border border-black p-4 rounded hover:bg-green-400'
-                                    onClick={()=>handleApprovedContribution()}>Approved
+                                    onClick={()=>handleApprovedContribution()}>Approve
                             </button>
                             <button className='bg-orange-700 border border-black p-4 rounded hover:bg-red'
-                                    onClick={()=>handleRejectedContribution()}>Rejected
+                                    onClick={()=>handleRejectedContribution()}>Reject
                             </button>
                         </div>
                     )}
                     {userData.role === 'COORDINATOR' && contribution.status === "APPROVED" && (
                         <div className={'flex gap-4'}>
                             <button className='bg-green-700 border border-black p-4 rounded hover:bg-green-400'
-                                    onClick={()=>handlePublishedContribution()}>Published
+                                    onClick={()=>handlePublishedContribution()}>Publish
                             </button>
 
                         </div>

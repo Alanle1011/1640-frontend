@@ -43,10 +43,15 @@ const ContributionForm: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
   function onSubmit(values: z.infer<typeof ContributionValidation>) {
     if (uploadedUserId) {
       saveContribution(values);
+      //setTimeout(() => {
+      //   navigate("/");
+      //   window.location.reload();
+      // }, 500);
     }
   }
 
   async function saveContribution(data: any) {
+    debugger
     const contributionBody = {
       content: data.content,
       title: data.title,
@@ -159,7 +164,9 @@ const ContributionForm: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
             onClick={() => navigate(-1)}>
             Cancel
           </Button>
-          <Button type="submit" className="shad-button_primary flex gap-2 w-[80px]">
+          <Button
+            type="submit"
+            className="shad-button_primary flex gap-2 w-[80px]">
             Submit
           </Button>
         </div>
