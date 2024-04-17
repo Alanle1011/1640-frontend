@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {CaretSortIcon, ChevronDownIcon, DotsHorizontalIcon,} from "@radix-ui/react-icons"
+import {ChevronDownIcon, DotsHorizontalIcon,} from "@radix-ui/react-icons"
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -99,12 +99,12 @@ export const columns: ColumnDef<User>[] = [
         id: "actions",
         enableHiding: false,
         cell: ({row}) => {
-            const user = row.original
+            const submission = row.original
 
-            const deleteUser = async (userId: string) => {
-                if (!!user.id) {
+            const deleteUser = async (submissionId: string) => {
+                if (!!submission.id) {
                     try {
-                        const response = await fetch(`${VITE_WEBSERVICE_URL}/user/delete/${userId}`, {method: "DELETE"});
+                        const response = await fetch(`${VITE_WEBSERVICE_URL}/submission_period?id=${submissionId}`, {method: "DELETE"});
 
                         if (!response.ok) {
                             throw new Error(`Failed to delete item: ${response.statusText}`);
@@ -132,27 +132,27 @@ export const columns: ColumnDef<User>[] = [
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(user.id)}
+                            onClick={() => navigator.clipboard.writeText(submission.id)}
                         >
                             Copy ID into clipboard
                         </DropdownMenuItem>
                         <DropdownMenuSeparator/>
                         <DropdownMenuItem
                         >
-                            <Link className={'flex justify-start w-full'} to={`/edit-user/${user.id}`}>
+                            <Link className={'flex justify-start w-full'} to={`/edit-submission/${submission.id}`}>
                                 <PenSquare className="flex flex-row mr-2"/>Edit
                             </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator/>
                         {/*<DropdownMenuItem*/}
                         {/*>*/}
-                        {/*    <Link className={'flex justify-start w-full'} to={`/user-details/${user.id}`}>*/}
+                        {/*    <Link className={'flex justify-start w-full'} to={`/submission-details/${submission.id}`}>*/}
                         {/*        <View className="flex flex-row mr-2"/>Details*/}
                         {/*    </Link>*/}
                         {/*</DropdownMenuItem>*/}
                         <DropdownMenuSeparator/>
                         <DropdownMenuItem
-                            onClick={() => deleteUser(user.id)}
+                            onClick={() => deleteUser(submission.id)}
                         >
                             <XSquare className="mr-2"/>Delete
                         </DropdownMenuItem>
@@ -226,9 +226,9 @@ const SubmissionList = () => {
             <div className="flex items-center py-4">
                 <Input
                     placeholder="Type to filter..."
-                    value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+                    value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
-                        table.getColumn("email")?.setFilterValue(event.target.value)
+                        table.getColumn("name")?.setFilterValue(event.target.value)
                     }
                     className="max-w-sm"
                 />

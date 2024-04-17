@@ -1,4 +1,4 @@
-import UserEditForm from "@/components/forms/UserEditForm.tsx";
+import SubmissionEditForm from "@/components/forms/SubmissionEditForm.tsx";
 
 const EditSubmission = () => {
     return (
@@ -13,7 +13,7 @@ const EditSubmission = () => {
                     />
                     <h2 className="h3-bold md:h2-bold text-left w-full">Edit Submission</h2>
                 </div>
-                <UserEditForm />
+                <SubmissionEditForm />
             </div>
         </div>
     );
