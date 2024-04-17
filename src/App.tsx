@@ -22,6 +22,9 @@ import ManagerLayout from "./_root/ManagerLayout";
 import UserLayout from "./_root/UserLayout";
 import "./globals.css";
 import { ILoginUser } from "./types";
+import SubmissionList from "@/_root/pages/SubmissionList.tsx";
+import CreateSubmission from "@/_root/pages/CreateSubmission.tsx";
+import EditSubmission from "@/_root/pages/EditSubmission.tsx";
 
 const App = () => {
   const [userData, setUserData] = useState<ILoginUser>(
@@ -92,6 +95,11 @@ const App = () => {
             <Route path="/users" element={<UsersList />} />
             <Route path="/create-user" element={<CreateUser />} />
             <Route path="/edit-user/:id" element={<EditUser />} />
+
+            <Route path="/submission-list" element={<SubmissionList />} />
+            <Route path="/create-submission" element={<CreateSubmission />} />
+            <Route path="/edit-submission/:id" element={<EditSubmission />} />
+
             <Route
               path="/contribution-details/:id"
               element={<ViewContribution userData={userData} />}

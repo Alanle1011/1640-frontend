@@ -31,6 +31,11 @@ export const adminSidebarLinks = [
     route: "/users",
     label: "All Users",
   },
+  {
+    imgURL: "/assets/icons/wallpaper.svg",
+    route: "/submission-list",
+    label: "All Submissions Period",
+  },
 ];
 
 export const bottombarLinks = [
