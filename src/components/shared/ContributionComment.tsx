@@ -12,7 +12,7 @@ const ContributionComment: React.FC<{ contribution: Contribution }> = ({
   contribution,
 }) => {
   const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
-  const [userData, setUserData] = useState<ILoginUser>(
+  const [userData] = useState<ILoginUser>(
     // @ts-ignore
     JSON.parse(localStorage.getItem("userData")) || null
   );
