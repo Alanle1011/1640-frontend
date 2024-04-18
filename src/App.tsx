@@ -5,13 +5,15 @@ import {
   EditContribution,
   EditUser,
   Home,
-  MyContribution,
   PendingContribution,
   Profile,
   UpdateProfile,
   UsersList,
   ViewContribution,
 } from "@/_root/pages";
+import CreateSubmission from "@/_root/pages/CreateSubmission.tsx";
+import EditSubmission from "@/_root/pages/EditSubmission.tsx";
+import SubmissionList from "@/_root/pages/SubmissionList.tsx";
 import { Toaster } from "@/components/ui/toaster";
 import { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
@@ -19,12 +21,9 @@ import AuthLayout from "./_auth/AuthLayout";
 import SigninForm from "./_auth/SigninForm";
 import AdminLayout from "./_root/AdminLayout";
 import ManagerLayout from "./_root/ManagerLayout";
-import UserLayout from "./_root/UserLayout";
+import StudentLayout from "./_root/StudentLayout";
 import "./globals.css";
 import { ILoginUser } from "./types";
-import SubmissionList from "@/_root/pages/SubmissionList.tsx";
-import CreateSubmission from "@/_root/pages/CreateSubmission.tsx";
-import EditSubmission from "@/_root/pages/EditSubmission.tsx";
 
 const App = () => {
   const [userData, setUserData] = useState<ILoginUser>(
@@ -67,8 +66,8 @@ const App = () => {
     return (
       <main className="flex h-screen">
         <Routes>
-          {/* user routes */}
-          <Route element={<UserLayout userData={userData} />}>
+          {/* student routes */}
+          <Route element={<StudentLayout userData={userData} />}>
             <Route index element={<Home userData={userData} />} />
             <Route path="/sign-in" element={<Navigate replace to="/" />} />
             <Route
@@ -81,32 +80,30 @@ const App = () => {
               element={<UpdateProfile userData={userData} />}
             />
             <Route
-              path="/my"
-              element={<MyContribution userData={userData} />}
-            />
-            <Route
               path="/contribution-details/:id"
               element={<ViewContribution userData={userData} />}
             />
           </Route>
-
+          {/* guest routes */}
+          <Route element={<StudentLayout userData={userData} />}>
+            <Route index element={<Home userData={userData} />} />
+            <Route path="/sign-in" element={<Navigate replace to="/" />} />
+          </Route>
           <Route element={<AdminLayout userData={userData} />}>
-            {/* admin routes */}
+          {/* admin routes */}
             <Route path="/users" element={<UsersList />} />
             <Route path="/create-user" element={<CreateUser />} />
             <Route path="/edit-user/:id" element={<EditUser />} />
-
             <Route path="/submission-list" element={<SubmissionList />} />
             <Route path="/create-submission" element={<CreateSubmission />} />
             <Route path="/edit-submission/:id" element={<EditSubmission />} />
-
             <Route
               path="/contribution-details/:id"
               element={<ViewContribution userData={userData} />}
             />
           </Route>
           <Route element={<ManagerLayout userData={userData} />}>
-            {/* manager routes */}
+            {/* manager-coordinator routes */}
             <Route path="/pending" element={<PendingContribution />} />
             <Route path="/contributions" element={<ContributionsList />} />
 
