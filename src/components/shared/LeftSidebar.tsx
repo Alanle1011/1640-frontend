@@ -130,7 +130,7 @@ const LeftSidebar: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
                     <img
                       src={link.imgURL}
                       alt={link.label}
-                      className={`group-hover:invert-white w-24 h-24 ${
+                      className={`group-hover:invert-white w-6 h-6 ${
                         isActive && "invert-white"
                       }`}
                     />
@@ -237,7 +237,7 @@ const LeftSidebar: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
                     <img
                       src={link.imgURL}
                       alt={link.label}
-                      className={`group-hover:invert-white ${
+                      className={`group-hover:invert-white w-6 h-6 ${
                         isActive && "invert-white"
                       }`}
                     />
@@ -303,7 +303,7 @@ const LeftSidebar: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
                   <img
                     src={link.imgURL}
                     alt={link.label}
-                    className={`group-hover:invert-white ${
+                    className={`group-hover:invert-white w-6 h-6 ${
                       isActive && "invert-white"
                     }`}
                   />

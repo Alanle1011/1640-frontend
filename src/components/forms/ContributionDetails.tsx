@@ -103,42 +103,57 @@ const ContributionDetails: React.FC<{ userData: ILoginUser }> = ({
       })
       .catch((error) => console.error("Error fetching:", error));
   }, [id]);
-
   const downloadAll = async () => {
     setisLoading(true);
+    //Get DOC
+    if (contribution.imageId) {
+        await fetch(
+            `${VITE_WEBSERVICE_URL}/document/${contribution.documentId}`
+        ).then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.blob(); // Get the response as a blob
+        }).then(blob => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'wordfile.docx';
+            document.body.appendChild(a);
+            a.click(); // Trigger the download
+            document.body.removeChild(a); // Clean up
+        }).catch(error => {
+            console.error('Fetch error:', error);
+        });
+    }
 
-    const response1 = await fetch(
-      `${VITE_WEBSERVICE_URL}/document/${contribution.documentId}`
-    );
-    const blob1 = await response1.blob();
-    const filename1 = "doc.zip";
-    const link1 = document.createElement("a");
-    link1.href = URL.createObjectURL(blob1);
-    link1.download = filename1;
-    link1.click();
-    const event1 = new CustomEvent("doc-zip", {
-      detail: { blob1, filename1 },
-    });
-    window.dispatchEvent(event1);
+    //GET Images
+    if (contribution.imageId) {
+        await fetch(
+            `${VITE_WEBSERVICE_URL}/image/${contribution.imageId}`
+        ).then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.blob(); // Get the response as a blob
+        }).then(blob => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'image.jpg'; // Specify the filename you want to download the image as
+            document.body.appendChild(a);
+            a.click(); // Trigger the download
+            document.body.removeChild(a); // Clean up
+        }).catch(error => {
+            console.error('Fetch error:', error);
+        });
+    }
 
-    const response2 = await fetch(
-      `${VITE_WEBSERVICE_URL}/image/${contribution.imageId}`
-    );
-    const blob2 = await response2.blob();
-    const filename2 = "image.zip";
-    const link2 = document.createElement("a");
-    link2.href = URL.createObjectURL(blob2);
-    link2.download = filename2;
-    link2.click();
-    const event2 = new CustomEvent("image-zip", {
-      detail: { blob2, filename2 },
-    });
-    window.dispatchEvent(event2);
     setisLoading(false);
     toast({
-      description: "Download Success",
+        description: "Download Success",
     });
-  };
+};
   if (!contribution) {
     return <div>There's nothing to show here.</div>;
   }
