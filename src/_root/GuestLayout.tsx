@@ -1,8 +1,6 @@
 import { Outlet } from "react-router-dom";
 
 import { ILoginUser } from "@/types";
-import { Button } from "@/components/ui";
-import { ChevronsLeft } from "lucide-react";
 
 const GuestLayout: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
 

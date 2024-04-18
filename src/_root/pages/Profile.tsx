@@ -19,6 +19,7 @@ export type Contribution = {
   documentName: string;
   documentType: string;
   doc: Document;
+  uploadedUserImageId: string;
 };
 
 export type Document = {
@@ -173,16 +174,18 @@ const Profile: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
         <div className="my-container">
           <div className="home-contributions">
             <ul className="flex flex-col flex-1 gap-9 w-full ">
-              {contributionData && contributionData.map((contribution: Contribution) => (
-                <li key={contribution.id} className="flex justify-center w-full">
-                  <ContributionCard contribution={contribution} />
-                </li>
-              ))}
+              {contributionData &&
+                contributionData.map((contribution: Contribution) => (
+                  <li
+                    key={contribution.id}
+                    className="flex justify-center w-full">
+                    <ContributionCard contribution={contribution} />
+                  </li>
+                ))}
             </ul>
           </div>
         </div>
       )}
-
 
       {/* <Routes>
         <Route
