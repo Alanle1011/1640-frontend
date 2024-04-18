@@ -207,7 +207,7 @@
   }
 
   .contribution-card_img {
-    @apply h-[5%] xs:h-[30%] lg:h-[60%] w-full rounded-[24px] object-cover mb-5;
+    @apply h-[50%] w-[50%] md:h-[70%] md:w-[70%] lg:h-[80%] lg:w-[80%] rounded-[24px] object-cover mb-5 ;
   }
 
   /* Topbar */
