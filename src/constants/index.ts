@@ -1,3 +1,4 @@
+// GUEST
 export const sidebarLinks = [
   {
     imgURL: "/assets/icons/home.svg",
@@ -5,36 +6,9 @@ export const sidebarLinks = [
     label: "Home",
   },
   {
-    imgURL: "/assets/icons/gallery-add.svg",
+    imgURL: "/assets/icons/contribution-add.svg",
     route: "/create-contribution",
     label: "Create Contribution",
-  },
-];
-export const adminSidebarLinks = [
-  {
-    imgURL: "/assets/icons/home.svg",
-    route: "/",
-    label: "Home",
-  },
-  {
-    imgURL: "/assets/icons/wallpaper.svg",
-    route: "/contributions",
-    label: "All Contributions",
-  },
-  {
-    imgURL: "/assets/icons/wallpaper.svg",
-    route: "/pending",
-    label: "Pending Contributions",
-  },
-  {
-    imgURL: "/assets/icons/people.svg",
-    route: "/users",
-    label: "All Users",
-  },
-  {
-    imgURL: "/assets/icons/wallpaper.svg",
-    route: "/submission-list",
-    label: "All Submissions Period",
   },
 ];
 
@@ -45,16 +19,41 @@ export const bottombarLinks = [
     label: "Home",
   },
   {
-    imgURL: "/assets/icons/wallpaper.svg",
-    route: "/my",
-    label: "My",
+    imgURL: "/assets/icons/profile-placeholder.svg",
+    route: "/profile",
+    label: "Profile",
   },
   {
-    imgURL: "/assets/icons/gallery-add.svg",
+    imgURL: "/assets/icons/contribution-add.svg",
     route: "/create-contribution",
     label: "Create",
   },
 ];
+
+// ADMIN
+export const adminSidebarLinks = [
+  {
+    imgURL: "/assets/icons/home.svg",
+    route: "/",
+    label: "Home",
+  },
+  {
+    imgURL: "/assets/icons/people.svg",
+    route: "/users",
+    label: "All Users",
+  },
+  {
+    imgURL: "/assets/icons/contribution.svg",
+    route: "/contributions",
+    label: "All Contributions",
+  },
+  {
+    imgURL: "/assets/icons/calendar.svg",
+    route: "/submission-list",
+    label: "All Submissions Period",
+  },
+];
+
 export const adminBottombarLinks = [
   {
     imgURL: "/assets/icons/home.svg",
@@ -62,21 +61,23 @@ export const adminBottombarLinks = [
     label: "Home",
   },
   {
-    imgURL: "/assets/icons/wallpaper.svg",
-    route: "/contributions",
-    label: "All Contributions",
-  },
-  {
-    imgURL: "/assets/icons/wallpaper.svg",
-    route: "/pending",
-    label: "Pending Contributions",
-  },
-  {
     imgURL: "/assets/icons/people.svg",
     route: "/users",
-    label: "All Users",
+    label: "Users",
+  },
+  {
+    imgURL: "/assets/icons/contribution.svg",
+    route: "/contributions",
+    label: "Contributions",
+  },
+  {
+    imgURL: "/assets/icons/calendar.svg",
+    route: "/submission-list",
+    label: "Submission",
   },
 ];
+
+// COORDINATOR
 export const coordinatorSidebarLinks = [
   {
     imgURL: "/assets/icons/home.svg",
@@ -84,16 +85,54 @@ export const coordinatorSidebarLinks = [
     label: "Home",
   },
   {
-    imgURL: "/assets/icons/wallpaper.svg",
+    imgURL: "/assets/icons/contribution-pending.svg",
     route: "/pending",
     label: "Pending Contributions",
   },
   {
-    imgURL: "/assets/icons/wallpaper.svg",
+    imgURL: "/assets/icons/contribution.svg",
     route: "/contributions",
     label: "All Contributions",
   },
 ];
+
+export const coordinatorBottombarLinks = [
+  {
+    imgURL: "/assets/icons/home.svg",
+    route: "/",
+    label: "Home",
+  },
+  {
+    imgURL: "/assets/icons/contribution-pending.svg",
+    route: "/pending",
+    label: "Pending Contributions",
+  },
+  {
+    imgURL: "/assets/icons/contribution.svg",
+    route: "/contributions",
+    label: "All Contributions",
+  },
+];
+
+// MANAGER
+export const managerBottombarLinks = [
+  {
+    imgURL: "/assets/icons/home.svg",
+    route: "/",
+    label: "Home",
+  },
+  {
+    imgURL: "/assets/icons/contribution-pending.svg",
+    route: "/pending",
+    label: "Pending Contributions",
+  },
+  {
+    imgURL: "/assets/icons/contribution.svg",
+    route: "/contributions",
+    label: "All Contributions",
+  },
+];
+
 export const managerSidebarLinks = [
   {
     imgURL: "/assets/icons/home.svg",
@@ -101,12 +140,12 @@ export const managerSidebarLinks = [
     label: "Home",
   },
   {
-    imgURL: "/assets/icons/wallpaper.svg",
+    imgURL: "/assets/icons/contribution-pending.svg",
     route: "/pending",
     label: "Pending Contributions",
   },
   {
-    imgURL: "/assets/icons/wallpaper.svg",
+    imgURL: "/assets/icons/contribution.svg",
     route: "/contributions",
     label: "All Contributions",
   },

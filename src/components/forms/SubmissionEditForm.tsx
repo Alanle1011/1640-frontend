@@ -109,20 +109,20 @@ const SubmissionEditForm = () => {
         };
 
         // Update Contribution
-        const responseUser = await fetch(`${VITE_WEBSERVICE_URL}/submission_period/update/${id}`, {
+        const responseContribution = await fetch(`${VITE_WEBSERVICE_URL}/submission_period/update/${id}`, {
             method: "PUT", // *GET, POST, PUT, DELETE, etc.
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(submissionBody), // body data type must match "Content-Type" header
         });
-        const user = await responseUser?.json();
+        const contribution = await responseContribution?.json();
 
 
         toast({
-            description: "User was successfully edited!",
+            description: "Contribution was successfully edited!",
         });
-        return user;
+        return contribution;
     }
 
     // Handler
@@ -273,7 +273,7 @@ const SubmissionEditForm = () => {
                         // disabled={isLoadingCreate || isLoadingUpdate}
                     >
                         {/* {(isLoadingCreate || isLoadingUpdate) && <Loader />} */}
-                        Create
+                        Edit
                     </Button>
                 </div>
             </form>

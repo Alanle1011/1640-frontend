@@ -43,10 +43,15 @@ const ContributionForm: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
   function onSubmit(values: z.infer<typeof ContributionValidation>) {
     if (uploadedUserId) {
       saveContribution(values);
+      setTimeout(() => {
+        navigate("/");
+        window.location.reload();
+      }, 500);
     }
   }
 
   async function saveContribution(data: any) {
+    debugger;
     const contributionBody = {
       content: data.content,
       title: data.title,
@@ -155,13 +160,13 @@ const ContributionForm: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
         <div className="flex gap-4 items-center justify-end">
           <Button
             type="button"
-            className="shad-button_dark_4"
+            className="shad-button_dark_4 flex gap-2 w-[80px]"
             onClick={() => navigate(-1)}>
             Cancel
           </Button>
           <Button
             type="submit"
-            className="shad-button_primary whitespace-nowrap">
+            className="shad-button_primary flex gap-2 w-[80px]">
             Submit
           </Button>
         </div>

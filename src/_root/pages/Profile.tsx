@@ -19,6 +19,7 @@ export type Contribution = {
   documentName: string;
   documentType: string;
   doc: Document;
+  uploadedUserImageId: string;
 };
 
 export type Document = {
@@ -103,13 +104,14 @@ const Profile: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
         <div className="flex xl:flex-row flex-col max-xl:items-center flex-1 gap-4">
           <div className="relative">
             <img
-              src={userData.imageId ? `${VITE_WEBSERVICE_URL}/image/${userData.imageId}` : "/assets/icons/profile-placeholder.svg"}
+              src={
+                userData.imageId
+                  ? `${VITE_WEBSERVICE_URL}/image/${userData.imageId}`
+                  : "/assets/icons/profile-placeholder.svg"
+              }
               alt="profile"
               className="w-22 h-full lg:h-28 lg:w-28 rounded-full hover:bg "
             />
-            <div className="hover:text-black hover:bg-[#0000004D] rounded-full text-transparent absolute top-0 left-0 w-full h-full z-10 flex justify-center items-center">
-              <button>Update Image</button>
-            </div>
           </div>
 
           <div className="flex flex-col flex-1 justify-between md:mt-2">
@@ -133,10 +135,11 @@ const Profile: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
               to={`/update-profile`}
               className={`h-12 bg-dark-4 px-5 text-light-1 flex-center gap-2 rounded-lg`}>
               <img
-                src={"/assets/icons/edit.svg"}
+                src={"/assets/icons/edit-profile.png"}
                 alt="edit"
                 width={20}
                 height={20}
+                style={{ fill: "#ffffff" }} // Change to white color
               />
               <p className="flex whitespace-nowrap small-medium">
                 Edit Profile
@@ -167,17 +170,22 @@ const Profile: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
         </div>
       </div>
 
-      <div className="my-container">
-        <div className="home-contributions">
-          <ul className="flex flex-col flex-1 gap-9 w-full ">
-            {contributionData?.map((contribution: Contribution) => (
-              <li key={contribution.id} className="flex justify-center w-full">
-                <ContributionCard contribution={contribution} />
-              </li>
-            ))}
-          </ul>
+      {userData.role === "STUDENT" && (
+        <div className="my-container">
+          <div className="home-contributions">
+            <ul className="flex flex-col flex-1 gap-9 w-full ">
+              {contributionData &&
+                contributionData.map((contribution: Contribution) => (
+                  <li
+                    key={contribution.id}
+                    className="flex justify-center w-full">
+                    <ContributionCard contribution={contribution} />
+                  </li>
+                ))}
+            </ul>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* <Routes>
         <Route

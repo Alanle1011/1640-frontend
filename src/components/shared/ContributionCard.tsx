@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 import { Contribution } from "@/_root/pages/Home";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { ScrollArea } from "@/components/ui";
 
 const ContributionCard: React.FC<{ contribution: Contribution }> = ({
   contribution,
@@ -9,14 +9,18 @@ const ContributionCard: React.FC<{ contribution: Contribution }> = ({
   const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
 
   if (!contribution.uploadedUserId) return <div>No Contribution</div>;
-
+  console.log(contribution.uploadedUserImageId);
   return (
     <div className="contribution-card">
       <div className="flex-between">
         <div className="flex items-center gap-3">
           <Link to={`/profile/${contribution.uploadedUserId}`}>
             <img
-              src={"/assets/icons/profile-placeholder.svg"}
+              src={
+                contribution.uploadedUserImageId
+                  ? `${VITE_WEBSERVICE_URL}/image/${contribution.uploadedUserImageId}`
+                  : "/assets/icons/profile-placeholder.svg"
+              }
               alt="creator"
               className="w-12 lg:h-12 rounded-full"
             />
@@ -36,11 +40,11 @@ const ContributionCard: React.FC<{ contribution: Contribution }> = ({
       </div>
 
       <Link to={`/contribution-details/${contribution.id}`}>
-        <div className="small-medium lg:base-medium py-5">
+        <div className="small-medium lg:base-medium py-3">
           <p className="base-medium lg:body-bold text-black">
             {contribution?.title}
           </p>
-          <ScrollArea className="h-[100] w-[400px] rounded-lg ">
+          <ScrollArea className="h-[40px] w-full md:h-[100px] rounded-lg ">
             {contribution?.content}
           </ScrollArea>
           <ul className="flex gap-1 mt-2">
@@ -61,7 +65,7 @@ const ContributionCard: React.FC<{ contribution: Contribution }> = ({
         )}
 
         {contribution.documentType && (
-          <div className="small-medium lg:base-medium py-5 flex items-center border rounded-lg border-dark-2 p-4 w-fit">
+          <div className="small-medium lg:base-medium py-3 flex items-center border rounded-lg border-dark-2 p-4 w-fit">
             <>
               {contribution.documentType === "docx" && (
                 <img

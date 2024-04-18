@@ -29,7 +29,7 @@ const ImageUploader = ({fieldChange, mediaUrl}: ImageUploaderProps) => {
     return (
         <div
             {...getRootProps()}
-            className="flex flex-center flex-col bg-dark-3 rounded-xl cursor-pointer">
+            className="flex flex-center flex-col bg-light-1 border rounded-lg border-dark-2 cursor-pointer ">
             <input {...getInputProps()} className="cursor-pointer"/>
 
             {fileUrl ? (
@@ -60,7 +60,7 @@ const ImageUploader = ({fieldChange, mediaUrl}: ImageUploaderProps) => {
                     </h3>
                     <p className="text-light-4 small-regular mb-6">SVG, PNG, JPG</p>
 
-                    <Button type="button" className="shad-button_dark_4">
+                    <Button type="button" className="shad-button_light_4">
                         Select from computer
                     </Button>
                 </div>

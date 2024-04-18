@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react"
-import {ChevronDownIcon, DotsHorizontalIcon,} from "@radix-ui/react-icons"
+import React, { useEffect, useState } from "react"
+import { ChevronDownIcon, DotsHorizontalIcon, } from "@radix-ui/react-icons"
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -13,7 +13,7 @@ import {
     VisibilityState,
 } from "@tanstack/react-table"
 
-import {Button} from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
@@ -23,13 +23,13 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import {Input} from "@/components/ui/input"
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table"
-import {undefined} from "zod";
-import {Link} from "react-router-dom";
-import {User} from "@/types"
-import {PenSquare, XSquare} from "lucide-react"
-import {toast} from "@/components/ui"
+import { Input } from "@/components/ui/input"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
+import { undefined } from "zod";
+import { Link } from "react-router-dom";
+import { User } from "@/types"
+import { ChevronLeftIcon, ChevronRightIcon, PenSquare, XSquare } from "lucide-react"
+import { toast } from "@/components/ui"
 
 const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
 
@@ -58,28 +58,28 @@ export const columns: ColumnDef<User>[] = [
     {
         accessorKey: "id",
         header: "ID",
-        cell: ({row}) => (
+        cell: ({ row }) => (
             <div className="capitalize">{row.getValue("id")}</div>
         ),
     },
     {
         accessorKey: "name",
         header: "Name",
-        cell: ({row}) => (
-          <div className="capitalize">{row.getValue("name")}</div>
+        cell: ({ row }) => (
+            <div className="capitalize">{row.getValue("name")}</div>
         ),
     },
     {
         accessorKey: "startDate",
         header: "Start Date",
-        cell: ({row}) => (
-          <div className="capitalize">{row.getValue("startDate")}</div>
+        cell: ({ row }) => (
+            <div className="capitalize">{row.getValue("startDate")}</div>
         ),
     },
     {
         accessorKey: "closureDate",
         header: "Closure Date",
-        cell: ({row}) => (
+        cell: ({ row }) => (
             <div className="capitalize">
                 {row.getValue("closureDate")}
             </div>
@@ -88,35 +88,35 @@ export const columns: ColumnDef<User>[] = [
     {
         accessorKey: "finalClosureDate",
         header: "Final Closure Date",
-        cell: ({row}) => (
-          <div className="lowercase">
-              {row.getValue("finalClosureDate")}
-          </div>
+        cell: ({ row }) => (
+            <div className="lowercase">
+                {row.getValue("finalClosureDate")}
+            </div>
         ),
     },
 
     {
         id: "actions",
         enableHiding: false,
-        cell: ({row}) => {
+        cell: ({ row }) => {
             const submission = row.original
 
             const deleteUser = async (submissionId: string) => {
                 if (!!submission.id) {
                     try {
-                        const response = await fetch(`${VITE_WEBSERVICE_URL}/submission_period?id=${submissionId}`, {method: "DELETE"});
+                        const response = await fetch(`${VITE_WEBSERVICE_URL}/submission_period?id=${submissionId}`, { method: "DELETE" });
 
                         if (!response.ok) {
                             throw new Error(`Failed to delete item: ${response.statusText}`);
                         }
 
-                        toast({title: "Deleted successfully!"});
+                        toast({ title: "Deleted successfully!" });
                         window.location.reload();
                     } catch (error) {
                         console.log(error);
                     }
                 } else {
-                    return toast({title: "Failed to delete! Please try again.",});
+                    return toast({ title: "Failed to delete! Please try again.", });
                 }
 
             };
@@ -126,7 +126,7 @@ export const columns: ColumnDef<User>[] = [
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="h-8 w-8 p-0">
                             <span className="sr-only">Open menu</span>
-                            <DotsHorizontalIcon className="h-4 w-4"/>
+                            <DotsHorizontalIcon className="h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -136,27 +136,27 @@ export const columns: ColumnDef<User>[] = [
                         >
                             Copy ID into clipboard
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator/>
+                        <DropdownMenuSeparator />
                         <DropdownMenuItem
                         >
                             <Link className={'flex justify-start w-full'} to={`/edit-submission/${submission.id}`}>
-                                <PenSquare className="flex flex-row mr-2"/>Edit
+                                <PenSquare className="flex flex-row mr-2" />Edit
                             </Link>
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator/>
+                        <DropdownMenuSeparator />
                         {/*<DropdownMenuItem*/}
                         {/*>*/}
                         {/*    <Link className={'flex justify-start w-full'} to={`/submission-details/${submission.id}`}>*/}
                         {/*        <View className="flex flex-row mr-2"/>Details*/}
                         {/*    </Link>*/}
                         {/*</DropdownMenuItem>*/}
-                        <DropdownMenuSeparator/>
+                        <DropdownMenuSeparator />
                         <DropdownMenuItem
                             onClick={() => deleteUser(submission.id)}
                         >
-                            <XSquare className="mr-2"/>Delete
+                            <XSquare className="mr-2" />Delete
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator/>
+                        <DropdownMenuSeparator />
                     </DropdownMenuContent>
                 </DropdownMenu>
             )
@@ -216,14 +216,55 @@ const SubmissionList = () => {
     })
 
     if (!submissionData) {
-        return (<div>
-            No Data found
-        </div>)
+        return (
+            <div className="w-full mx-2">
+                <div className="flex flex-1 justify-end px-7 py-5">
+                    <h1 className="h1-bold">List of Submission Periods</h1>
+                </div>
+                <div className="flex items-center py-4">
+
+                </div>
+                <div className="rounded-md border mr-4">
+                    <Table>
+                        <TableHeader>
+                            {table.getHeaderGroups().map((headerGroup) => (
+                                <TableRow key={headerGroup.id}>
+                                    {headerGroup.headers.map((header) => {
+                                        return (
+                                            <TableHead key={header.id}>
+                                                {header.isPlaceholder
+                                                    ? null
+                                                    : flexRender(
+                                                        header.column.columnDef.header,
+                                                        header.getContext()
+                                                    )}
+                                            </TableHead>
+                                        );
+                                    })}
+                                </TableRow>
+                            ))}
+                        </TableHeader>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell
+                                    colSpan={columns.length}
+                                    className="h-24 text-center">
+                                    No results.
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+                </div>
+            </div>
+        );
     }
 
     return (
-        <div className="w-full">
-            <div className="flex items-center py-4">
+        <div className="w-full mx-4">
+            <div className="flex flex-1 justify-end px-7 py-5">
+                <h1 className="h1-bold">List of Submission Periods</h1>
+            </div>
+            <div className="flex justify-between items-center gap-2 py-4">
                 <Input
                     placeholder="Type to filter..."
                     value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -235,7 +276,7 @@ const SubmissionList = () => {
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline" className="ml-auto mr-4">
-                            Columns <ChevronDownIcon className="ml-2 h-4 w-4"/>
+                            Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -250,16 +291,15 @@ const SubmissionList = () => {
                                         checked={column.getIsVisible()}
                                         onCheckedChange={(value) =>
                                             column.toggleVisibility(!!value)
-                                        }
-                                    >
+                                        }>
                                         {column.id}
                                     </DropdownMenuCheckboxItem>
-                                )
+                                );
                             })}
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-            <div className="rounded-md border">
+            <div className="rounded-md border mr-4">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -274,7 +314,7 @@ const SubmissionList = () => {
                                                     header.getContext()
                                                 )}
                                         </TableHead>
-                                    )
+                                    );
                                 })}
                             </TableRow>
                         ))}
@@ -284,8 +324,7 @@ const SubmissionList = () => {
                             table.getRowModel().rows.map((row) => (
                                 <TableRow
                                     key={row.id}
-                                    data-state={row.getIsSelected() && "selected"}
-                                >
+                                    data-state={row.getIsSelected() && "selected"}>
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}>
                                             {flexRender(
@@ -300,8 +339,7 @@ const SubmissionList = () => {
                             <TableRow>
                                 <TableCell
                                     colSpan={columns.length}
-                                    className="h-24 text-center"
-                                >
+                                    className="h-24 text-center">
                                     No results.
                                 </TableCell>
                             </TableRow>
@@ -310,36 +348,35 @@ const SubmissionList = () => {
                 </Table>
             </div>
             <div className="flex items-center justify-end space-x-2 py-4">
-                <div className="flex-1 text-sm text-muted-foreground">
-                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                    {table.getFilteredRowModel().rows.length} row(s) selected.
-                </div>
-                <div className="space-x-2">
+                <div className="space-x-2 mr-4">
                     <Button
-                        variant="outline"
-                        size="sm"
+                        variant="secondary"
+                        className="bg-white"
                         onClick={() => table.previousPage()}
-                        disabled={!table.getCanPreviousPage()}
-                    >
-                        Previous
+                        disabled={!table.getCanPreviousPage()}>
+                        <ChevronLeftIcon />
                     </Button>
+
                     <Button
-                        variant="outline"
-                        size="sm"
+                        variant="secondary"
+                        className="bg-white"
                         onClick={() => table.nextPage()}
-                        disabled={!table.getCanNextPage()}
-                    >
-                        Next
-                    </Button>
-                    <Button
-                        variant="outline"
-                        size="sm"
-                    >
-                        <Link to="/create-submission">Add</Link>
+                        disabled={!table.getCanNextPage()}>
+                        <ChevronRightIcon />
                     </Button>
                 </div>
             </div>
+            <div className="flex justify-end mr-4">
+                <Button
+                    variant="secondary"
+                    className="bg-white"
+                >
+                    <Link to={"/create-submission"}>
+                        Add
+                    </Link>
+                </Button>
+            </div>
         </div>
-    )
+    );
 };
 export default SubmissionList;
