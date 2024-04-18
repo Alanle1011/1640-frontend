@@ -15,7 +15,6 @@
 }
 
 @layer utilities {
-
   /* TYPOGRAPHY */
   .h1-bold {
     @apply text-[36px] font-bold leading-[140%] tracking-tighter;
@@ -142,7 +141,7 @@
   }
 
   /* Profile */
-  .profile-container {   
+  .profile-container {
     @apply flex flex-col items-center flex-1 gap-2 overflow-scroll pt-6 px-5 md:px-4;
   }
 
@@ -154,8 +153,8 @@
     @apply flex-center gap-3 py-4 w-48 bg-dark-2 transition flex-1 xl:flex-initial;
   }
 
-  .my-container{
-      @apply flex flex-col flex-1 items-center gap-6 overflow-scroll py-2 px-5 md:px-4 lg:p-4;
+  .my-container {
+    @apply flex flex-col flex-1 items-center gap-6 overflow-scroll py-2 px-5 md:px-4 lg:p-4;
   }
 
   /* Bottom bar */
@@ -208,7 +207,7 @@
   }
 
   .contribution-card_img {
-    @apply h-64 xs:h-[240px] lg:h-[300px] w-full rounded-[24px] object-cover mb-5;
+    @apply h-[5%] xs:h-[30%] lg:h-[60%] w-full rounded-[24px] object-cover mb-5;
   }
 
   /* Topbar */
@@ -236,7 +235,6 @@
 }
 
 @layer components {
-
   /* SHADCN COMPONENTS */
   /* Form */
   .shad-form_label {
