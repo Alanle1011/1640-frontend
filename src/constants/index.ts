@@ -59,17 +59,17 @@ export const adminBottombarLinks = [
   {
     imgURL: "/assets/icons/wallpaper.svg",
     route: "/contributions",
-    label: "All Contributions",
+    label: "Contributions",
   },
   {
-    imgURL: "/assets/icons/wallpaper.svg",
-    route: "/pending",
-    label: "Pending Contributions",
+    imgURL: "/assets/icons/calendar.png",
+    route: "/submission-list",
+    label: "Submission",
   },
   {
     imgURL: "/assets/icons/people.svg",
     route: "/users",
-    label: "All Users",
+    label: "Users",
   },
 ];
 export const coordinatorSidebarLinks = [

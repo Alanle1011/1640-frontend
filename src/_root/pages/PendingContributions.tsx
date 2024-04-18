@@ -375,11 +375,11 @@ const PendingContribution = () => {
   }
 
   return (
-    <div className="w-full ml-4">
+    <div className="w-full mx-4">
       <div className="flex flex-1 justify-end px-7 py-5">
         <h1 className="h1-bold">List of Pending Contributions</h1>
       </div>
-      <div className="flex items-center py-4">
+      <div className="flex items-center gap-2 py-4">
         <Input
           placeholder="Type to filter..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}

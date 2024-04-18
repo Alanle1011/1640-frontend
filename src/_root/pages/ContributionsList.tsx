@@ -316,19 +316,12 @@ const ContributionsList = () => {
 
   if (!contributionData) {
     return (
-      <div className="w-full ml-4">
+      <div className="w-full mx-2">
         <div className="flex flex-1 justify-end px-7 py-5">
           <h1 className="h1-bold">List of Contributions</h1>
         </div>
         <div className="flex items-center py-4">
-          <Input
-            placeholder="Type to filter..."
-            value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-            onChange={(event) =>
-              table.getColumn("title")?.setFilterValue(event.target.value)
-            }
-            className="max-w-sm"
-          />
+
         </div>
         <div className="rounded-md border mr-4">
           <Table>
@@ -361,8 +354,16 @@ const ContributionsList = () => {
             </TableBody>
           </Table>
         </div>
-        <div className="flex items-center justify-end space-x-2 py-4">
+        <div className="flex items-center gap-2 justify-end space-x-2 py-4">
           <div className="space-x-2 mr-4">
+          <Input
+            placeholder="Type to filter..."
+            value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("title")?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
             <Button variant="secondary" className="bg-white" disabled>
               <ChevronLeftIcon />
             </Button>
@@ -377,11 +378,11 @@ const ContributionsList = () => {
   }
 
   return (
-    <div className="w-full ml-4">
+    <div className="w-full mx-4">
       <div className="flex flex-1 justify-end px-7 py-5">
         <h1 className="h1-bold">List of Contributions</h1>
       </div>
-      <div className="flex justify-between items-center py-4">
+      <div className="flex justify-between items-center gap-2 py-4">
         <Input
           placeholder="Type to filter..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
@@ -471,10 +472,6 @@ const ContributionsList = () => {
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        {/* <div className="flex-1 text-sm text-muted-foreground">
-                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                    {table.getFilteredRowModel().rows.length} row(s) selected.
-                </div> */}
         <div className="space-x-2 mr-4">
           <Button
             variant="secondary"
