@@ -290,7 +290,7 @@ const PendingContribution = () => {
   console.log("contributionData", contributionData);
 
   const table = useReactTable({
-    onStateChange(): void {},
+    onStateChange(): void { },
     // @ts-ignore
     data: contributionData,
     renderFallbackValue: undefined,
@@ -339,9 +339,9 @@ const PendingContribution = () => {
                         {header.isPlaceholder
                           ? null
                           : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                       </TableHead>
                     );
                   })}
@@ -379,7 +379,7 @@ const PendingContribution = () => {
       <div className="flex flex-1 justify-end px-7 py-5">
         <h1 className="h1-bold">List of Pending Contributions</h1>
       </div>
-      <div className="flex items-center gap-2 py-4">
+      <div className="flex justify-between items-center py-4">
         <Input
           placeholder="Type to filter..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
@@ -388,37 +388,39 @@ const PendingContribution = () => {
           }
           className="max-w-sm"
         />
-        <DropdownMenu>
+        <div>
           <Button
             variant="outline"
             className="ml-auto mr-4 bg-blue-500 text-light-2"
             onClick={() => navigate("/contributions")}>
             All
           </Button>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto mr-4">
-              Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }>
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="ml-auto mr-4">
+                Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className="capitalize"
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) =>
+                        column.toggleVisibility(!!value)
+                      }>
+                      {column.id}
+                    </DropdownMenuCheckboxItem>
+                  );
+                })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
       <div className="rounded-md border mr-4">
         <Table>
@@ -431,9 +433,9 @@ const PendingContribution = () => {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                     </TableHead>
                   );
                 })}
