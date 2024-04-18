@@ -43,15 +43,15 @@ const ContributionForm: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
   function onSubmit(values: z.infer<typeof ContributionValidation>) {
     if (uploadedUserId) {
       saveContribution(values);
-      //setTimeout(() => {
-      //   navigate("/");
-      //   window.location.reload();
-      // }, 500);
+      setTimeout(() => {
+        navigate("/");
+        window.location.reload();
+      }, 500);
     }
   }
 
   async function saveContribution(data: any) {
-    debugger
+    debugger;
     const contributionBody = {
       content: data.content,
       title: data.title,

@@ -111,9 +111,6 @@ const Profile: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
               alt="profile"
               className="w-22 h-full lg:h-28 lg:w-28 rounded-full hover:bg "
             />
-            <div className="hover:text-black hover:bg-[#0000004D] rounded-full text-transparent absolute top-0 left-0 w-full h-full z-10 flex justify-center items-center">
-              <button>Update Image</button>
-            </div>
           </div>
 
           <div className="flex flex-col flex-1 justify-between md:mt-2">
@@ -175,7 +172,7 @@ const Profile: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
       <div className="my-container">
         <div className="home-contributions">
           <ul className="flex flex-col flex-1 gap-9 w-full ">
-            {contributionData?.map((contribution: Contribution) => (
+            {contributionData && contributionData.map((contribution: Contribution) => (
               <li key={contribution.id} className="flex justify-center w-full">
                 <ContributionCard contribution={contribution} />
               </li>

@@ -22,17 +22,12 @@ export const adminSidebarLinks = [
     label: "All Contributions",
   },
   {
-    imgURL: "/assets/icons/wallpaper.svg",
-    route: "/pending",
-    label: "Pending Contributions",
-  },
-  {
     imgURL: "/assets/icons/people.svg",
     route: "/users",
     label: "All Users",
   },
   {
-    imgURL: "/assets/icons/wallpaper.svg",
+    imgURL: "/assets/icons/calendar.png",
     route: "/submission-list",
     label: "All Submissions Period",
   },

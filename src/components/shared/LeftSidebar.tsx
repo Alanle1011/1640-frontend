@@ -1,6 +1,11 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 
-import { adminSidebarLinks, coordinatorSidebarLinks, managerSidebarLinks, sidebarLinks } from "@/constants";
+import {
+  adminSidebarLinks,
+  coordinatorSidebarLinks,
+  managerSidebarLinks,
+  sidebarLinks,
+} from "@/constants";
 import { ILoginUser, INavLink } from "@/types";
 import { Button } from "../ui";
 
@@ -27,13 +32,18 @@ const LeftSidebar: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
           </Link>
           <Link to="/profile" className="flex gap-3 items-center">
             <img
-              src={userData.imageId ? `${VITE_WEBSERVICE_URL}/image/${userData.imageId}` : "/assets/icons/profile-placeholder.svg"}
-              alt="profile"
+              src={
+                userData.imageId
+                  ? `${VITE_WEBSERVICE_URL}/image/${userData.imageId}`
+                  : "/assets/icons/profile-placeholder.svg"
+              }
               className="h-14 w-14 rounded-full"
             />
             <div className="flex flex-col">
               <p className="body-bold">{userData.name}</p>
-              <p className="small-regular text-light-3">Role: {userData.role}</p>
+              <p className="small-regular text-light-3">
+                Role: {userData.role}
+              </p>
             </div>
           </Link>
 
@@ -53,7 +63,7 @@ const LeftSidebar: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
                     <img
                       src={link.imgURL}
                       alt={link.label}
-                      className={`group-hover:invert-white ${
+                      className={`group-hover:invert-white w-6 h-6 ${
                         isActive && "invert-white"
                       }`}
                     />
@@ -88,13 +98,19 @@ const LeftSidebar: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
           </Link>
           <Link to="/profile" className="flex gap-3 items-center">
             <img
-              src={"/assets/icons/profile-placeholder.svg"}
+              src={
+                userData.imageId
+                  ? `${VITE_WEBSERVICE_URL}/image/${userData.imageId}`
+                  : "/assets/icons/profile-placeholder.svg"
+              }
               alt="profile"
               className="h-14 w-14 rounded-full"
             />
             <div className="flex flex-col">
               <p className="body-bold">{userData.name}</p>
-              <p className="small-regular text-light-3">Role: {userData.role}</p>
+              <p className="small-regular text-light-3">
+                Role: {userData.role}
+              </p>
             </div>
           </Link>
 
@@ -114,7 +130,7 @@ const LeftSidebar: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
                     <img
                       src={link.imgURL}
                       alt={link.label}
-                      className={`group-hover:invert-white ${
+                      className={`group-hover:invert-white w-24 h-24 ${
                         isActive && "invert-white"
                       }`}
                     />
@@ -135,8 +151,7 @@ const LeftSidebar: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
         </Button>
       </nav>
     );
-  }
-  else if (userData.role === "GUEST") {
+  } else if (userData.role === "GUEST") {
     return (
       <nav className="leftsidebarThinh">
         <div className="flex flex-col gap-11">
@@ -150,16 +165,21 @@ const LeftSidebar: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
           </Link>
           <Link to="/profile" className="flex gap-3 items-center">
             <img
-              src={"/assets/icons/profile-placeholder.svg"}
+              src={
+                userData.imageId
+                  ? `${VITE_WEBSERVICE_URL}/image/${userData.imageId}`
+                  : "/assets/icons/profile-placeholder.svg"
+              }
               alt="profile"
               className="h-14 w-14 rounded-full"
             />
             <div className="flex flex-col">
-              <p className="body-bold">{userData.name}</p>
-              <p className="small-regular text-light-3">Role: {userData.role}</p>
+              <p className="body-bold w-32">{userData.name}</p>
+              <p className="small-regular text-light-3">
+                Role: {userData.role}
+              </p>
             </div>
           </Link>
-
         </div>
 
         <Button
@@ -171,8 +191,7 @@ const LeftSidebar: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
         </Button>
       </nav>
     );
-  }
-  else if (userData.role === "MANAGER") {
+  } else if (userData.role === "MANAGER") {
     return (
       <nav className="leftsidebarThinh">
         <div className="flex flex-col gap-11">
@@ -186,13 +205,19 @@ const LeftSidebar: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
           </Link>
           <Link to="/profile" className="flex gap-3 items-center">
             <img
-              src={"/assets/icons/profile-placeholder.svg"}
+              src={
+                userData.imageId
+                  ? `${VITE_WEBSERVICE_URL}/image/${userData.imageId}`
+                  : "/assets/icons/profile-placeholder.svg"
+              }
               alt="profile"
               className="h-14 w-14 rounded-full"
             />
             <div className="flex flex-col">
               <p className="body-bold">{userData.name}</p>
-              <p className="small-regular text-light-3">Role: {userData.role}</p>
+              <p className="small-regular text-light-3">
+                Role: {userData.role}
+              </p>
             </div>
           </Link>
 
@@ -248,14 +273,18 @@ const LeftSidebar: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
         </Link>
         <Link to="/profile" className="flex gap-3 items-center">
           <img
-            src={"/assets/icons/profile-placeholder.svg"}
+            src={
+              userData.imageId
+                ? `${VITE_WEBSERVICE_URL}/image/${userData.imageId}`
+                : "/assets/icons/profile-placeholder.svg"
+            }
             alt="profile"
             className="h-14 w-14 rounded-full"
           />
-            <div className="flex flex-col">
-              <p className="body-bold">{userData.name}</p>
-              <p className="small-regular text-light-3">Role: {userData.role}</p>
-            </div>
+          <div className="flex flex-col">
+            <p className="body-bold">{userData.name}</p>
+            <p className="small-regular text-light-3">Role: {userData.role}</p>
+          </div>
         </Link>
 
         <ul className="flex flex-col gap-6">

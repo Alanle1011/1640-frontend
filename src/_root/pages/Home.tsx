@@ -16,6 +16,7 @@ export type Contribution = {
     documentName: string;
     documentType: string;
     doc: Document;
+    uploadedUserImageId: string;
 };
 
 export type Document = {
