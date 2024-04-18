@@ -18,7 +18,6 @@ const EditContribution = () => {
                 </Button>
             </div>
 
-
             <div className="custom-topbar">
                 <img
                     src="/assets/icons/edit.svg"

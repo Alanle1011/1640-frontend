@@ -1,14 +1,8 @@
 import { undefined } from "zod";
 
 import React, { useEffect, useState } from "react";
-import { PenSquare, View, XSquare } from "lucide-react";
-import {
-  CaretSortIcon,
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  DotsHorizontalIcon,
-} from "@radix-ui/react-icons";
+import { ChevronLeftIcon, ChevronRightIcon, PenSquare, View, XSquare } from "lucide-react"
+import { CaretSortIcon, ChevronDownIcon, DotsHorizontalIcon, } from "@radix-ui/react-icons";
 
 import {
   ColumnDef,
@@ -353,25 +347,6 @@ const ContributionsList = () => {
               </TableRow>
             </TableBody>
           </Table>
-        </div>
-        <div className="flex items-center gap-2 justify-end space-x-2 py-4">
-          <div className="space-x-2 mr-4">
-          <Input
-            placeholder="Type to filter..."
-            value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-            onChange={(event) =>
-              table.getColumn("title")?.setFilterValue(event.target.value)
-            }
-            className="max-w-sm"
-          />
-            <Button variant="secondary" className="bg-white" disabled>
-              <ChevronLeftIcon />
-            </Button>
-
-            <Button variant="secondary" className="bg-white" disabled>
-              <ChevronRightIcon />
-            </Button>
-          </div>
         </div>
       </div>
     );

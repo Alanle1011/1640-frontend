@@ -28,7 +28,7 @@ import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/
 import {undefined} from "zod";
 import {Link} from "react-router-dom";
 import {User} from "@/types"
-import {PenSquare, XSquare} from "lucide-react"
+import {ChevronLeftIcon, ChevronRightIcon, PenSquare, XSquare} from "lucide-react"
 import {toast} from "@/components/ui"
 
 const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
@@ -216,14 +216,55 @@ const SubmissionList = () => {
     })
 
     if (!submissionData) {
-        return (<div>
-            No Data found
-        </div>)
+        return (
+            <div className="w-full mx-2">
+                <div className="flex flex-1 justify-end px-7 py-5">
+                    <h1 className="h1-bold">List of Submission Periods</h1>
+                </div>
+                <div className="flex items-center py-4">
+
+                </div>
+                <div className="rounded-md border mr-4">
+                    <Table>
+                        <TableHeader>
+                            {table.getHeaderGroups().map((headerGroup) => (
+                                <TableRow key={headerGroup.id}>
+                                    {headerGroup.headers.map((header) => {
+                                        return (
+                                            <TableHead key={header.id}>
+                                                {header.isPlaceholder
+                                                    ? null
+                                                    : flexRender(
+                                                        header.column.columnDef.header,
+                                                        header.getContext()
+                                                    )}
+                                            </TableHead>
+                                        );
+                                    })}
+                                </TableRow>
+                            ))}
+                        </TableHeader>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell
+                                    colSpan={columns.length}
+                                    className="h-24 text-center">
+                                    No results.
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+                </div>
+            </div>
+        );
     }
 
     return (
-        <div className="w-full">
-            <div className="flex items-center py-4">
+        <div className="w-full mx-4">
+            <div className="flex flex-1 justify-end px-7 py-5">
+                <h1 className="h1-bold">List of Submission Periods</h1>
+            </div>
+            <div className="flex justify-between items-center gap-2 py-4">
                 <Input
                     placeholder="Type to filter..."
                     value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -235,7 +276,7 @@ const SubmissionList = () => {
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline" className="ml-auto mr-4">
-                            Columns <ChevronDownIcon className="ml-2 h-4 w-4"/>
+                            Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -250,16 +291,15 @@ const SubmissionList = () => {
                                         checked={column.getIsVisible()}
                                         onCheckedChange={(value) =>
                                             column.toggleVisibility(!!value)
-                                        }
-                                    >
+                                        }>
                                         {column.id}
                                     </DropdownMenuCheckboxItem>
-                                )
+                                );
                             })}
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-            <div className="rounded-md border">
+            <div className="rounded-md border mr-4">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -274,7 +314,7 @@ const SubmissionList = () => {
                                                     header.getContext()
                                                 )}
                                         </TableHead>
-                                    )
+                                    );
                                 })}
                             </TableRow>
                         ))}
@@ -284,8 +324,7 @@ const SubmissionList = () => {
                             table.getRowModel().rows.map((row) => (
                                 <TableRow
                                     key={row.id}
-                                    data-state={row.getIsSelected() && "selected"}
-                                >
+                                    data-state={row.getIsSelected() && "selected"}>
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}>
                                             {flexRender(
@@ -300,8 +339,7 @@ const SubmissionList = () => {
                             <TableRow>
                                 <TableCell
                                     colSpan={columns.length}
-                                    className="h-24 text-center"
-                                >
+                                    className="h-24 text-center">
                                     No results.
                                 </TableCell>
                             </TableRow>
@@ -310,36 +348,25 @@ const SubmissionList = () => {
                 </Table>
             </div>
             <div className="flex items-center justify-end space-x-2 py-4">
-                <div className="flex-1 text-sm text-muted-foreground">
-                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                    {table.getFilteredRowModel().rows.length} row(s) selected.
-                </div>
-                <div className="space-x-2">
+                <div className="space-x-2 mr-4">
                     <Button
-                        variant="outline"
-                        size="sm"
+                        variant="secondary"
+                        className="bg-white"
                         onClick={() => table.previousPage()}
-                        disabled={!table.getCanPreviousPage()}
-                    >
-                        Previous
+                        disabled={!table.getCanPreviousPage()}>
+                        <ChevronLeftIcon />
                     </Button>
+
                     <Button
-                        variant="outline"
-                        size="sm"
+                        variant="secondary"
+                        className="bg-white"
                         onClick={() => table.nextPage()}
-                        disabled={!table.getCanNextPage()}
-                    >
-                        Next
-                    </Button>
-                    <Button
-                        variant="outline"
-                        size="sm"
-                    >
-                        <Link to="/create-submission">Add</Link>
+                        disabled={!table.getCanNextPage()}>
+                        <ChevronRightIcon />
                     </Button>
                 </div>
             </div>
         </div>
-    )
+    );
 };
 export default SubmissionList;

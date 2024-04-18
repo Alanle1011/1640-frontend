@@ -3,11 +3,9 @@ import { undefined } from "zod";
 import {
   CaretSortIcon,
   ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
   DotsHorizontalIcon,
 } from "@radix-ui/react-icons";
-import { PenSquare, View, XSquare } from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon, PenSquare, View, XSquare } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 import {
@@ -358,17 +356,6 @@ const PendingContribution = () => {
               </TableRow>
             </TableBody>
           </Table>
-        </div>
-        <div className="flex items-center justify-end space-x-2 py-4">
-          <div className="space-x-2 mr-4">
-            <Button variant="secondary" className="bg-white" disabled>
-              <ChevronLeftIcon />
-            </Button>
-
-            <Button variant="secondary" className="bg-white" disabled>
-              <ChevronRightIcon />
-            </Button>
-          </div>
         </div>
       </div>
     );

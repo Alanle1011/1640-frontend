@@ -139,7 +139,7 @@ const Profile: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
                 width={20}
                 height={20}
                 style={{ fill: "#ffffff" }} // Change to white color
-                />
+              />
               <p className="flex whitespace-nowrap small-medium">
                 Edit Profile
               </p>
@@ -169,17 +169,20 @@ const Profile: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
         </div>
       </div>
 
-      <div className="my-container">
-        <div className="home-contributions">
-          <ul className="flex flex-col flex-1 gap-9 w-full ">
-            {contributionData && contributionData.map((contribution: Contribution) => (
-              <li key={contribution.id} className="flex justify-center w-full">
-                <ContributionCard contribution={contribution} />
-              </li>
-            ))}
-          </ul>
+      {userData.role === "STUDENT" && (
+        <div className="my-container">
+          <div className="home-contributions">
+            <ul className="flex flex-col flex-1 gap-9 w-full ">
+              {contributionData && contributionData.map((contribution: Contribution) => (
+                <li key={contribution.id} className="flex justify-center w-full">
+                  <ContributionCard contribution={contribution} />
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>
+      )}
+
 
       {/* <Routes>
         <Route
