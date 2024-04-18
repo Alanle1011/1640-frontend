@@ -52,7 +52,7 @@ const SubmissionEditForm = () => {
     }
 
     const getDate = (dateStr: string) => {
-        debugger
+        
         const [datePart, timePart] = dateStr.split(' ');
         const [day, month, year] = datePart.split('/');
         const [hours, minutes] = timePart.split(':');
@@ -100,7 +100,7 @@ const SubmissionEditForm = () => {
     }
 
     async function updateSubmission(data: any) {
-        debugger
+        
         let submissionBody = {
             name: data.name,
             startDate: formatDate(data.startDate),

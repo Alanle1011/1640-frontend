@@ -55,7 +55,7 @@ const ContributionEditForm = () => {
                 return response.json();
             })
             .then(response => {
-                debugger
+                
                 setContribution(response);
                 if (response.imageId) {
                     setContributionImage(`${VITE_WEBSERVICE_URL}/image/${response.imageId}`)

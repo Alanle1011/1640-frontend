@@ -51,7 +51,7 @@ const ContributionForm: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
   }
 
   async function saveContribution(data: any) {
-    debugger;
+    ;
     const contributionBody = {
       content: data.content,
       title: data.title,

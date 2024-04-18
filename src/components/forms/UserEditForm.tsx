@@ -98,7 +98,7 @@ const UserEditForm = () => {
 
     async function updateUser(data: any) {
         let userBody;
-        debugger
+        
         if (data.newPassword) {
             // Update with password
             if (data.userRole === "STUDENT") {

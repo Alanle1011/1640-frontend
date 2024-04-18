@@ -32,7 +32,7 @@ const ContributionDetails: React.FC<{ userData: ILoginUser }> = ({
   ] as IDocument[];
 
   const handleApprovedContribution = () => {
-    debugger;
+    ;
     fetch(`${VITE_WEBSERVICE_URL}/contribution/setStatus/${id}`, {
       method: "PUT",
       headers: {
@@ -57,7 +57,7 @@ const ContributionDetails: React.FC<{ userData: ILoginUser }> = ({
     window.location.reload();
   };
   const handlePublishedContribution = () => {
-    debugger;
+    ;
     fetch(`${VITE_WEBSERVICE_URL}/contribution/setStatus/${id}`, {
       method: "PUT",
       headers: {

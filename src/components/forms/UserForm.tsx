@@ -63,7 +63,7 @@ const UserForm = () => {
     }
 
     async function saveUser(data: any) {
-        debugger
+        
         let userBody;
         if (data.userRole === "STUDENT") {
             userBody = {

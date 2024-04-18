@@ -53,7 +53,7 @@ const SubmissionForm = () => {
     }
 
     async function saveSubmission(data: any) {
-        debugger
+        
         let submissionBody = {
             name: data.name,
             startDate: formatDate(data.startDate),

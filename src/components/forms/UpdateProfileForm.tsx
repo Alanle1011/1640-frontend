@@ -41,7 +41,7 @@ const UpdateProfileForm: React.FC<{ userData: ILoginUser }> = ({userData}) => {
                 return response.json();
             })
             .then((response) => {
-                debugger
+                
                 form.setValue("name", response.name);
                 if (response.imageId) {
                     setUserImageUrl(
@@ -57,7 +57,7 @@ const UpdateProfileForm: React.FC<{ userData: ILoginUser }> = ({userData}) => {
 
     // 2. Define a submit handler.
     function onSubmit(values: z.infer<typeof UserProfileEditValidation>) {
-        debugger
+        
         try {
             updateUserProfile(values);
             toast({title: "Successfully edited!"});
@@ -68,7 +68,7 @@ const UpdateProfileForm: React.FC<{ userData: ILoginUser }> = ({userData}) => {
     }
 
     async function updateUserProfile(data: any) {
-        debugger
+        
         let userBody;
         if (data.newPassword) {
             userBody = {
@@ -107,11 +107,8 @@ const UpdateProfileForm: React.FC<{ userData: ILoginUser }> = ({userData}) => {
             const imageBody = new FormData();
             imageBody.append('images', data.image[0]);
             fetch(`${VITE_WEBSERVICE_URL}/image?imageId=${imageId}`, {
-                method: "POST", // *GET, POST, PUT, DELETE, etc.
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(imageBody), // body data type must match "Content-Type" header
+                method: "PUT", // *GET, POST, PUT, DELETE, etc.
+                body: imageBody, // body data type must match "Content-Type" header
             });
         }
 
