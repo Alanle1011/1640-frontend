@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react"
-import {ChevronDownIcon, DotsHorizontalIcon,} from "@radix-ui/react-icons"
+import React, { useEffect, useState } from "react"
+import { ChevronDownIcon, DotsHorizontalIcon, } from "@radix-ui/react-icons"
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -13,7 +13,7 @@ import {
     VisibilityState,
 } from "@tanstack/react-table"
 
-import {Button} from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
@@ -23,13 +23,13 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import {Input} from "@/components/ui/input"
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table"
-import {undefined} from "zod";
-import {Link} from "react-router-dom";
-import {User} from "@/types"
-import {ChevronLeftIcon, ChevronRightIcon, PenSquare, XSquare} from "lucide-react"
-import {toast} from "@/components/ui"
+import { Input } from "@/components/ui/input"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
+import { undefined } from "zod";
+import { Link } from "react-router-dom";
+import { User } from "@/types"
+import { ChevronLeftIcon, ChevronRightIcon, PenSquare, XSquare } from "lucide-react"
+import { toast } from "@/components/ui"
 
 const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
 
@@ -58,28 +58,28 @@ export const columns: ColumnDef<User>[] = [
     {
         accessorKey: "id",
         header: "ID",
-        cell: ({row}) => (
+        cell: ({ row }) => (
             <div className="capitalize">{row.getValue("id")}</div>
         ),
     },
     {
         accessorKey: "name",
         header: "Name",
-        cell: ({row}) => (
-          <div className="capitalize">{row.getValue("name")}</div>
+        cell: ({ row }) => (
+            <div className="capitalize">{row.getValue("name")}</div>
         ),
     },
     {
         accessorKey: "startDate",
         header: "Start Date",
-        cell: ({row}) => (
-          <div className="capitalize">{row.getValue("startDate")}</div>
+        cell: ({ row }) => (
+            <div className="capitalize">{row.getValue("startDate")}</div>
         ),
     },
     {
         accessorKey: "closureDate",
         header: "Closure Date",
-        cell: ({row}) => (
+        cell: ({ row }) => (
             <div className="capitalize">
                 {row.getValue("closureDate")}
             </div>
@@ -88,35 +88,35 @@ export const columns: ColumnDef<User>[] = [
     {
         accessorKey: "finalClosureDate",
         header: "Final Closure Date",
-        cell: ({row}) => (
-          <div className="lowercase">
-              {row.getValue("finalClosureDate")}
-          </div>
+        cell: ({ row }) => (
+            <div className="lowercase">
+                {row.getValue("finalClosureDate")}
+            </div>
         ),
     },
 
     {
         id: "actions",
         enableHiding: false,
-        cell: ({row}) => {
+        cell: ({ row }) => {
             const submission = row.original
 
             const deleteUser = async (submissionId: string) => {
                 if (!!submission.id) {
                     try {
-                        const response = await fetch(`${VITE_WEBSERVICE_URL}/submission_period?id=${submissionId}`, {method: "DELETE"});
+                        const response = await fetch(`${VITE_WEBSERVICE_URL}/submission_period?id=${submissionId}`, { method: "DELETE" });
 
                         if (!response.ok) {
                             throw new Error(`Failed to delete item: ${response.statusText}`);
                         }
 
-                        toast({title: "Deleted successfully!"});
+                        toast({ title: "Deleted successfully!" });
                         window.location.reload();
                     } catch (error) {
                         console.log(error);
                     }
                 } else {
-                    return toast({title: "Failed to delete! Please try again.",});
+                    return toast({ title: "Failed to delete! Please try again.", });
                 }
 
             };
@@ -126,7 +126,7 @@ export const columns: ColumnDef<User>[] = [
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="h-8 w-8 p-0">
                             <span className="sr-only">Open menu</span>
-                            <DotsHorizontalIcon className="h-4 w-4"/>
+                            <DotsHorizontalIcon className="h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -136,27 +136,27 @@ export const columns: ColumnDef<User>[] = [
                         >
                             Copy ID into clipboard
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator/>
+                        <DropdownMenuSeparator />
                         <DropdownMenuItem
                         >
                             <Link className={'flex justify-start w-full'} to={`/edit-submission/${submission.id}`}>
-                                <PenSquare className="flex flex-row mr-2"/>Edit
+                                <PenSquare className="flex flex-row mr-2" />Edit
                             </Link>
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator/>
+                        <DropdownMenuSeparator />
                         {/*<DropdownMenuItem*/}
                         {/*>*/}
                         {/*    <Link className={'flex justify-start w-full'} to={`/submission-details/${submission.id}`}>*/}
                         {/*        <View className="flex flex-row mr-2"/>Details*/}
                         {/*    </Link>*/}
                         {/*</DropdownMenuItem>*/}
-                        <DropdownMenuSeparator/>
+                        <DropdownMenuSeparator />
                         <DropdownMenuItem
                             onClick={() => deleteUser(submission.id)}
                         >
-                            <XSquare className="mr-2"/>Delete
+                            <XSquare className="mr-2" />Delete
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator/>
+                        <DropdownMenuSeparator />
                     </DropdownMenuContent>
                 </DropdownMenu>
             )
@@ -365,6 +365,16 @@ const SubmissionList = () => {
                         <ChevronRightIcon />
                     </Button>
                 </div>
+            </div>
+            <div className="flex justify-end mr-4">
+                <Button
+                    variant="secondary"
+                    className="bg-white"
+                >
+                    <Link to={"/create-submission"}>
+                        Add
+                    </Link>
+                </Button>
             </div>
         </div>
     );
