@@ -6,7 +6,10 @@ import LeftSidebar from "@/components/shared/LeftSidebar";
 import { ILoginUser } from "@/types";
 
 const StudentLayout: React.FC<{userData: ILoginUser}> = ({userData}) => {
-  
+  if (!["STUDENT", "COORDINATOR", "MANAGER", "ADMIN"].includes(userData.role)) {
+    window.history.back();
+    window.location.reload();
+  }
   return (
     <div className="w-full md:flex">
       <Topbar />

@@ -29,7 +29,18 @@ export const bottombarLinks = [
     label: "Create",
   },
 ];
-
+export const guestBottombarLinks = [
+  {
+    imgURL: "/assets/icons/home.svg",
+    route: "/",
+    label: "Home",
+  },
+  {
+    imgURL: "/assets/icons/profile-placeholder.svg",
+    route: "/profile",
+    label: "Profile",
+  },
+];
 // ADMIN
 export const adminSidebarLinks = [
   {
@@ -75,42 +86,10 @@ export const adminBottombarLinks = [
     route: "/submission-list",
     label: "Submission",
   },
-];
-
-// COORDINATOR
-export const coordinatorSidebarLinks = [
   {
-    imgURL: "/assets/icons/home.svg",
-    route: "/",
-    label: "Home",
-  },
-  {
-    imgURL: "/assets/icons/contribution-pending.svg",
-    route: "/pending",
-    label: "Pending Contributions",
-  },
-  {
-    imgURL: "/assets/icons/contribution.svg",
-    route: "/contributions",
-    label: "All Contributions",
-  },
-];
-
-export const coordinatorBottombarLinks = [
-  {
-    imgURL: "/assets/icons/home.svg",
-    route: "/",
-    label: "Home",
-  },
-  {
-    imgURL: "/assets/icons/contribution-pending.svg",
-    route: "/pending",
-    label: "Pending Contributions",
-  },
-  {
-    imgURL: "/assets/icons/contribution.svg",
-    route: "/contributions",
-    label: "All Contributions",
+    imgURL: "/assets/icons/profile-placeholder.svg",
+    route: "/profile",
+    label: "Profile",
   },
 ];
 
@@ -122,14 +101,14 @@ export const managerBottombarLinks = [
     label: "Home",
   },
   {
-    imgURL: "/assets/icons/contribution-pending.svg",
-    route: "/pending",
-    label: "Pending Contributions",
-  },
-  {
     imgURL: "/assets/icons/contribution.svg",
     route: "/contributions",
-    label: "All Contributions",
+    label: "Contributions",
+  },
+  {
+    imgURL: "/assets/icons/profile-placeholder.svg",
+    route: "/profile",
+    label: "Profile",
   },
 ];
 
@@ -138,11 +117,6 @@ export const managerSidebarLinks = [
     imgURL: "/assets/icons/home.svg",
     route: "/",
     label: "Home",
-  },
-  {
-    imgURL: "/assets/icons/contribution-pending.svg",
-    route: "/pending",
-    label: "Pending Contributions",
   },
   {
     imgURL: "/assets/icons/contribution.svg",
