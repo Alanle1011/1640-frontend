@@ -101,7 +101,7 @@ const ContributionComment: React.FC<{ contribution: Contribution }> = ({
               placeholder="Please type comment..."
               onChange={handleChangeContent}
             />
-            <Button className="button_view" onClick={() => submitNewComment()}>
+            <Button className="button_green" onClick={() => submitNewComment()}>
               Send
             </Button>
           </div>
@@ -135,7 +135,7 @@ const ContributionComment: React.FC<{ contribution: Contribution }> = ({
             placeholder="Please type comment..."
             onChange={handleChangeContent}
           />
-          <Button className="button_view" onClick={() => submitNewComment()}>
+          <Button className="button_green" onClick={() => submitNewComment()}>
             Send
           </Button>
         </div>

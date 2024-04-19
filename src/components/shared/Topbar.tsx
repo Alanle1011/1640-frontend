@@ -4,6 +4,10 @@ import { Button } from "../ui/button";
 
 
 const Topbar = () => {
+  function handleSignOut(): void {
+    localStorage.clear();
+    window.location.reload();
+  }
 
   return (
     <section className="topbar">
@@ -21,7 +25,8 @@ const Topbar = () => {
           <Button
             variant="ghost"
             className="shad-button_ghost"
-        >
+            onClick={() => handleSignOut()}
+          >
             <img src="/assets/icons/logout.svg" alt="logout" />
           </Button>
         </div>

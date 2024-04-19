@@ -375,11 +375,12 @@ const PendingContribution = () => {
           }
           className="max-w-sm"
         />
-        <div>
+        <div className="flex flex-col lg:flex-row gap-2 lg:gap-0">
           <Button
             variant="outline"
             className="ml-auto mr-4 bg-blue-500 text-light-2"
-            onClick={() => navigate("/contributions")}>
+            onClick={() => navigate("/contributions")}
+          >
             All
           </Button>
           <DropdownMenu>

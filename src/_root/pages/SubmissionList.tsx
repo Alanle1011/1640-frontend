@@ -26,9 +26,9 @@ import {
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
 import { undefined } from "zod";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { User } from "@/types"
-import { ChevronLeftIcon, ChevronRightIcon, PenSquare, XSquare } from "lucide-react"
+import { ChevronLeftIcon, ChevronRightIcon, PenSquare, Plus, PlusCircle, XSquare } from "lucide-react"
 import { toast } from "@/components/ui"
 
 const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
@@ -173,6 +173,7 @@ const SubmissionList = () => {
     const [columnVisibility, setColumnVisibility] =
         React.useState<VisibilityState>({})
     const [rowSelection, setRowSelection] = React.useState({})
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch(`${VITE_WEBSERVICE_URL}/submission_period`, {
@@ -273,31 +274,40 @@ const SubmissionList = () => {
                     }
                     className="max-w-sm"
                 />
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="ml-auto mr-4">
-                            Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        {table
-                            .getAllColumns()
-                            .filter((column) => column.getCanHide())
-                            .map((column) => {
-                                return (
-                                    <DropdownMenuCheckboxItem
-                                        key={column.id}
-                                        className="capitalize"
-                                        checked={column.getIsVisible()}
-                                        onCheckedChange={(value) =>
-                                            column.toggleVisibility(!!value)
-                                        }>
-                                        {column.id}
-                                    </DropdownMenuCheckboxItem>
-                                );
-                            })}
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <div className="flex flex-col lg:flex-row gap-2 lg:gap-1.5">
+                    <Button
+                        variant="outline"
+                        className="ml-auto mr-2 button_green"
+                        onClick={() => navigate("/create-contribution")}
+                    >
+                        <PlusCircle /> Add
+                    </Button>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="outline" className="ml-auto mr-4">
+                                Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            {table
+                                .getAllColumns()
+                                .filter((column) => column.getCanHide())
+                                .map((column) => {
+                                    return (
+                                        <DropdownMenuCheckboxItem
+                                            key={column.id}
+                                            className="capitalize"
+                                            checked={column.getIsVisible()}
+                                            onCheckedChange={(value) =>
+                                                column.toggleVisibility(!!value)
+                                            }>
+                                            {column.id}
+                                        </DropdownMenuCheckboxItem>
+                                    );
+                                })}
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
             </div>
             <div className="rounded-md border mr-4">
                 <Table>
@@ -365,16 +375,6 @@ const SubmissionList = () => {
                         <ChevronRightIcon />
                     </Button>
                 </div>
-            </div>
-            <div className="flex justify-end mr-4">
-                <Button
-                    variant="secondary"
-                    className="bg-white"
-                >
-                    <Link to={"/create-submission"}>
-                        Add
-                    </Link>
-                </Button>
             </div>
         </div>
     );
