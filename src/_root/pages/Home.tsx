@@ -30,7 +30,7 @@ const Home: React.FC<{ userData?: ILoginUser }> = ({userData}) => {
     const [contributionData, setContributionData] = useState<Contribution[]>();
 
     useEffect(() => {
-        fetch(`${VITE_WEBSERVICE_URL}/contribution/getPublished`, {
+        fetch(`${VITE_WEBSERVICE_URL}/contribution`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
