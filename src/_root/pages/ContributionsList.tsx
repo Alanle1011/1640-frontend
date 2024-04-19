@@ -357,7 +357,7 @@ const ContributionsList = () => {
       <div className="flex flex-1 justify-end px-7 py-5">
         <h1 className="h1-bold">List of Contributions</h1>
       </div>
-      <div className="flex justify-between items-center gap-2 py-4">
+      <div className="flex justify-between items-center gap-2 py-4 sm:flex-1">
         <Input
           placeholder="Type to filter..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
@@ -366,7 +366,7 @@ const ContributionsList = () => {
           }
           className="max-w-sm"
         />
-        <div>
+        <div className="flex flex-col lg:flex-row gap-2 lg:gap-0">
           <Button
             variant="outline"
             className="ml-auto mr-4 bg-green-500 text-light-2"
