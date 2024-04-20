@@ -29,13 +29,10 @@ const ContributionEditForm = () => {
   const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
   const [contribution, setContribution] = useState<Contribution>(null);
   const [contributionImage, setContributionImage] = useState("");
+  const [isLoading, setisLoading] = useState(false);
 
   const form = useForm<z.infer<typeof ContributionValidation>>({
     resolver: zodResolver(ContributionValidation),
-    defaultValues: {
-      title: "",
-      content: "",
-    },
   });
 
   // 1. GET Contribution

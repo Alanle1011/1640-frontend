@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ContributionCard } from "@/components/shared";
+import { ContributionCard, Loader } from "@/components/shared";
 import { ILoginUser } from "@/types";
 
 export type Contribution = {
@@ -28,8 +28,10 @@ const Home: React.FC<{ userData?: ILoginUser }> = ({ userData }) => {
   const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
 
   const [contributionData, setContributionData] = useState<Contribution[]>();
+  const [isLoading, setisLoading] = useState(false);
 
   useEffect(() => {
+    setisLoading(true);
     fetch(`${VITE_WEBSERVICE_URL}/contribution/getPublished`, {
       method: "GET",
       headers: {
@@ -43,24 +45,31 @@ const Home: React.FC<{ userData?: ILoginUser }> = ({ userData }) => {
       .then((data) => {
         console.log(data);
         setContributionData(data);
+        setisLoading(false); // Update after data is received
       });
   }, []);
 
   console.log("contributionData", contributionData);
   console.log("userData", userData);
+
   return (
     <div className="flex flex-1">
       <div className="home-container">
         <div className="home-contributions">
           <h2 className="h3-bold md:h2-bold text-left w-full">Home Page</h2>
+          {isLoading && <Loader></Loader>}
 
-          <ul className="flex flex-col flex-1 gap-9 w-full ">
-            {contributionData?.map((contribution: Contribution) => (
-              <li key={contribution.id} className="flex justify-center w-full">
-                <ContributionCard contribution={contribution} />
-              </li>
-            ))}
-          </ul>
+          {!isLoading && contributionData && (
+            <ul className="flex flex-col flex-1 gap-9 w-full ">
+              {contributionData?.map((contribution: Contribution) => (
+                <li
+                  key={contribution.id}
+                  className="flex justify-center w-full">
+                  <ContributionCard contribution={contribution} />
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </div>
