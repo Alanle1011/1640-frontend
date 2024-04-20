@@ -1,13 +1,14 @@
 import { Button, ScrollArea, useToast } from "@/components/ui";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { ILoginUser } from "@/types";
 import DocViewer, {
-    DocViewerRenderers,
-    IDocument,
+  DocViewerRenderers,
+  IDocument,
 } from "@cyntler/react-doc-viewer";
 import { ContributionComment, Loader } from "../shared";
+import { PenSquare } from "lucide-react";
 
 const ContributionDetails: React.FC<{ userData: ILoginUser }> = ({
   userData,
@@ -107,53 +108,55 @@ const ContributionDetails: React.FC<{ userData: ILoginUser }> = ({
     setisLoading(true);
     //Get DOC
     if (contribution.imageId) {
-        await fetch(
-            `${VITE_WEBSERVICE_URL}/document/${contribution.documentId}`
-        ).then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.blob(); // Get the response as a blob
-        }).then(blob => {
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'wordfile.docx';
-            document.body.appendChild(a);
-            a.click(); // Trigger the download
-            document.body.removeChild(a); // Clean up
-        }).catch(error => {
-            console.error('Fetch error:', error);
+      await fetch(`${VITE_WEBSERVICE_URL}/document/${contribution.documentId}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.blob(); // Get the response as a blob
+        })
+        .then((blob) => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "wordfile.docx";
+          document.body.appendChild(a);
+          a.click(); // Trigger the download
+          document.body.removeChild(a); // Clean up
+        })
+        .catch((error) => {
+          console.error("Fetch error:", error);
         });
     }
 
     //GET Images
     if (contribution.imageId) {
-        await fetch(
-            `${VITE_WEBSERVICE_URL}/image/${contribution.imageId}`
-        ).then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.blob(); // Get the response as a blob
-        }).then(blob => {
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'image.jpg'; // Specify the filename you want to download the image as
-            document.body.appendChild(a);
-            a.click(); // Trigger the download
-            document.body.removeChild(a); // Clean up
-        }).catch(error => {
-            console.error('Fetch error:', error);
+      await fetch(`${VITE_WEBSERVICE_URL}/image/${contribution.imageId}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.blob(); // Get the response as a blob
+        })
+        .then((blob) => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "image.jpg"; // Specify the filename you want to download the image as
+          document.body.appendChild(a);
+          a.click(); // Trigger the download
+          document.body.removeChild(a); // Clean up
+        })
+        .catch((error) => {
+          console.error("Fetch error:", error);
         });
     }
 
     setisLoading(false);
     toast({
-        description: "Download Success",
+      description: "Download Success",
     });
-};
+  };
   if (!contribution) {
     return <div>There's nothing to show here.</div>;
   }
@@ -174,7 +177,7 @@ const ContributionDetails: React.FC<{ userData: ILoginUser }> = ({
         </div>
       </div>
 
-      <div className="flex flex-col gap-7 justify-center w-full" >
+      <div className="flex flex-col gap-7 justify-center w-full">
         <div className="flex flex-col gap-5">
           <ScrollArea className="h-[200] w-full rounded-lg border p-4">
             {contribution?.content}
@@ -206,26 +209,37 @@ const ContributionDetails: React.FC<{ userData: ILoginUser }> = ({
               prefetchMethod="GET"
             />
           )}
-          {userData.role !== "GUEST" && (
-            <Button
-              onClick={() => downloadAll()}
-              className={` h-12 bg-light-1 px-5 text-black flex-center gap-2 border rounded-lg border-dark-2 p-4 w-fit`}>
-              {isLoading && <Loader />}
-              {!isLoading && (
-                <>
-                  <img
-                    src={"/assets/icons/file.png"}
-                    alt="edit"
-                    width={20}
-                    height={20}
-                  />
-                  <p className="flex whitespace-nowrap small-medium">
-                    Download All
-                  </p>
-                </>
-              )}
-            </Button>
-          )}
+          <div className="flex flex-row justify-center items-center w-full gap-12">
+            {userData.role !== "GUEST" && (
+              <Button
+                onClick={() => downloadAll()}
+                className={` h-12 bg-light-1 px-5 text-black flex-center gap-2 border rounded-lg border-dark-2 p-4 w-fit`}>
+                {isLoading && <Loader />}
+                {!isLoading && (
+                  <>
+                    <img
+                      src={"/assets/icons/file.png"}
+                      alt="edit"
+                      width={20}
+                      height={20}
+                    />
+                    <p className="flex whitespace-nowrap small-medium">
+                      Download All
+                    </p>
+                  </>
+                )}
+              </Button>
+            )}
+            {userData.userId.toString() ===
+              `${contribution.uploadedUserId}`.toString() && (
+              <Link
+                className={"hover:bg-black hover:text-white h-12 bg-light-1 px-5 text-black flex-center gap-2 border rounded-lg border-dark-2 p-4 w-fit"}
+                to={`/contribution-edit/${contribution.id}`}>
+                <PenSquare className="flex flex-row mr-2" />
+                Edit
+              </Link>
+            )}
+          </div>
 
           <div className="flex flex-col w-full pt-7 gap-3">
             <p className="h2-bold md:h3-bold mb-2">Comment</p>

@@ -3,7 +3,6 @@ export { default as LeftSidebar } from "./LeftSidebar";
 export { default as ContributionCard } from "./ContributionCard.tsx";
 export { default as GridList } from "./GridList.tsx";
 export { default as Topbar } from "./Topbar";
-export { default as UserCard } from "./UserCard";
 export { default as FileUploader } from "./FileUploader.tsx";
 export { default as ImageUploader } from "./ImageUploader.tsx";
 export { default as ProfileUploader } from "./ProfileUploader";

@@ -44,7 +44,7 @@ const ContributionCard: React.FC<{ contribution: Contribution }> = ({
           <p className="base-medium lg:body-bold text-black">
             {contribution?.title}
           </p>
-          <ScrollArea className="h-[40px] w-full md:h-[100px] rounded-lg ">
+          <ScrollArea className="h-[30px] w-full md:h-[70px] rounded-lg ">
             {contribution?.content}
           </ScrollArea>
           <ul className="flex gap-1 mt-2">
@@ -55,7 +55,7 @@ const ContributionCard: React.FC<{ contribution: Contribution }> = ({
         </div>
 
         {contribution.imageId && (
-          <div>
+          <div className="flex justify-center items-center">
             <img
               src={`${VITE_WEBSERVICE_URL}/image/${contribution.imageId}`}
               alt="contribution image"

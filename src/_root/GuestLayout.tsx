@@ -1,17 +1,20 @@
 import { Outlet } from "react-router-dom";
 
+import { Bottombar, LeftSidebar, Topbar } from "@/components/shared";
 import { ILoginUser } from "@/types";
 
 const GuestLayout: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
 
-  if (!["COORDINATOR", "MANAGER", "ADMIN", "STUDENT"].includes(userData.role)) {
-    return <div className="w-full md:flex"></div>;
-  }
   return (
     <div className="w-full md:flex">
-      <section className="flex h-full">
+      <Topbar />
+      <LeftSidebar userData={userData} />
+
+      <section className="flex flex-1 h-full">
         <Outlet />
       </section>
+
+      <Bottombar userData={userData} />
     </div>
   );
 };
