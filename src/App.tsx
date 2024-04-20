@@ -89,7 +89,7 @@ const App = () => {
             />
             <Route
               path="/contribution-edit/:id"
-              element={<EditContribution />}
+              element={<EditContribution userData={userData} />}
             />
           </Route>
           <Route element={<ManagerLayout userData={userData} />}>

@@ -233,7 +233,7 @@ const ContributionDetails: React.FC<{ userData: ILoginUser }> = ({
             {userData.userId.toString() ===
               `${contribution.uploadedUserId}`.toString() && (
               <Link
-                className={"h-12 bg-light-1 px-5 text-black flex-center gap-2 border rounded-lg border-dark-2 p-4 w-fit"}
+                className={"hover:bg-black hover:text-white h-12 bg-light-1 px-5 text-black flex-center gap-2 border rounded-lg border-dark-2 p-4 w-fit"}
                 to={`/contribution-edit/${contribution.id}`}>
                 <PenSquare className="flex flex-row mr-2" />
                 Edit

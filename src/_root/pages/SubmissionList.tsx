@@ -39,7 +39,9 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   PenSquare,
-  Plus, PlusCircle, XSquare,
+  Plus,
+  PlusCircle,
+  XSquare,
 } from "lucide-react";
 import { toast } from "@/components/ui";
 
@@ -171,15 +173,15 @@ export const columns: ColumnDef<User>[] = [
 ];
 
 const SubmissionList = () => {
-    const [sorting, setSorting] = React.useState<SortingState>([])
-    const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-        []
-    )
-    const [submissionData, setSubmissionData] = useState<User[]>()
-    const [columnVisibility, setColumnVisibility] =
-        React.useState<VisibilityState>({})
-    const [rowSelection, setRowSelection] = React.useState({})
-    const navigate = useNavigate();
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  );
+  const [submissionData, setSubmissionData] = useState<User[]>();
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = React.useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`${VITE_WEBSERVICE_URL}/submission_period`, {
@@ -263,123 +265,122 @@ const SubmissionList = () => {
     );
   }
 
-    return (
-        <div className="w-full mx-4">
-            <div className="flex flex-1 justify-end px-7 py-5">
-                <h1 className="h1-bold">List of Submission Periods</h1>
-            </div>
-            <div className="flex justify-between items-center gap-2 py-4">
-                <Input
-                    placeholder="Type to filter..."
-                    value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-                    onChange={(event) =>
-                        table.getColumn("name")?.setFilterValue(event.target.value)
-                    }
-                    className="max-w-sm"
-                />
-                <div className="flex flex-col lg:flex-row gap-2 lg:gap-1.5">
-                    <Button
-                        variant="outline"
-                        className="ml-auto mr-2 button_green"
-                        onClick={() => navigate("/create-contribution")}
-                    >
-                        <PlusCircle /> Add
-                    </Button>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="outline" className="ml-auto mr-4">
-                                Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            {table
-                                .getAllColumns()
-                                .filter((column) => column.getCanHide())
-                                .map((column) => {
-                                    return (
-                                        <DropdownMenuCheckboxItem
-                                            key={column.id}
-                                            className="capitalize"
-                                            checked={column.getIsVisible()}
-                                            onCheckedChange={(value) =>
-                                                column.toggleVisibility(!!value)
-                                            }>
-                                            {column.id}
-                                        </DropdownMenuCheckboxItem>
-                                    );
-                                })}
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                </div>
-            </div>
-            <div className="rounded-md border mr-4">
-                <Table>
-                    <TableHeader>
-                        {table.getHeaderGroups().map((headerGroup) => (
-                            <TableRow key={headerGroup.id}>
-                                {headerGroup.headers.map((header) => {
-                                    return (
-                                        <TableHead key={header.id}>
-                                            {header.isPlaceholder
-                                                ? null
-                                                : flexRender(
-                                                    header.column.columnDef.header,
-                                                    header.getContext()
-                                                )}
-                                        </TableHead>
-                                    );
-                                })}
-                            </TableRow>
-                        ))}
-                    </TableHeader>
-                    <TableBody>
-                        {table.getRowModel().rows?.length ? (
-                            table.getRowModel().rows.map((row) => (
-                                <TableRow
-                                    key={row.id}
-                                    data-state={row.getIsSelected() && "selected"}>
-                                    {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>
-                                            {flexRender(
-                                                cell.column.columnDef.cell,
-                                                cell.getContext()
-                                            )}
-                                        </TableCell>
-                                    ))}
-                                </TableRow>
-                            ))
-                        ) : (
-                            <TableRow>
-                                <TableCell
-                                    colSpan={columns.length}
-                                    className="h-24 text-center">
-                                    No results.
-                                </TableCell>
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-            </div>
-            <div className="flex items-center justify-end space-x-2 py-4">
-                <div className="space-x-2 mr-4">
-                    <Button
-                        variant="secondary"
-                        className="bg-white"
-                        onClick={() => table.previousPage()}
-                        disabled={!table.getCanPreviousPage()}>
-                        <ChevronLeftIcon />
-                    </Button>
-
-                    <Button
-                        variant="secondary"
-                        className="bg-white"
-                        onClick={() => table.nextPage()}
-                        disabled={!table.getCanNextPage()}>
-                        <ChevronRightIcon />
-                    </Button>
-                </div>
-            </div>
+  return (
+    <div className="w-full mx-4">
+      <div className="flex flex-1 justify-end px-7 py-5">
+        <h1 className="h1-bold">List of Submission Periods</h1>
+      </div>
+      <div className="flex justify-between items-center gap-2 py-4">
+        <Input
+          placeholder="Type to filter..."
+          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("name")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+        <div className="flex flex-col lg:flex-row gap-2 lg:gap-1.5">
+          <Button
+            variant="outline"
+            className="ml-auto mr-2 button_green"
+            onClick={() => navigate("/create-submission")}>
+            <PlusCircle /> Add
+          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="ml-auto mr-4">
+                Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className="capitalize"
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) =>
+                        column.toggleVisibility(!!value)
+                      }>
+                      {column.id}
+                    </DropdownMenuCheckboxItem>
+                  );
+                })}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
-    );
+      </div>
+      <div className="rounded-md border mr-4">
+        <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </TableHead>
+                  );
+                })}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center">
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+      <div className="flex items-center justify-end space-x-2 py-4">
+        <div className="space-x-2 mr-4">
+          <Button
+            variant="secondary"
+            className="bg-white"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}>
+            <ChevronLeftIcon />
+          </Button>
+
+          <Button
+            variant="secondary"
+            className="bg-white"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}>
+            <ChevronRightIcon />
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
 };
 export default SubmissionList;

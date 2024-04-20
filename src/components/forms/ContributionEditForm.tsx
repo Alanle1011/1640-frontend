@@ -1,5 +1,5 @@
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -7,6 +7,8 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { ContributionValidation } from "@/lib/validation";
 
+import { Contribution } from "@/_root/pages/Home";
+import { FileUploader, ImageUploader } from "@/components/shared";
 import {
   Button,
   Form,
@@ -19,16 +21,29 @@ import {
   Textarea,
   useToast,
 } from "@/components/ui";
-import { FileUploader, ImageUploader } from "@/components/shared";
-import { Contribution } from "@/_root/pages/Home";
+import { ILoginUser } from "@/types";
+import { IDocument } from "@cyntler/react-doc-viewer";
 
-const ContributionEditForm = () => {
+const ContributionEditForm: React.FC<{ userData: ILoginUser }> = ({
+  userData,
+}) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
   const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
   const [contribution, setContribution] = useState<Contribution>();
   const [contributionImage, setContributionImage] = useState("");
+  const [contributionFile, setContributionFile] = useState<string>();
+  const [contributionFileType, setContributionFileType] = useState<string>();
+  const [contributionFileName, setContributionFileName] = useState<string>();
+
+  const docs = [
+    {
+      uri: contributionFile,
+      fileType: contributionFileType,
+      fileName: contributionFileName,
+    },
+  ] as IDocument[];
   // const [isLoading, setisLoading] = useState(false);
 
   const form = useForm<z.infer<typeof ContributionValidation>>({
@@ -59,6 +74,13 @@ const ContributionEditForm = () => {
             `${VITE_WEBSERVICE_URL}/image/${response.imageId}`
           );
         }
+        if (response.documentId) {
+          setContributionFile(
+            `${VITE_WEBSERVICE_URL}/document/${response.documentId}`
+          );
+          setContributionFileType(response.documentType.toString());
+          setContributionFileName(response.documentName.toString());
+        }
         form.setValue("title", response.title);
         form.setValue("content", response.content);
       })
@@ -86,28 +108,37 @@ const ContributionEditForm = () => {
       title: data.title,
     };
     // Update Contribution
-    const responseContribution = await fetch(
+    const contribution = await fetch(
       `${VITE_WEBSERVICE_URL}/contribution/update/${id}`,
       {
         method: "PUT", // *GET, POST, PUT, DELETE, etc.
         headers: {
           "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "69420",
         },
         body: JSON.stringify(contributionBody), // body data type must match "Content-Type" header
       }
-    );
-    const contribution = await responseContribution?.json();
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        return response.json();
+      })
+      .catch((error) => console.error("Error fetching:", error));
 
     // Update Image
-    const imageBody = new FormData();
-    imageBody.append("images", data.image[0]);
-
-    if (data.image[0] && contribution.imageId) {
+    if (data.image && contribution.imageId) {
+      const imageBody = new FormData();
+      imageBody.append("images", data.image[0]);
       fetch(`${VITE_WEBSERVICE_URL}/image?imageId=${contribution.imageId}`, {
         method: "PUT", // *GET, POST, PUT, DELETE, etc.
         body: imageBody, // body data type must match "Content-Type" header
       });
-    } else if (data.image[0]) {
+    } else if (data.image) {
+      const imageBody = new FormData();
+      imageBody.append("images", data.image[0]);
       fetch(`${VITE_WEBSERVICE_URL}/image?contributionId=${contribution.id}`, {
         method: "POST",
         body: imageBody,
@@ -196,77 +227,38 @@ const ContributionEditForm = () => {
             </FormItem>
           )}
         />
-        {contribution.documentType && (
-          <div className="small-medium lg:base-medium py-3 flex items-center border rounded-lg border-dark-2 p-4 w-fit">
-            <>
-              {contribution.documentType === "docx" && (
-                <img
-                  src="/assets/icons/docx-file.png"
-                  className="w-7 h-full mr-3"
-                  title="docx icons"
-                />
-              )}
-              {contribution.documentType === "pdf" && (
-                <img
-                  src="/assets/icons/pdf.png"
-                  className="w-7 h-full mr-3"
-                  title="pdf icons"
-                />
-              )}
-              <p>{contribution.documentName}</p>
-            </>
-          </div>
-        )}
-        <FormField
-          control={form.control}
-          name="file"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="shad-form_label">Add Files</FormLabel>
-              <FormControl>
+        {userData.userId.toString() ===
+          `${contribution.uploadedUserId}`.toString() && (
+          <FormField
+            control={form.control}
+            name="file"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="shad-form_label">Add Files</FormLabel>
+                <FormControl>
                   <div>
-                      {contribution?.documentType && (
-                          <div
-                              className="small-medium lg:base-medium py-3 flex items-center border rounded-lg border-dark-2 p-4 w-fit relative">
-                              <>
-                                  {contribution.documentType === "docx" && (
-                                      <img
-                                          src="/assets/icons/docx-file.png"
-                                          className="w-7 h-full mr-3"
-                                          title="docx icons"
-                                      />
-                                  )}
-                                  {contribution.documentType === "pdf" && (
-                                      <img
-                                          src="/assets/icons/pdf.png"
-                                          className="w-7 h-full mr-3"
-                                          title="pdf icons"
-                                      />
-                                  )}
-                                  <p>{contribution.documentName}</p>
-                              </>
-                          </div>
-                      )}
-                      <FileUploader
-                          fieldChange={field.onChange}
-                      />
+                    <FileUploader
+                      fieldChange={field.onChange}
+                      contribution={contribution}
+                    />
                   </div>
-              </FormControl>
-                <FormMessage className="shad-form_message"/>
-            </FormItem>
-          )}
-        />
+                </FormControl>
+                <FormMessage className="shad-form_message" />
+              </FormItem>
+            )}
+          />
+        )}
 
-          <div className="flex gap-4 items-center justify-end">
-              <Button
-                  type="submit"
-                  className="shad-button_primary whitespace-nowrap"
-                  // disabled={isLoadingCreate || isLoadingUpdate}
-              >
-                  {/* {(isLoadingCreate || isLoadingUpdate) && <Loader />} */}
-                  Save
-              </Button>
-          </div>
+        <div className="flex gap-4 items-center justify-end">
+          <Button
+            type="submit"
+            className="shad-button_primary whitespace-nowrap"
+            // disabled={isLoadingCreate || isLoadingUpdate}
+          >
+            {/* {(isLoadingCreate || isLoadingUpdate) && <Loader />} */}
+            Save
+          </Button>
+        </div>
       </form>
     </Form>
   );

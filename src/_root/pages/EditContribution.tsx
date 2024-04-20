@@ -1,9 +1,10 @@
 import ContributionEditForm from "@/components/forms/ContributionEditForm";
 import { Button } from "@/components/ui";
+import { ILoginUser } from "@/types";
 import { ChevronsLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const EditContribution = () => {
+const EditContribution: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
     const navigate = useNavigate()
 
     return (
@@ -28,7 +29,7 @@ const EditContribution = () => {
                 <h2 className="h3-bold md:h2-bold text-left w-full text-black">Contribution Editing</h2>
             </div>
             <div className="common-container mt-14">
-                <ContributionEditForm />
+                <ContributionEditForm userData={userData} />
             </div>
         </div>
     );
