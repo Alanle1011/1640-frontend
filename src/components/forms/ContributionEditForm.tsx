@@ -27,9 +27,9 @@ const ContributionEditForm = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
-  const [contribution, setContribution] = useState<Contribution>(null);
+  const [contribution, setContribution] = useState<Contribution>();
   const [contributionImage, setContributionImage] = useState("");
-  const [isLoading, setisLoading] = useState(false);
+  // const [isLoading, setisLoading] = useState(false);
 
   const form = useForm<z.infer<typeof ContributionValidation>>({
     resolver: zodResolver(ContributionValidation),
@@ -224,45 +224,49 @@ const ContributionEditForm = () => {
             <FormItem>
               <FormLabel className="shad-form_label">Add Files</FormLabel>
               <FormControl>
-                <div className="small-medium lg:base-medium py-3 flex items-center border rounded-lg border-dark-2 p-4 w-fit relative">
-                  <>
-                    {contribution.documentType === "docx" && (
-                      <img
-                        src="/assets/icons/docx-file.png"
-                        className="w-7 h-full mr-3"
-                        title="docx icons"
+                  <div>
+                      {contribution?.documentType && (
+                          <div
+                              className="small-medium lg:base-medium py-3 flex items-center border rounded-lg border-dark-2 p-4 w-fit relative">
+                              <>
+                                  {contribution.documentType === "docx" && (
+                                      <img
+                                          src="/assets/icons/docx-file.png"
+                                          className="w-7 h-full mr-3"
+                                          title="docx icons"
+                                      />
+                                  )}
+                                  {contribution.documentType === "pdf" && (
+                                      <img
+                                          src="/assets/icons/pdf.png"
+                                          className="w-7 h-full mr-3"
+                                          title="pdf icons"
+                                      />
+                                  )}
+                                  <p>{contribution.documentName}</p>
+                              </>
+                          </div>
+                      )}
+                      <FileUploader
+                          fieldChange={field.onChange}
                       />
-                    )}
-                    {contribution.documentType === "pdf" && (
-                      <img
-                        src="/assets/icons/pdf.png"
-                        className="w-7 h-full mr-3"
-                        title="pdf icons"
-                      />
-                    )}
-                    <p>{contribution.documentName}</p>
-                  </>
-                </div>
-                <FileUploader
-                  fieldChange={field.onChange}
-                  className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
-                />
+                  </div>
               </FormControl>
-              <FormMessage className="shad-form_message" />
+                <FormMessage className="shad-form_message"/>
             </FormItem>
           )}
         />
 
-        <div className="flex gap-4 items-center justify-end">
-          <Button
-            type="submit"
-            className="shad-button_primary whitespace-nowrap"
-            // disabled={isLoadingCreate || isLoadingUpdate}
-          >
-            {/* {(isLoadingCreate || isLoadingUpdate) && <Loader />} */}
-            Save
-          </Button>
-        </div>
+          <div className="flex gap-4 items-center justify-end">
+              <Button
+                  type="submit"
+                  className="shad-button_primary whitespace-nowrap"
+                  // disabled={isLoadingCreate || isLoadingUpdate}
+              >
+                  {/* {(isLoadingCreate || isLoadingUpdate) && <Loader />} */}
+                  Save
+              </Button>
+          </div>
       </form>
     </Form>
   );
