@@ -27,24 +27,24 @@ const FileUploader = ({ fieldChange, contribution }: FileUploaderProps) => {
             <p>{selectedFile.name}</p>
           </>
         </div>
-      ) : contribution.documentType ? (
+      ) : contribution?.documentType ? (
         <div className="top-0 small-medium lg:base-medium py-3 flex items-center border rounded-lg border-dark-2 p-4 w-fit relative z-10 bg-white">
           <>
-            {contribution.documentType === "docx" && (
+            {contribution?.documentType === "docx" && (
               <img
                 src="/assets/icons/docx-file.png"
                 className="w-7 h-full mr-3"
                 title="docx icons"
               />
             )}
-            {contribution.documentType === "pdf" && (
+            {contribution?.documentType === "pdf" && (
               <img
                 src="/assets/icons/pdf.png"
                 className="w-7 h-full mr-3"
                 title="pdf icons"
               />
             )}
-            <p>{contribution.documentName}</p>
+            <p>{contribution?.documentName}</p>
           </>
         </div>
       ) : null}
@@ -57,7 +57,7 @@ const FileUploader = ({ fieldChange, contribution }: FileUploaderProps) => {
           // setFile(e.target.files[0]);
           setselectedFile(e.target.files[0]);
         }}
-        className={`cursor-pointer w-full absolute left-0 h-full top-3 z-10 ${selectedFile || contribution.documentId ? "opacity-0" : ""}`}
+        className={`cursor-pointer w-full absolute left-0 h-full top-3 z-10 ${selectedFile || contribution?.documentId ? "opacity-0" : ""}`}
         type={"file"}
         accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
       />

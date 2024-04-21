@@ -237,7 +237,7 @@ const AllUsers = () => {
   console.log("userData", userData);
 
   const table = useReactTable({
-    onStateChange(): void {},
+    onStateChange(): void { },
     // @ts-ignore
     data: userData,
     renderFallbackValue: undefined,
@@ -277,9 +277,9 @@ const AllUsers = () => {
                         {header.isPlaceholder
                           ? null
                           : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                       </TableHead>
                     );
                   })}
@@ -349,7 +349,7 @@ const AllUsers = () => {
           </DropdownMenu>
         </div>
       </div>
-      <div className="rounded-md border mr-4">
+      <div className="rounded-md border mr-4 overflow-auto h-[65vh]">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -360,9 +360,9 @@ const AllUsers = () => {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                     </TableHead>
                   );
                 })}

@@ -151,7 +151,7 @@ const SubmissionForm = () => {
                     selected={field.value}
                     onSelect={(e) => field.onChange(e)}
                     initialFocus
-                    // disabled={(date) => date < new Date()}
+                  // disabled={(date) => date < new Date()}
                   />
                 </PopoverContent>
               </Popover>
@@ -238,20 +238,12 @@ const SubmissionForm = () => {
           )}
         />
 
-        <div className="flex gap-4 items-center justify-end">
-          <Button
-            type="button"
-            className="shad-button_dark_4"
-            onClick={() => navigate(-1)}>
-            Cancel
-          </Button>
+        <div className="flex gap-4 items-center">
           <Button
             type="submit"
-            className="shad-button_primary whitespace-nowrap"
-            // disabled={isLoadingCreate || isLoadingUpdate}
+            className="button_green w-full"
           >
-            {/* {(isLoadingCreate || isLoadingUpdate) && <Loader />} */}
-            Create
+            Add
           </Button>
         </div>
       </form>

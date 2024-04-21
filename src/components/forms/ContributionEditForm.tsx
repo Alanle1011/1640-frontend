@@ -229,33 +229,31 @@ const ContributionEditForm: React.FC<{ userData: ILoginUser }> = ({
         />
         {userData.userId.toString() ===
           `${contribution.uploadedUserId}`.toString() && (
-          <FormField
-            control={form.control}
-            name="file"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="shad-form_label">Add Files</FormLabel>
-                <FormControl>
-                  <div>
-                    <FileUploader
-                      fieldChange={field.onChange}
-                      contribution={contribution}
-                    />
-                  </div>
-                </FormControl>
-                <FormMessage className="shad-form_message" />
-              </FormItem>
-            )}
-          />
-        )}
+            <FormField
+              control={form.control}
+              name="file"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="shad-form_label">Add Files</FormLabel>
+                  <FormControl>
+                    <div>
+                      <FileUploader
+                        fieldChange={field.onChange}
+                        contribution={contribution}
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage className="shad-form_message" />
+                </FormItem>
+              )}
+            />
+          )}
 
-        <div className="flex gap-4 items-center justify-end">
+        <div className="flex gap-4 items-center">
           <Button
             type="submit"
-            className="shad-button_primary whitespace-nowrap"
-            // disabled={isLoadingCreate || isLoadingUpdate}
+            className="button_green w-full"
           >
-            {/* {(isLoadingCreate || isLoadingUpdate) && <Loader />} */}
             Save
           </Button>
         </div>

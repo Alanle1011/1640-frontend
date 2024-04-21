@@ -6,7 +6,7 @@ export const sidebarLinks = [
     label: "Home",
   },
   {
-    imgURL: "/assets/icons/contribution-add.svg",
+    imgURL: "/assets/icons/add.svg",
     route: "/create-contribution",
     label: "Create Contribution",
   },
@@ -24,7 +24,7 @@ export const bottombarLinks = [
     label: "Profile",
   },
   {
-    imgURL: "/assets/icons/contribution-add.svg",
+    imgURL: "/assets/icons/add.svg",
     route: "/create-contribution",
     label: "Create",
   },
@@ -60,7 +60,7 @@ export const adminSidebarLinks = [
   },
   {
     imgURL: "/assets/icons/calendar.svg",
-    route: "/submission-list",
+    route: "/periods",
     label: "All Submissions Period",
   },
 ];
@@ -83,7 +83,7 @@ export const adminBottombarLinks = [
   },
   {
     imgURL: "/assets/icons/calendar.svg",
-    route: "/submission-list",
+    route: "/periods",
     label: "Submission",
   },
   {

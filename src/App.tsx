@@ -102,7 +102,7 @@ const App = () => {
             <Route path="/users" element={<UsersList />} />
             <Route path="/create-user" element={<CreateUser />} />
             <Route path="/edit-user/:id" element={<EditUser />} />
-            <Route path="/submission-list" element={<SubmissionList />} />
+            <Route path="/periods" element={<SubmissionList />} />
             <Route path="/create-submission" element={<CreateSubmission />} />
             <Route path="/edit-submission/:id" element={<EditSubmission />} />
           </Route>
