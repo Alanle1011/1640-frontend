@@ -39,7 +39,6 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   PenSquare,
-  Plus,
   PlusCircle,
   XSquare,
 } from "lucide-react";
