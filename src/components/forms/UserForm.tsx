@@ -55,6 +55,12 @@ const UserForm = () => {
   }, []);
   const form = useForm<z.infer<typeof CreateUserValidation>>({
     resolver: zodResolver(CreateUserValidation),
+      defaultValues: {
+          name: "",
+          email: "",
+          userRole: "",
+          faculty:"",
+      },
   });
 
   // 2. Define a submit handler.
@@ -179,7 +185,7 @@ const UserForm = () => {
                       <SelectTrigger>
                         <SelectValue
                           placeholder={
-                            field.value ? field.value : "Select a faculty"
+                            field.value ? field.value : facultyList ? facultyList[0].facultyName : ""
                           }
                         />
                       </SelectTrigger>
