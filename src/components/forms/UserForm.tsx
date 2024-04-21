@@ -55,6 +55,12 @@ const UserForm = () => {
   }, []);
   const form = useForm<z.infer<typeof CreateUserValidation>>({
     resolver: zodResolver(CreateUserValidation),
+      defaultValues: {
+          name: "",
+          email: "",
+          userRole: "",
+          faculty:"",
+      },
   });
 
   // 2. Define a submit handler.
@@ -179,7 +185,7 @@ const UserForm = () => {
                       <SelectTrigger>
                         <SelectValue
                           placeholder={
-                            field.value ? field.value : "Select a faculty"
+                            field.value ? field.value : facultyList ? facultyList[0].facultyName : ""
                           }
                         />
                       </SelectTrigger>
@@ -199,19 +205,12 @@ const UserForm = () => {
             }}
           />
         )}
-        <div className="flex gap-4 items-center justify-end">
-          <Button
-            type="button"
-            className="shad-button_dark_4"
-            onClick={() => navigate(-1)}>
-            Cancel
-          </Button>
+
+        <div className="flex gap-4 items-center">
           <Button
             type="submit"
-            className="shad-button_primary whitespace-nowrap"
-            // disabled={isLoadingCreate || isLoadingUpdate}
+            className="button_green w-full"
           >
-            {/* {(isLoadingCreate || isLoadingUpdate) && <Loader />} */}
             Create
           </Button>
         </div>

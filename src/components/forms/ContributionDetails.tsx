@@ -8,7 +8,7 @@ import DocViewer, {
   IDocument,
 } from "@cyntler/react-doc-viewer";
 import { ContributionComment, Loader } from "../shared";
-import { PenSquare } from "lucide-react";
+import { Check, PenSquare, Upload, X } from "lucide-react";
 
 const ContributionDetails: React.FC<{ userData: ILoginUser }> = ({
   userData,
@@ -213,13 +213,13 @@ const ContributionDetails: React.FC<{ userData: ILoginUser }> = ({
             {userData.role !== "GUEST" && (
               <Button
                 onClick={() => downloadAll()}
-                className={` h-12 bg-light-1 px-5 text-black flex-center gap-2 border rounded-lg border-dark-2 p-4 w-fit`}>
+                className={`button_blue`}>
                 {isLoading && <Loader />}
                 {!isLoading && (
                   <>
                     <img
-                      src={"/assets/icons/file.png"}
-                      alt="edit"
+                      src={"/assets/icons/file.svg"}
+                      alt="download"
                       width={20}
                       height={20}
                     />
@@ -248,27 +248,27 @@ const ContributionDetails: React.FC<{ userData: ILoginUser }> = ({
 
           {userData.role === "COORDINATOR" &&
             contribution.status === "FINAL_CLOSED" && (
-              <div className={"flex gap-4"}>
-                <button
-                  className="bg-green-700 border border-black p-4 rounded hover:bg-green-400"
+              <div className="flex gap-4">
+                <Button
+                  className="button_green"
                   onClick={() => handleApprovedContribution()}>
-                  Approve
-                </button>
-                <button
-                  className="bg-orange-700 border border-black p-4 rounded hover:bg-red"
+                  <Check /> Approve
+                </Button>
+                <Button
+                  className="button_red"
                   onClick={() => handleRejectedContribution()}>
-                  Reject
-                </button>
+                  <X /> Reject
+                </Button>
               </div>
             )}
           {userData.role === "COORDINATOR" &&
             contribution.status === "APPROVED" && (
-              <div className={"flex gap-4"}>
-                <button
-                  className="bg-green-700 border border-black p-4 rounded hover:bg-green-400"
+              <div className="flex gap-4">
+                <Button
+                  className="button_green"
                   onClick={() => handlePublishedContribution()}>
-                  Publish
-                </button>
+                  <Upload /> Publish
+                </Button>
               </div>
             )}
         </div>

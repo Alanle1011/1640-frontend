@@ -22,7 +22,6 @@ import {
   useToast,
 } from "@/components/ui";
 import { ILoginUser } from "@/types";
-import { IDocument } from "@cyntler/react-doc-viewer";
 
 const ContributionEditForm: React.FC<{ userData: ILoginUser }> = ({
   userData,
@@ -33,18 +32,7 @@ const ContributionEditForm: React.FC<{ userData: ILoginUser }> = ({
   const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
   const [contribution, setContribution] = useState<Contribution>();
   const [contributionImage, setContributionImage] = useState("");
-  const [contributionFile, setContributionFile] = useState<string>();
-  const [contributionFileType, setContributionFileType] = useState<string>();
-  const [contributionFileName, setContributionFileName] = useState<string>();
 
-  const docs = [
-    {
-      uri: contributionFile,
-      fileType: contributionFileType,
-      fileName: contributionFileName,
-    },
-  ] as IDocument[];
-  // const [isLoading, setisLoading] = useState(false);
 
   const form = useForm<z.infer<typeof ContributionValidation>>({
     resolver: zodResolver(ContributionValidation),
@@ -74,13 +62,7 @@ const ContributionEditForm: React.FC<{ userData: ILoginUser }> = ({
             `${VITE_WEBSERVICE_URL}/image/${response.imageId}`
           );
         }
-        if (response.documentId) {
-          setContributionFile(
-            `${VITE_WEBSERVICE_URL}/document/${response.documentId}`
-          );
-          setContributionFileType(response.documentType.toString());
-          setContributionFileName(response.documentName.toString());
-        }
+
         form.setValue("title", response.title);
         form.setValue("content", response.content);
       })
@@ -229,33 +211,31 @@ const ContributionEditForm: React.FC<{ userData: ILoginUser }> = ({
         />
         {userData.userId.toString() ===
           `${contribution.uploadedUserId}`.toString() && (
-          <FormField
-            control={form.control}
-            name="file"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="shad-form_label">Add Files</FormLabel>
-                <FormControl>
-                  <div>
-                    <FileUploader
-                      fieldChange={field.onChange}
-                      contribution={contribution}
-                    />
-                  </div>
-                </FormControl>
-                <FormMessage className="shad-form_message" />
-              </FormItem>
-            )}
-          />
-        )}
+            <FormField
+              control={form.control}
+              name="file"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="shad-form_label">Add Files</FormLabel>
+                  <FormControl>
+                    <div>
+                      <FileUploader
+                        fieldChange={field.onChange}
+                        contribution={contribution}
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage className="shad-form_message" />
+                </FormItem>
+              )}
+            />
+          )}
 
-        <div className="flex gap-4 items-center justify-end">
+        <div className="flex gap-4 items-center">
           <Button
             type="submit"
-            className="shad-button_primary whitespace-nowrap"
-            // disabled={isLoadingCreate || isLoadingUpdate}
+            className="button_green w-full"
           >
-            {/* {(isLoadingCreate || isLoadingUpdate) && <Loader />} */}
             Save
           </Button>
         </div>

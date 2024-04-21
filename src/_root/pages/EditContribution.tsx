@@ -14,7 +14,7 @@ const EditContribution: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
                     size="icon"
                     variant="ghost"
                     className="h-full w-20"
-                    onClick={() => navigate(-1)}>
+                    onClick={() => navigate("/contributions")}>
                     <ChevronsLeft />
                 </Button>
             </div>

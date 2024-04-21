@@ -157,16 +157,12 @@ const ContributionForm: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
             </FormItem>
           )}
         />
-        <div className="flex gap-4 items-center justify-end">
-          <Button
-            type="button"
-            className="shad-button_dark_4 flex gap-2 w-[80px]"
-            onClick={() => navigate(-1)}>
-            Cancel
-          </Button>
+
+        <div className="flex gap-4 items-center">
           <Button
             type="submit"
-            className="shad-button_primary flex gap-2 w-[80px]">
+            className="button_green w-full"
+          >
             Submit
           </Button>
         </div>

@@ -39,7 +39,6 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   PenSquare,
-  Plus,
   PlusCircle,
   XSquare,
 } from "lucide-react";
@@ -313,7 +312,7 @@ const SubmissionList = () => {
           </DropdownMenu>
         </div>
       </div>
-      <div className="rounded-md border mr-4">
+      <div className="rounded-md border mr-4 overflow-auto h-[65vh]">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

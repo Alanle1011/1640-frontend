@@ -1,4 +1,4 @@
-import { Contribution } from "@/_root/pages/MyContribution";
+import { Contribution } from "@/_root/pages/Home";
 import { Link } from "react-router-dom";
 
 const GridList: React.FC<{ contribution: Contribution[] }> = ({
