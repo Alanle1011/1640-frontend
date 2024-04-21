@@ -105,12 +105,12 @@ export const columns: ColumnDef<Contribution>[] = [
     accessorKey: "content",
     header: "Content",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("content")}</div>
+      <div className="capitalize truncate w-52">{row.getValue("content")}</div>
     ),
   },
   {
     accessorKey: "imageId",
-    header: "Image",
+    header: "Image ID",
     cell: ({ row }) => (
       <div className="capitalize">
         {row.getValue("imageId") ? row.getValue("imageId") : "-"}
@@ -119,7 +119,7 @@ export const columns: ColumnDef<Contribution>[] = [
   },
   {
     accessorKey: "documentId",
-    header: "Document",
+    header: "Document ID",
     cell: ({ row }) => (
       <div className="lowercase flex-1">
         {row.getValue("documentId") ? row.getValue("documentId") : "-"}
@@ -400,7 +400,7 @@ const ContributionsList = () => {
           </DropdownMenu>
         </div>
       </div>
-      <div className="rounded-md border mr-4">
+      <div className="rounded-md border mr-4 overflow-auto h-[65vh]">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

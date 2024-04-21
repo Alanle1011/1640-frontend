@@ -261,20 +261,12 @@ const SubmissionEditForm = () => {
           )}
         />
 
-        <div className="flex gap-4 items-center justify-end">
-          <Button
-            type="button"
-            className="shad-button_dark_4"
-            onClick={() => navigate(-1)}>
-            Cancel
-          </Button>
+        <div className="flex gap-4 items-center">
           <Button
             type="submit"
-            className="shad-button_primary whitespace-nowrap"
-            // disabled={isLoadingCreate || isLoadingUpdate}
+            className="button_green w-full"
           >
-            {/* {(isLoadingCreate || isLoadingUpdate) && <Loader />} */}
-            Edit
+            Save
           </Button>
         </div>
       </form>
