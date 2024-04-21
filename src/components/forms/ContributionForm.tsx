@@ -149,7 +149,7 @@ const ContributionForm: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
           name="file"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Add Photos</FormLabel>
+              <FormLabel className="shad-form_label">Add Document</FormLabel>
               <FormControl>
                 <FileUploader fieldChange={field.onChange} />
               </FormControl>
