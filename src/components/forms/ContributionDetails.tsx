@@ -179,7 +179,7 @@ const ContributionDetails: React.FC<{ userData: ILoginUser }> = ({
 
       <div className="flex flex-col gap-7 justify-center w-full">
         <div className="flex flex-col gap-5">
-          <ScrollArea className="h-[200] w-full rounded-lg border p-4">
+          <ScrollArea className="h-[200] w-full">
             {contribution?.content}
           </ScrollArea>
 
@@ -231,14 +231,14 @@ const ContributionDetails: React.FC<{ userData: ILoginUser }> = ({
               </Button>
             )}
             {userData.userId.toString() ===
-              `${contribution.uploadedUserId}`.toString() && (
-                <Link
-                  className={"hover:bg-black hover:text-white h-12 bg-light-1 px-5 text-black flex-center gap-2 border rounded-lg border-dark-2 p-4 w-fit"}
-                  to={`/contribution-edit/${contribution.id}`}>
-                  <PenSquare className="flex flex-row mr-2" />
-                  Edit
-                </Link>
-              )}
+              `${contribution.uploadedUserId}`.toString() && `${contribution.status}` !== "FINAL_CLOSED" && (
+              <Link
+                className={"hover:bg-black hover:text-white h-12 bg-light-1 px-5 text-black flex-center gap-2 border rounded-lg border-dark-2 p-4 w-fit"}
+                to={`/contribution-edit/${contribution.id}`}>
+                <PenSquare className="flex flex-row mr-2" />
+                Edit
+              </Link>
+            )}
           </div>
 
           <div className="flex flex-col w-full pt-7 gap-3">

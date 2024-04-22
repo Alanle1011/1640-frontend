@@ -1,8 +1,18 @@
 import { undefined } from "zod";
 
 import React, { useEffect, useState } from "react";
-import { ChevronLeftIcon, ChevronRightIcon, PenSquare, View, XSquare } from "lucide-react"
-import { CaretSortIcon, ChevronDownIcon, DotsHorizontalIcon, } from "@radix-ui/react-icons";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  PenSquare,
+  View,
+  XSquare,
+} from "lucide-react";
+import {
+  CaretSortIcon,
+  ChevronDownIcon,
+  DotsHorizontalIcon,
+} from "@radix-ui/react-icons";
 
 import {
   ColumnDef,
@@ -185,11 +195,7 @@ export const columns: ColumnDef<Contribution>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(contribution.id)}>
-              Copy ID into clipboard
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
+
             <DropdownMenuItem className={"w-full"}>
               <Link
                 className={"flex justify-start w-full"}
@@ -286,7 +292,7 @@ const ContributionsList = () => {
   console.log("contributionData", contributionData);
 
   const table = useReactTable({
-    onStateChange(): void { },
+    onStateChange(): void {},
     // @ts-ignore
     data: contributionData,
     renderFallbackValue: undefined,
@@ -314,9 +320,7 @@ const ContributionsList = () => {
         <div className="flex flex-1 justify-end px-7 py-5">
           <h1 className="h1-bold">List of Contributions</h1>
         </div>
-        <div className="flex items-center py-4">
-
-        </div>
+        <div className="flex items-center py-4"></div>
         <div className="rounded-md border mr-4">
           <Table>
             <TableHeader>
@@ -328,9 +332,9 @@ const ContributionsList = () => {
                         {header.isPlaceholder
                           ? null
                           : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                       </TableHead>
                     );
                   })}
@@ -411,9 +415,9 @@ const ContributionsList = () => {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </TableHead>
                   );
                 })}

@@ -4,12 +4,14 @@ import { ILoginUser } from "@/types";
 import { ChevronsLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const CreateContribution: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
-  const navigate = useNavigate()
+const CreateContribution: React.FC<{ userData: ILoginUser }> = ({
+  userData,
+}) => {
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-1">
-      <div className="flex-start">
+      <div className=" hidden lg:flex-start">
         <Button
           size="icon"
           variant="ghost"
@@ -26,7 +28,9 @@ const CreateContribution: React.FC<{ userData: ILoginUser }> = ({ userData }) =>
           height={36}
           alt="add"
         />
-        <h2 className="h3-bold md:h2-bold text-left w-full text-black">Contribution Creating</h2>
+        <h2 className="h3-bold md:h2-bold text-left w-full text-black">
+          Create Contribution
+        </h2>
       </div>
       <div className="common-container mt-14">
         <ContributionForm userData={userData} />

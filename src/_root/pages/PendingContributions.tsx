@@ -5,7 +5,13 @@ import {
   ChevronDownIcon,
   DotsHorizontalIcon,
 } from "@radix-ui/react-icons";
-import { ChevronLeftIcon, ChevronRightIcon, PenSquare, View, XSquare } from "lucide-react";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  PenSquare,
+  View,
+  XSquare,
+} from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 import {
@@ -187,11 +193,7 @@ export const columns: ColumnDef<Contribution>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(contribution.id)}>
-              Copy ID into clipboard
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
+
             <DropdownMenuItem className={"w-full"}>
               <Link
                 className={"flex justify-start w-full"}
@@ -288,7 +290,7 @@ const PendingContribution = () => {
   console.log("contributionData", contributionData);
 
   const table = useReactTable({
-    onStateChange(): void { },
+    onStateChange(): void {},
     // @ts-ignore
     data: contributionData,
     renderFallbackValue: undefined,
@@ -337,9 +339,9 @@ const PendingContribution = () => {
                         {header.isPlaceholder
                           ? null
                           : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                       </TableHead>
                     );
                   })}
@@ -379,8 +381,7 @@ const PendingContribution = () => {
           <Button
             variant="outline"
             className="ml-auto mr-4 bg-blue-500 text-light-2"
-            onClick={() => navigate("/contributions")}
-          >
+            onClick={() => navigate("/contributions")}>
             All
           </Button>
           <DropdownMenu>
@@ -421,9 +422,9 @@ const PendingContribution = () => {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </TableHead>
                   );
                 })}
