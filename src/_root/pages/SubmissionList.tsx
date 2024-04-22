@@ -138,11 +138,7 @@ export const columns: ColumnDef<User>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(submission.id)}>
-              Copy ID into clipboard
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
+
             <DropdownMenuItem>
               <Link
                 className={"flex justify-start w-full"}

@@ -20,6 +20,13 @@ import { ILoginUser } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { z } from "zod";
+export type SubmissionPeriod = {
+  id: string;
+  name: string;
+  startDate: string;
+  closureDate: string;
+  finalClosureDate: string;
+};
 
 const ContributionForm: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
   const navigate = useNavigate();
@@ -27,8 +34,48 @@ const ContributionForm: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
   const VITE_WEBSERVICE_URL = import.meta.env.VITE_WEBSERVICE_URL || "";
   // @ts-ignore
   const [uploadedUserId, setUploadedUserId] = useState<ILoginUser>(userData);
+  const [submissionPeriod, setsubmissionPeriod] = useState<SubmissionPeriod>();
 
   useEffect(() => {
+    fetch(`${VITE_WEBSERVICE_URL}/submission_period`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "69420",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        return response.json();
+      })
+      .then((response) => {
+        const newestPeriod = response.reduce(
+          (
+            latestPeriod: SubmissionPeriod | null,
+            currentPeriod: SubmissionPeriod
+          ) => {
+            const currentStartDate = new Date(currentPeriod.startDate);
+
+            if (!latestPeriod) {
+              return currentPeriod;
+            }
+
+            const latestStartDate = new Date(latestPeriod.startDate);
+
+            return currentStartDate > latestStartDate
+              ? currentPeriod
+              : latestPeriod;
+          },
+          null
+        );
+        setsubmissionPeriod(newestPeriod);
+      })
+      .catch((error) => console.error("Error fetching:", error));
+    console.log(submissionPeriod);
+
     const userData = JSON.parse(localStorage.getItem("userData") || '""');
     if (userData) {
       // @ts-ignore
@@ -50,7 +97,6 @@ const ContributionForm: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
       }, 500);
     }
   }
-
   async function saveContribution(data: any) {
     const contributionBody = {
       content: data.content,
@@ -136,7 +182,7 @@ const ContributionForm: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
           name="image"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Add Photos</FormLabel>
+              <FormLabel className="shad-form_label">Add Photo</FormLabel>
               <FormControl>
                 <ImageUploader fieldChange={field.onChange} mediaUrl={""} />
               </FormControl>
@@ -157,12 +203,39 @@ const ContributionForm: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
             </FormItem>
           )}
         />
-
+        <div className="flex flex-col gap-2 w-fit h-fit border border-dark-4 rounded-[20px] px-4 py-8 bg-light-2">
+          <p className="base-medium lg:body-bold text-black">
+            {submissionPeriod?.name}
+          </p>
+          <div className={"flex flex-col gap-2"}>
+            <div className="flex items-center gap-4">
+              <p className="subtle-semibold lg:body-medium text-black whitespace-nowrap">
+                Start Date:
+              </p>
+              <p className="subtle-semibold lg:body-medium text-light-3 whitespace-nowrap">
+                {submissionPeriod?.startDate}
+              </p>
+            </div>
+            <div className="flex items-center gap-4">
+              <p className="subtle-semibold lg:body-medium text-black whitespace-nowrap">
+                Close Date:
+              </p>
+              <p className="subtle-semibold lg:body-medium text-light-3 whitespace-nowrap">
+                {submissionPeriod?.closureDate}
+              </p>
+            </div>
+            <div className="flex items-center gap-4">
+              <p className="subtle-semibold lg:body-medium text-black whitespace-nowrap">
+                Final Close Date:
+              </p>
+              <p className="subtle-semibold lg:body-medium text-light-3 whitespace-nowrap">
+                {submissionPeriod?.finalClosureDate}
+              </p>
+            </div>
+          </div>
+        </div>
         <div className="flex gap-4 items-center">
-          <Button
-            type="submit"
-            className="button_green w-full"
-          >
+          <Button type="submit" className="button_green w-full">
             Submit
           </Button>
         </div>

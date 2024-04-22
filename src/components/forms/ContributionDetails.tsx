@@ -179,7 +179,7 @@ const ContributionDetails: React.FC<{ userData: ILoginUser }> = ({
 
       <div className="flex flex-col gap-7 justify-center w-full">
         <div className="flex flex-col gap-5">
-          <ScrollArea className="h-[200] w-full rounded-lg border p-4">
+          <ScrollArea className="h-[200] w-full">
             {contribution?.content}
           </ScrollArea>
 

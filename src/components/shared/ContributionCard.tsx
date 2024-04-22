@@ -30,9 +30,12 @@ const ContributionCard: React.FC<{ contribution: Contribution }> = ({
             <p className="base-medium lg:body-bold text-black">
               {contribution.uploadedUserName} - {contribution.uploadedUserId}
             </p>
-            <div className="flex gap-2 text-light-3">
-              <p className="subtle-semibold lg:small-regular">
-                {contribution.updatedAt}
+            <div className={"flex gap-2"}>
+              <p className="subtle-semibold lg:small-regular text-light-3 whitespace-nowrap">
+                {contribution?.createdAt} -
+              </p>
+              <p className="subtle-semibold lg:small-regular text-light-3">
+                {contribution?.status}
               </p>
             </div>
           </div>

@@ -3,6 +3,8 @@ import { ContributionCard, Loader } from "@/components/shared";
 import { ILoginUser } from "@/types";
 
 export type Contribution = {
+  createdAt: string;
+  status: string;
   id: string;
   content: string;
   title: string;
