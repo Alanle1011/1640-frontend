@@ -100,7 +100,6 @@ const ContributionEditForm: React.FC<{ userData: ILoginUser }> = ({
         return response.json();
       })
       .then((response) => {
-        debugger;
         setContribution(response);
         if (response.imageId) {
           setContributionImage(
@@ -129,7 +128,6 @@ const ContributionEditForm: React.FC<{ userData: ILoginUser }> = ({
   }
 
   async function updateContribution(data: any) {
-    debugger;
     const contributionBody = {
       content: data.content,
       title: data.title,
@@ -275,37 +273,7 @@ const ContributionEditForm: React.FC<{ userData: ILoginUser }> = ({
             )}
           />
         )}
-        <div className="flex flex-col gap-2 w-fit h-fit border border-dark-4 rounded-[20px] px-4 py-8 bg-light-2">
-          <p className="base-medium lg:body-bold text-black">
-            {submissionPeriod?.name}
-          </p>
-          <div className={"flex flex-col gap-2"}>
-            <div className="flex items-center gap-4">
-              <p className="subtle-semibold lg:body-medium text-black whitespace-nowrap">
-                Start Date:
-              </p>
-              <p className="subtle-semibold lg:body-medium text-light-3 whitespace-nowrap">
-                {submissionPeriod?.startDate}
-              </p>
-            </div>
-            <div className="flex items-center gap-4">
-              <p className="subtle-semibold lg:body-medium text-black whitespace-nowrap">
-                Close Date:
-              </p>
-              <p className="subtle-semibold lg:body-medium text-light-3 whitespace-nowrap">
-                {submissionPeriod?.closureDate}
-              </p>
-            </div>
-            <div className="flex items-center gap-4">
-              <p className="subtle-semibold lg:body-medium text-black whitespace-nowrap">
-                Final Close Date:
-              </p>
-              <p className="subtle-semibold lg:body-medium text-light-3 whitespace-nowrap">
-                {submissionPeriod?.finalClosureDate}
-              </p>
-            </div>
-          </div>
-        </div>
+
         <div className="flex gap-4 items-center">
           <Button type="submit" className="button_green w-full">
             Save

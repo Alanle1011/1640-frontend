@@ -58,7 +58,7 @@ export type ILoginUser = {
 };
 
 export type FileUploaderProps = {
-  fieldChange: (files: File[]) => void;
+  fieldChange: (files?: File[]) => void;
   contribution?: any;
 };
 export type ImageUploaderProps = {
