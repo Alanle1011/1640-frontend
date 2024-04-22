@@ -3,22 +3,23 @@ import { useEffect, useRef, useState } from "react";
 import { undefined } from "zod";
 
 const FileUploader = ({ fieldChange, contribution }: FileUploaderProps) => {
-  const [selectedFile, setselectedFile] = useState<any>(null);
+  const [selectedFile, setselectedFile] = useState<any>();
   const [isFile, setisFile] = useState(false);
   const inputFile = useRef(null);
 
   // Function to reset the input element
   const handleReset = () => {
     if (inputFile.current) {
+      //@ts-ignore
       inputFile.current.value = "";
+      //@ts-ignore
       inputFile.current.type = "text";
+      //@ts-ignore
       inputFile.current.type = "file";
     }
   };
   useEffect(() => {
-    debugger;
-
-    if (contribution.type) {
+    if (contribution.documentType) {
       setisFile(true);
     }
   }, [contribution]);
@@ -35,48 +36,50 @@ const FileUploader = ({ fieldChange, contribution }: FileUploaderProps) => {
 
   return (
     <div className="flex w-full relative h-14 items-center gap-4 justify-between">
-      {selectedFile ? (
-        <div className="top-0 small-medium lg:base-medium py-3 flex items-center border rounded-lg border-dark-2 p-4 w-fit relative z-10 bg-white">
-          <>
-            {selectedFile.type ===
-              "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && (
+      {selectedFile && selectedFile !== undefined ? (
+        <div
+          className="top-0 small-medium lg:base-medium py-3 flex items-center border rounded-lg border-dark-2 p-4 w-fit relative z-10 bg-white">
+
+          {selectedFile.type ===
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && (
               <img
                 src="/assets/icons/docx-file.png"
                 className="w-7 h-full mr-3"
                 title="docx icons"
               />
             )}
-            {selectedFile.type === "application/pdf" && (
-              <img
-                src="/assets/icons/pdf.png"
-                className="w-7 h-full mr-3"
-                title="pdf icons"
-              />
-            )}
-            <p>{selectedFile.name}</p>
-          </>
+          {selectedFile.type === "application/pdf" && (
+            <img
+              src="/assets/icons/pdf.png"
+              className="w-7 h-full mr-3"
+              title="pdf icons"
+            />
+          )}
+          <p>{selectedFile.name}</p>
+
         </div>
       ) : contribution?.documentType ? (
-        <div className="top-0 small-medium lg:base-medium py-3 flex items-center border rounded-lg border-dark-2 p-4 w-fit relative z-10 bg-white">
-          <>
-            {contribution?.documentType === "docx" && (
-              <img
-                src="/assets/icons/docx-file.png"
-                className="w-7 h-full mr-3"
-                title="docx icons"
-              />
-            )}
-            {contribution?.documentType === "pdf" && (
-              <img
-                src="/assets/icons/pdf.png"
-                className="w-7 h-full mr-3"
-                title="pdf icons"
-              />
-            )}
-            <p>{contribution?.documentName}</p>
-          </>
+        <div
+          className="top-0 small-medium lg:base-medium py-3 flex items-center border rounded-lg border-dark-2 p-4 w-fit relative z-10 bg-white">
+
+          {contribution?.documentType === "docx" && (
+            <img
+              src="/assets/icons/docx-file.png"
+              className="w-7 h-full mr-3"
+              title="docx icons"
+            />
+          )}
+          {contribution?.documentType === "pdf" && (
+            <img
+              src="/assets/icons/pdf.png"
+              className="w-7 h-full mr-3"
+              title="pdf icons"
+            />
+          )}
+          <p>{contribution?.documentName}</p>
+
         </div>
-      ) : null}
+      ) : <></>}
       <input
         ref={inputFile}
         onChange={(e) => {

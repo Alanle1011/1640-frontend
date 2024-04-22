@@ -190,6 +190,15 @@ const ContributionEditForm: React.FC<{ userData: ILoginUser }> = ({
         }
       );
     }
+    if (!data.file && contribution.documentId) {
+      fetch(
+        `${VITE_WEBSERVICE_URL}/document?documentId=${contribution.documentId}`,
+        {
+          method: "PUT",
+          body: docBody,
+        }
+      );
+    }
 
     toast({
       description: "Contribution was successfully edited!",
@@ -246,6 +255,10 @@ const ContributionEditForm: React.FC<{ userData: ILoginUser }> = ({
                 <ImageUploader
                   fieldChange={field.onChange}
                   mediaUrl={contributionImage}
+                  removeMediaUrl={()=> {
+                    //@ts-ignore
+                    setContributionImage()}
+                  }
                 />
               </FormControl>
               <FormMessage className="shad-form_message" />

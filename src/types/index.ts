@@ -62,8 +62,9 @@ export type FileUploaderProps = {
   contribution?: any;
 };
 export type ImageUploaderProps = {
-  fieldChange: (files: File[]) => void;
+  fieldChange: (files?: File[]) => void;
   mediaUrl: string;
+  removeMediaUrl: () => void;
 };
 
 export type Contribution = {

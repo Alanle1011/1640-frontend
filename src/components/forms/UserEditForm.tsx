@@ -215,7 +215,7 @@ const UserEditForm = () => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Title</FormLabel>
+              <FormLabel className="shad-form_label">Email</FormLabel>
               <FormControl>
                 <Input type="input" className="shad-input" {...field} />
               </FormControl>
