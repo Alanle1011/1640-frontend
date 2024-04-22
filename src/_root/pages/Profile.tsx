@@ -145,27 +145,26 @@ const Profile: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
                 Edit Profile
               </p>
             </Link>
-            {userData.role === "Manager" ||
-              (userData.role === "ADMIN" && (
-                <Button
-                  onClick={() => downloadAll()}
-                  className={` h-12 bg-light-1 px-5 text-black flex-center gap-2 border rounded-lg border-dark-2 p-4 w-fit`}>
-                  {isLoading && <Loader />}
-                  {!isLoading && (
-                    <>
-                      <img
-                        src={"/assets/icons/file.png"}
-                        alt="edit"
-                        width={20}
-                        height={20}
-                      />
-                      <p className="flex whitespace-nowrap small-medium">
-                        Download All
-                      </p>
-                    </>
-                  )}
-                </Button>
-              ))}
+            {(userData.role === "MANAGER" || userData.role === "ADMIN") && (
+              <Button
+                onClick={() => downloadAll()}
+                className={` h-12 bg-light-1 px-5 text-black flex-center gap-2 border rounded-lg border-dark-2 p-4 w-fit`}>
+                {isLoading && <Loader />}
+                {!isLoading && (
+                  <>
+                    <img
+                      src={"/assets/icons/file.png"}
+                      alt="edit"
+                      width={20}
+                      height={20}
+                    />
+                    <p className="flex whitespace-nowrap small-medium">
+                      Download All
+                    </p>
+                  </>
+                )}
+              </Button>
+            )}
           </div>
         </div>
       </div>

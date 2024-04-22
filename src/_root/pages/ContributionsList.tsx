@@ -196,15 +196,6 @@ export const columns: ColumnDef<Contribution>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
-            <DropdownMenuItem className={"w-full"}>
-              <Link
-                className={"flex justify-start w-full"}
-                to={`/contribution-edit/${contribution.id}`}>
-                <PenSquare className="flex flex-row mr-2" />
-                Edit
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
             <DropdownMenuItem>
               <Link
                 className={"flex justify-start w-full"}

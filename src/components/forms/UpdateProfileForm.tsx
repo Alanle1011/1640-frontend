@@ -68,8 +68,7 @@ const UpdateProfileForm: React.FC<{ userData: ILoginUser }> = ({
       updateUserProfile(values);
       toast({ title: "Successfully edited!" });
       setTimeout(() => {
-        navigate(-1);
-        window.location.reload();
+        navigate('/profile');
       }, 500);
     } catch (error) {
       console.error("Error editing:", error);
