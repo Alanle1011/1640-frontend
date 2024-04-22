@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
-  PenSquare,
   View,
   XSquare,
 } from "lucide-react";

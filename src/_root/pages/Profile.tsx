@@ -6,6 +6,8 @@ import { ILoginUser } from "@/types";
 import { useEffect, useState } from "react";
 
 export type Contribution = {
+  createdAt: string;
+  status: string;
   id: string;
   content: string;
   title: string;

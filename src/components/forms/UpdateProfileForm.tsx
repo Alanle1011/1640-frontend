@@ -147,7 +147,7 @@ const UpdateProfileForm: React.FC<{ userData: ILoginUser }> = ({
                 <ImageUploader
                   fieldChange={field.onChange}
                   mediaUrl={userImageUrl || ""}
-                />
+                 removeMediaUrl={()=>{}}/>
               </FormControl>
               <FormMessage className="shad-form_message" />
             </FormItem>

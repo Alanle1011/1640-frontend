@@ -184,7 +184,7 @@ const ContributionForm: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
             <FormItem>
               <FormLabel className="shad-form_label">Add Photo</FormLabel>
               <FormControl>
-                <ImageUploader fieldChange={field.onChange} mediaUrl={""} />
+                <ImageUploader fieldChange={field.onChange} mediaUrl={""}  removeMediaUrl={()=>{}}/>
               </FormControl>
               <FormMessage className="shad-form_message" />
             </FormItem>

@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import { undefined } from "zod";
 
 const FileUploader = ({ fieldChange, contribution }: FileUploaderProps) => {
-  const [selectedFile, setselectedFile] = useState<any>();
-  const [isFile, setisFile] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<any>();
+  const [isFile, setIsFile] = useState(false);
   const inputFile = useRef(null);
 
   // Function to reset the input element
@@ -19,8 +19,8 @@ const FileUploader = ({ fieldChange, contribution }: FileUploaderProps) => {
     }
   };
   useEffect(() => {
-    if (contribution.documentType) {
-      setisFile(true);
+    if (contribution && contribution?.documentType) {
+      setIsFile(true);
     }
   }, [contribution]);
   console.log("selectedFile", selectedFile);
@@ -28,15 +28,15 @@ const FileUploader = ({ fieldChange, contribution }: FileUploaderProps) => {
 
   const removeFile = async () => {
     debugger;
-    setselectedFile(undefined);
+    setSelectedFile(undefined);
     fieldChange();
     handleReset();
-    setisFile(false);
+    setIsFile(false);
   };
 
   return (
     <div className="flex w-full relative h-14 items-center gap-4 justify-between">
-      {selectedFile && selectedFile !== undefined ? (
+      {selectedFile ? (
         <div
           className="top-0 small-medium lg:base-medium py-3 flex items-center border rounded-lg border-dark-2 p-4 w-fit relative z-10 bg-white">
 
@@ -58,7 +58,7 @@ const FileUploader = ({ fieldChange, contribution }: FileUploaderProps) => {
           <p>{selectedFile.name}</p>
 
         </div>
-      ) : contribution?.documentType ? (
+      ) : contribution && contribution?.documentType ? (
         <div
           className="top-0 small-medium lg:base-medium py-3 flex items-center border rounded-lg border-dark-2 p-4 w-fit relative z-10 bg-white">
 
@@ -87,14 +87,14 @@ const FileUploader = ({ fieldChange, contribution }: FileUploaderProps) => {
           fieldChange(e.target.files[0]);
           // @ts-ignore
           // setFile(e.target.files[0]);
-          setselectedFile(e.target.files[0]);
-          setisFile(true);
+          setSelectedFile(e.target.files[0]);
+          setIsFile(true);
         }}
         className={`cursor-pointer w-fit absolute left-0 h-full top-3 z-10 ${isFile ? "opacity-0" : ""}`}
         type={"file"}
         accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
       />
-      {selectedFile ? (
+      {isFile ? (
         <div>
           <img
             src={"/assets/icons/remove.png"}
@@ -104,17 +104,7 @@ const FileUploader = ({ fieldChange, contribution }: FileUploaderProps) => {
             className="cursor-pointer"
           />
         </div>
-      ) : contribution?.documentType ? (
-        <div>
-          <img
-            src={"/assets/icons/remove.png"}
-            width={32}
-            height={32}
-            onClick={() => removeFile()}
-            className="cursor-pointer"
-          />
-        </div>
-      ) : null}
+      ) : <></>}
     </div>
   );
 };
