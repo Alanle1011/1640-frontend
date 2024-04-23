@@ -247,8 +247,7 @@ const ContributionDetails: React.FC<{ userData: ILoginUser }> = ({
             <ContributionComment contribution={contribution} />
           </div>
 
-          {userData.role === "COORDINATOR" &&
-            contribution.status === "FINAL_CLOSED" && (
+          {userData.role === "COORDINATOR" && (
               <div className="flex gap-4">
                 <Button
                   className="button_green"
