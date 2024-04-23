@@ -63,6 +63,11 @@ export const adminSidebarLinks = [
     route: "/periods",
     label: "All Submissions Period",
   },
+  {
+    imgURL: "/assets/icons/contribution.svg",
+    route: "/faculties",
+    label: "All Faculties",
+  },
 ];
 
 export const adminBottombarLinks = [

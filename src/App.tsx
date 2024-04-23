@@ -25,6 +25,9 @@ import ManagerLayout from "./_root/ManagerLayout";
 import StudentLayout from "./_root/StudentLayout";
 import "./globals.css";
 import { ILoginUser } from "./types";
+import Faculty from "@/_root/pages/Faculty.tsx";
+import FalcultyList from "@/_root/pages/Faculty.tsx";
+import CreateFaculty from "@/_root/pages/CreateFaculty.tsx";
 
 const App = () => {
   const [userData, setUserData] = useState<ILoginUser>(
@@ -105,6 +108,8 @@ const App = () => {
             <Route path="/periods" element={<SubmissionList />} />
             <Route path="/create-submission" element={<CreateSubmission />} />
             <Route path="/edit-submission/:id" element={<EditSubmission />} />
+            <Route path="/faculties" element={<FalcultyList />} />
+            <Route path="/create-faculties" element={<CreateFaculty />} />
           </Route>
         </Routes>
         <Toaster />

@@ -23,7 +23,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 
-const UserForm = () => {
+const FacultyForm = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [facultyList, setFacultyList] = useState<Faculty[]>();
@@ -129,47 +129,7 @@ const UserForm = () => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="shad-form_label">Email</FormLabel>
-              <FormControl>
-                <Input type="input" className="shad-input" {...field} />
-              </FormControl>
-              <FormMessage className="shad-form_message" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="userRole"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Role</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue
-                      placeholder={field.value ? field.value : "Select a ROLE"}
-                    />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="ADMIN">ADMIN</SelectItem>
-                  <SelectItem value="MANAGER">MANAGER</SelectItem>
-                  <SelectItem value="COORDINATOR">COORDINATOR</SelectItem>
-                  <SelectItem value="STUDENT">STUDENT</SelectItem>
-                  <SelectItem value="GUEST">GUEST</SelectItem>
-                  <SelectItem value="NONE">NONE</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        {selectedRole && (selectedRole === "STUDENT" || selectedRole === "COORDINATOR") && (
+        {selectedRole && selectedRole === "STUDENT" && (
           <FormField
             control={form.control}
             name="faculty"
@@ -206,7 +166,6 @@ const UserForm = () => {
           />
         )}
 
-
         <div className="flex gap-4 items-center">
           <Button
             type="submit"
@@ -219,4 +178,4 @@ const UserForm = () => {
     </Form>
   );
 };
-export default UserForm;
+export default FacultyForm;

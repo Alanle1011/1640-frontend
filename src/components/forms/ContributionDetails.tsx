@@ -26,12 +26,13 @@ const ContributionDetails: React.FC<{ userData: ILoginUser }> = ({
 
   const docs = [
     {
-      uri: contributionFile,
+      uri:"http://ec2-13-250-105-211.ap-southeast-1.compute.amazonaws.com:5001/api/document/1",
       fileType: contributionFileType,
       fileName: contributionFileName,
     },
   ] as IDocument[];
 
+  console.log(contributionFile)
   const handleApprovedContribution = () => {
     debugger;
     fetch(`${VITE_WEBSERVICE_URL}/contribution/setStatus/${id}`, {
@@ -206,7 +207,7 @@ const ContributionDetails: React.FC<{ userData: ILoginUser }> = ({
               documents={docs}
               pluginRenderers={DocViewerRenderers}
               style={{ height: 900, width: 900 }}
-              prefetchMethod="GET"
+              // prefetchMethod="GET"
             />
           )}
           <div className="flex flex-row justify-center items-center w-full gap-12">
