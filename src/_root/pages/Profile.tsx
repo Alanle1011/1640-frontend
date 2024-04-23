@@ -4,6 +4,8 @@ import { ContributionCard, Loader } from "@/components/shared";
 import { Button, useToast } from "@/components/ui";
 import { ILoginUser } from "@/types";
 import { useEffect, useState } from "react";
+import ChartOne from "@/components/Charts/ChartOne";
+import ChartTwo from "@/components/Charts/ChartTwo";
 
 export type Contribution = {
   id: string;
@@ -183,6 +185,12 @@ const Profile: React.FC<{ userData: ILoginUser }> = ({ userData }) => {
                 ))}
             </ul>
           </div>
+        </div>
+      )}
+      {userData.role === "ADMIN" && (
+        <div className="flex flex-col w-full gap-4">
+          <ChartOne />
+          <ChartTwo />
         </div>
       )}
 

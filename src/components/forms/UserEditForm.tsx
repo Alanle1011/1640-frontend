@@ -191,7 +191,7 @@ const UserEditForm = () => {
             <FormItem>
               <FormLabel className="shad-form_label">Old Password</FormLabel>
               <FormControl>
-                <Input type="input" className="shad-input" {...field} />
+                <Input type="password" className="shad-input" {...field} />
               </FormControl>
               <FormMessage className="shad-form_message" />
             </FormItem>
@@ -204,7 +204,7 @@ const UserEditForm = () => {
             <FormItem>
               <FormLabel className="shad-form_label">New Password</FormLabel>
               <FormControl>
-                <Input type="input" className="shad-input" {...field} />
+                <Input type="password" className="shad-input" {...field} />
               </FormControl>
               <FormMessage className="shad-form_message" />
             </FormItem>

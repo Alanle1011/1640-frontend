@@ -145,7 +145,17 @@ export const columns: ColumnDef<Contribution>[] = [
   },
   {
     accessorKey: "createdAt",
-    header: "Uploaded Date",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="outline"
+          className="flex"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+          Uploaded Date
+           <CaretSortIcon className="sort-icon" />
+        </Button>
+      );
+    },
     cell: ({ row }) => (
       <div className="capitalize">{row.getValue("createdAt")}</div>
     ),
