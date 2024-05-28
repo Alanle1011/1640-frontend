@@ -1,6 +1,6 @@
 <div align="center">
   <br />
-      <img src="https://github.com/Alanle1011/gwfrontend-1640/public/assets/images/logo.png">
+      <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fvi.wikipedia.org%2Fwiki%2FT%25E1%25BA%25ADp_tin%3AOfficial_logo_of_Greenwich_Vietnam.png&psig=AOvVaw1XUFI-mEiEsolWK2sEIP9b&ust=1716965015712000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCJj8laDfr4YDFQAAAAAdAAAAABAE">
   <br />
 
   <h3 align="center">Greenwich Hall Of Contributions</h3>
